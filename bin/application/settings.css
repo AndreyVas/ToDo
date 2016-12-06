@@ -1,0 +1,57 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.root
+{
+	-fx-background-color:yellowgreen;
+	-fx-background-radius:10px;
+}
+
+.topMenu
+{
+	-fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color: 
+        transparent
+        transparent
+        derive(-fx-base, 80%) 
+        transparent;
+    -fx-border-insets: 0 5 0 5;
+}
+/*
+.topMenuButtons
+{
+	-fx-background-color:transparent;
+}
+ */
+.chooseCont
+{
+	-fx-border-width: 0 1 0 0 ;
+    -fx-background-color: transparent;
+    -fx-border-color: 
+        transparent
+        derive(-fx-base, 80%) 
+        transparent
+        transparent;
+    -fx-border-insets: 5 0 5 0;
+}
+
+.chooseBut
+{
+	-fx-pref-width:100px;
+	-fx-background-color:transparent;
+	
+	-fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color: 
+        transparent
+        transparent
+        derive(-fx-base, 80%) 
+        transparent;
+    -fx-border-insets: 0 5 0 5;
+	
+}
+
+.chooseBut:hover
+{
+	-fx-background-color:white;
+}

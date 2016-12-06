@@ -1,0 +1,97 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.tabPane
+{
+
+}
+
+.tab
+{
+	-fx-border-width: 1 1 1 1;
+    -fx-background-color: transparent;
+    -fx-border-color: 
+        transparent
+        derive(-fx-base, 80%) 
+        transparent
+        transparent;
+    -fx-border-insets: 0 0 0 0;
+    -fx-padding:7px;
+    -fx-font-size:16px;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-font-weight: bold; 
+}
+
+.tab:hover
+{
+	-fx-cursor:hand;
+	/*-fx-background-color:RGB(230,230,230);*/
+	-fx-opacity:0.4;
+
+}
+
+.noteIcon
+{
+	-fx-padding:5px;
+}
+
+/*------------scroll pane in main window------------*/
+
+.tabScroll
+{
+	-fx-background-color:transparent; 
+}
+
+.tabScroll .viewport{
+    -fx-background-color: transparent;
+}
+
+
+.tabScroll .content{
+    -fx-background-color: transparent;
+    
+}
+
+/*----------------------------------------------------*/
+
+
+
+.tab:selected
+{
+	-fx-border-width: 1 1 1 1;
+	-fx-border-color:derive(-fx-base, 80%) ;
+}
+
+
+
+
+.tab-header-background 
+{
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color: 
+        transparent
+        transparent
+        derive(-fx-base, 80%) 
+        transparent;
+    -fx-border-insets: 0 5 0 5;
+}
+
+
+
+.showRemindWindowLabel
+{
+	-fx-border-width: 1 1 1 1;
+    -fx-background-color: transparent;
+    -fx-border-color: 
+        transparent
+        derive(-fx-base, 80%) 
+        transparent
+        transparent;
+    -fx-border-insets: 0 0 0 0;
+    -fx-padding:7px;
+    -fx-font-size:16px;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-font-weight: bold; 
+}

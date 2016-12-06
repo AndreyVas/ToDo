@@ -1,0 +1,253 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.root
+{
+	
+}
+
+
+
+.noteTitle
+{
+	-fx-border-width: 1 0 0 0;
+    -fx-background-color: transparent;
+    -fx-border-color: 
+        derive(-fx-base, 80%) 
+        transparent
+        transparent
+        transparent;
+    -fx-border-insets: 0 5 0 5;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-font-size:16px;
+}
+
+.noteText
+{
+	-fx-border-width: 1 1 1 1;
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-border-color: 
+        derive(-fx-base, 80%) 
+        derive(-fx-base, 80%) 
+        derive(-fx-base, 80%) 
+        derive(-fx-base, 80%);
+    -fx-border-insets: 5 5 5 5;
+    -fx-border-radius:5px;
+	-fx-font-size:14px;
+}
+
+ 
+.text-area .scroll-pane 
+{
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+    
+}
+
+
+/*tap pane */
+
+.tabPaneItem
+{
+    -fx-background-color: transparent;
+    -fx-border-insets: 10 5 0 5;
+     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-font-size:14px;
+    -fx-pref-height:50px;
+    -fx-alignment:center-left;
+    
+    -fx-border-color: 
+        transparent
+        transparent
+        derive(-fx-base, 80%) 
+        transparent;
+        
+    -fx-border-insets: 0 10 0 10;
+    -fx-padding:3px;
+}
+
+.tabPaneItem:hover
+{	
+
+	-fx-cursor:hand;
+}
+
+
+.tabPaneItemText
+{
+
+}
+
+.tabPaneItemTextCansel
+{
+	-fx-text-fill: gray;
+}
+
+.tabPaneItemTextCompleted .text
+{
+	-fx-strikethrough: true;
+}
+
+.tabPaneItemTextMissed .text
+{
+	-fx-fill:red ;
+}
+
+.tabPaneItemButtonsCont
+{
+	-fx-opacity:0.0 ;
+	-fx-alignment:center-right ;
+}
+
+.tabPaneItemButtonsCont:hover
+{
+	-fx-opacity:1;
+}
+
+.remidCount
+{
+	-fx-alignment:center-right ;
+}
+
+.tabPaneItemButtons
+{
+	-fx-background-color: transparent;
+}
+
+.reminder
+{
+	-fx-font-size:10px;
+	-fx-alignment: bottom-right;
+	-fx-padding:0 50 0.0 0;
+}
+
+
+/*----------------------------------------------------------*/
+
+/*
+ * 	Stickers window
+ * 
+ * 	Scene
+ * 		BorderPane
+ * 			ToolBar
+ * 			ScrollPane
+ * 				Label
+ * 
+ * 
+ * 	Add Sticker window
+ * 	
+ * 	Scene
+ * 		BorderPane
+ * 			ToolBar
+ * 			TextArea
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
+.stickerText
+{
+	-fx-border-width: 1 0 0 0;
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-border-color: derive(-fx-base, 80%) ;
+    
+     /*    derive(-fx-base, 80%) 
+        derive(-fx-base, 80%) 
+        derive(-fx-base, 80%) 
+        derive(-fx-base, 80%);*/
+    -fx-border-insets: 5 5 5 5;
+    -fx-border-radius:5px;
+    -fx-font-size:14px;
+}
+
+/*----------------------------------------------------------*/
+/*
+ *	add Task window
+ * 
+ * 	Scene
+ * 		BorderPane
+ * 			ToolBar
+ * 			VBox
+ * 				VBox
+ * 					TextField
+ * 					TextArea
+ * 			StackPane
+ * 				Label
+ * 				Button 
+ */
+ 
+ .addSubTasks
+ {
+ 	-fx-alignment: top-right;
+ 	-fx-border-width: 1 1 1 1;
+ 	
+ 	
+ 	-fx-border-width: 1 1 1 1;
+    -fx-border-color: white;
+    -fx-border-radius:5px;
+    -fx-cursor:hand;
+ }
+ 
+ .addSubTasks Label
+ {
+ 	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-font-size:16px;
+    -fx-padding:5px 0.0 0.0 10px;
+    -fx-alignment:center-left ;
+    
+ }
+ 
+  .addSubTasks Label:hover
+  {
+  	-fx-opacity:0.4;
+    -fx-cursor:hand;
+  }
+ 
+ .addSubTasks Button
+ {
+ 	
+ }
+
+/*----------------------------------------------------------*/
+
+.datePicker
+{
+	-fx-padding: 10 10 20 10;
+}
+
+
+.datePicker Label
+{
+	-fx-font-size:12px;
+	-fx-padding:3px;
+	-fx-font-weight: bold; 
+}
+
+/*----------------------------------------------------------*/
+
+.subTaskTreeCont
+{
+	-fx-border-width: 1 0 0 0;
+	 -fx-border-color: 
+        derive(-fx-base, 80%) 
+        derive(-fx-base, 80%) 
+        derive(-fx-base, 80%) 
+        derive(-fx-base, 80%);
+	-fx-background-color: transparent;
+}
+
+.subTaskTreeCont  .tree-cell
+{
+    -fx-background-color: transparent;
+}

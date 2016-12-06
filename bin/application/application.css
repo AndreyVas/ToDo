@@ -1,0 +1,145 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.root
+{
+	-fx-background-color:white;
+	/*-fx-background-color:yellowgreen;*/
+	/*-fx-background-color:Rgb(183, 183, 183);
+	-fx-background-radius:10px;*/
+	
+	-fx-border-width: 0px;
+	-fx-border-color:black ;
+	/*-fx-border-insets:4px 4px 4px 4px;*/
+	
+	
+	-fx-border-width: 1 1 1 1;
+    -fx-border-color: black;
+    -fx-border-insets: 0 0 0 0;
+}
+
+.tooltip
+{
+	-fx-border-width: 0px;
+	-fx-border-color:black ;
+	-fx-border-insets:0px 0px 0px 0px;
+}
+
+/*-----------------------------buttons--------------------------- */
+.buttonsMainCont
+{
+	-fx-background-color:transparent ;
+}
+.buttonsLeftCont
+{
+	-fx-alignment:center-left ;
+	-fx-background-color:transparent ;
+}
+
+.buttonsRightCont
+{
+	-fx-alignment:top-right ;
+	-fx-background-color:transparent ;
+	
+}
+.buttons
+{
+	-fx-background-color:transparent;
+}
+
+.buttons:hover
+{
+	-fx-cursor:hand;
+}
+ 
+.addItemButton
+{
+	-fx-pref-height:30px;
+	-fx-background-color:transparent;
+	
+	-fx-border-width: 1 1 1 1;
+    -fx-background-color: transparent;
+    -fx-border-color: 
+    	derive(-fx-base, 80%) 
+        transparent
+        transparent
+        transparent;
+    -fx-border-insets: 0 0 0 0;
+    -fx-font-weight: bold;
+    -fx-font-size:16px;
+}
+
+.addItemButton:hover
+{
+	/*-fx-background-color:RGB(230,230,230);*/
+	-fx-opacity:0.4;
+	-fx-cursor:hand;
+	 
+}
+
+/*------------------------date pickers---------------------- */
+
+.date-picker
+{
+	-fx-faint-focus-color: transparent;
+	-fx-background-color:transparent ;
+}
+
+.date-picker > .arrow-button
+{
+   -fx-background-color:white;
+   -fx-cursor:hand;
+}
+
+/*------------------------ComboBox---------------------- */
+
+.combo-box-base
+{
+	-fx-background-color: transparent;	
+}
+
+.combo-box-base > .arrow-button 
+{
+	-fx-cursor:hand;
+}
+
+.combo-box-base  *.scroll-bar:vertical 
+{
+    -fx-background-color: transparent;
+}
+
+.combo-box-base  *.scroll-bar:vertical  .increment-button,
+.combo-box-base  *.scroll-bar:vertical  .decrement-button 
+{
+    -fx-background-color: transparent;
+    -fx-cursor:hand;
+}
+
+/*------------------------ScrollPane---------------------- */
+
+
+
+.scroll-pane > .scroll-bar:vertical 
+{
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .scroll-bar:vertical > .increment-button,
+.scroll-pane > .scroll-bar:vertical > .decrement-button 
+{
+    -fx-background-color: transparent;
+    -fx-cursor:hand;
+}
+
+/*---------------ScrollPane in TreeView------------------ */
+
+.tree-view  *.scroll-bar:vertical 
+{
+    -fx-background-color: transparent;
+}
+
+.tree-view  *.scroll-bar:vertical  .increment-button,
+.tree-view  *.scroll-bar:vertical  .decrement-button 
+{
+    -fx-background-color: transparent;
+    -fx-cursor:hand;
+}
