@@ -621,6 +621,8 @@ public class Tasks extends Reminder implements INotes, IReminds
 					{
 						if(subTasks.size() != 0)
 							subTaskChooseWindow(settings);
+						
+						subTasksCount.setText("Добавлено подзадач : " + getMyself().getSubTusks().size());
 					}
 				});
 
