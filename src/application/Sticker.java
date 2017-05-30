@@ -151,7 +151,7 @@ public class Sticker extends Note implements INotes
 		
     	//---------------------------------------------------------
     	
-    	String textInvite = "Введите текст наклейки...";
+    	String textInvite = "Enter a sticker text...";
     	
     	TextArea text = new TextArea(textInvite);
     	text.getStyleClass().add("noteText");

@@ -68,13 +68,13 @@ public class Reminder extends Note implements INotes, IReminds
     	
     	VBox dateCont = new VBox();
     	
-    	Label lDate = new Label ("Дата");   	
+    	Label lDate = new Label ("Date");   	
 
     	dateCont.getChildren().addAll(lDate, date);
     	
     	VBox hoursCont = new VBox();
     	
-    	Label lHours = new Label("Часы");
+    	Label lHours = new Label("Hours");
  
     	hours.getItems().addAll(
     		    "00",
@@ -109,7 +109,7 @@ public class Reminder extends Note implements INotes, IReminds
     	
     	VBox minCont = new VBox();
     	
-    	Label lMinutes = new Label("Минуты");
+    	Label lMinutes = new Label("Minutes");
 
     	minutes.getItems().addAll(
     		    "00",
@@ -208,7 +208,7 @@ public class Reminder extends Note implements INotes, IReminds
     	scene.getStylesheets().add("application/note.css");
     	scene.getStylesheets().add("application/application.css");
     	
-    	String textInvite = "Введите текст напоминания...";
+    	String textInvite = "Enter a reminder text...";
     	
     	HBox tbButtonsLeft = new HBox();
 		HBox tbButtonsRight = new HBox();
@@ -913,5 +913,11 @@ public class Reminder extends Note implements INotes, IReminds
 		controls.getChildren().addAll(importantBut, delete);
 		
 		return controls;
+	}
+
+	@Override
+	public int getRemindCoutn() 
+	{
+		return this.remindCount;
 	}
 }

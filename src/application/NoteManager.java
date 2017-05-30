@@ -56,17 +56,17 @@ public class NoteManager implements Observer
 	private Resize resize;
 	private Remind remind;
 
-	public final String NOTES = "Заметки";
-	public final String STICKERS = "Наклейки";
-	public final String REMINDERS = "Напоминания";
-	public final String TASKS = "Задачи";
+	public final String NOTES = "Notes";
+	public final String STICKERS = "Stickers";
+	public final String REMINDERS = "Reminders";
+	public final String TASKS = "Tasks";
 	
-	public static final String DONE = "Выполнено";
-	public static final String CANSEL = "Отменить";
-	public static final String DELETE = "Удалить";
-	public static final String ADD_SUB = "Добавить подзадачу";
-	public static final String ADD = "Добавить";
-	public static final String RESTORE = "Восстановить";
+	public static final String DONE = "Done";
+	public static final String CANSEL = "Cansel";
+	public static final String DELETE = "Delete";
+	public static final String ADD_SUB = "Add subtask";
+	public static final String ADD = "Add";
+	public static final String RESTORE = "Restore";
 	
 	public static final String NOTE_ICON = "noteIcon.png";
 	public static final String STICKER_ICON = "stickerIcon.png";
@@ -295,6 +295,24 @@ public class NoteManager implements Observer
 		}
 	}
 	
+	public void updateRemindCoutn(IReminds ir)
+	{
+		switch(ir.getRemindCoutn())
+		{
+			case IReminds.NO_REMIND:
+				ir.setRemindCount(IReminds.FIRST_REMIND);
+			break;
+			
+			case IReminds.FIRST_REMIND:
+				ir.setRemindCount(IReminds.SECOND_REMIND);
+				break;
+				
+			case IReminds.SECOND_REMIND:
+				ir.setRemindCount(IReminds.THIRD_REMIND);
+				break;
+		}
+	}
+	
 	public void showRemindWindow(LinkedList<IReminds> remindObjects)
 	{
 		if(remindWindow != null && remindWindow.isShowing())
@@ -320,8 +338,9 @@ public class NoteManager implements Observer
     	
     	for(IReminds in : remindObjects)
     	{
+    		updateRemindCoutn(in);
     		StackPane item = in.getRemindItem(settings);
-    		
+
     		item.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
     		{
     			@Override
@@ -339,7 +358,7 @@ public class NoteManager implements Observer
     	
     	ToolBar tb = new ToolBar();
 
-    	Label remindTitle = new Label("Напоминания");
+    	Label remindTitle = new Label("Reminders");
     	remindTitle.getStyleClass().add("showRemindWindowLabel");
     	remindTitle.setGraphic(new ImageView("reminderIcon.png"));
 
@@ -354,6 +373,7 @@ public class NoteManager implements Observer
 			public void handle(MouseEvent arg0) 
 			{
 				remindWindow.close();
+				remind.resume();
 			}
 		});
 		
@@ -541,7 +561,7 @@ public class NoteManager implements Observer
 			} 
 		    catch (FileNotFoundException e) 
 			{
-		    	System.out.println("Error : Файл с сохранёнными заданиями не найден, возможно это первый запуск");
+		    	System.out.println("Error : A file with saved jobs was not found, perhaps this is the first run");
 			}
 		    catch (TransformerException e) 
 		    {
@@ -699,7 +719,7 @@ public class NoteManager implements Observer
     	
     	VBox content = new VBox();
     	
-    	Button addNote = new Button("Заметка");
+    	Button addNote = new Button("Note");
     	addNote.setStyle("-fx-pref-width:" + settings.getWidthAddItems() + "px; ");
     	addNote.getStyleClass().add("addItemButton");
     	
@@ -714,7 +734,7 @@ public class NoteManager implements Observer
 			}
 		});
     	
-    	Button addSticker = new Button("Наклейка");
+    	Button addSticker = new Button("Sticker");
     	addSticker.setStyle("-fx-pref-width:" + settings.getWidthAddItems() + "px; ");
     	addSticker.getStyleClass().add("addItemButton");
     	
@@ -729,7 +749,7 @@ public class NoteManager implements Observer
 			}
 		});
     	
-    	Button addTask = new Button("Задача");
+    	Button addTask = new Button("Task");
     	addTask.setStyle("-fx-pref-width:" + settings.getWidthAddItems() + "px; ");
     	addTask.getStyleClass().add("addItemButton");
     	
@@ -744,7 +764,7 @@ public class NoteManager implements Observer
 			}
 		});
     	
-    	Button addReminder = new Button("Напоминание");
+    	Button addReminder = new Button("Reminder");
     	addReminder.setStyle("-fx-pref-width:" + settings.getWidthAddItems() + "px; ");
     	addReminder.getStyleClass().add("addItemButton");
     	

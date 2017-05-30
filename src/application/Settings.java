@@ -64,13 +64,13 @@ public class Settings
 		this.widthRemindWidnow = 400;
 		this.heightRemindWindow = 300;
 		
-		this.firstRemind = 60000 * (24 * 60) ;	// one day
+	/*	this.firstRemind = 60000 * (24 * 60) ;	// one day
 		this.secondRemind = 60000 * 60;		// one hour
-		this.thirdRemind = 60000 * 10; 	// 10 min
+		this.thirdRemind = 60000 * 10; 	// 10 min*/
 		
-		/*this.firstRemind = 60000 * 5 ;	// 5 min
+		this.firstRemind = 60000 * 5 ;	// 5 min
 		this.secondRemind = 60000 * 3;		// 3 min
-		this.thirdRemind = 60000 * 1; 	// 1 min*/
+		this.thirdRemind = 60000 * 1; 	// 1 min
 	}
 	
 	public long getFirstRemind()
@@ -192,7 +192,7 @@ public class Settings
 		VBox chooseCont = new VBox();
 		chooseCont.getStyleClass().add("chooseCont");
 		
-		Button background = new Button("Фон");
+		Button background = new Button("пїЅпїЅпїЅ");
 		background.getStyleClass().add("chooseBut");
 		
 		background.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
@@ -204,7 +204,7 @@ public class Settings
 			}
 		});
 		
-		Button font = new Button("Текст");
+		Button font = new Button("пїЅпїЅпїЅпїЅпїЅ");
 		font.getStyleClass().add("chooseBut");
 		
 		font.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
@@ -245,7 +245,7 @@ public class Settings
 		
 		VBox bcBox = new VBox();
 		
-		Label bcLabel = new Label("Цвет фона");
+		Label bcLabel = new Label("пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
 		
 		final ColorPicker bcPicker = new ColorPicker();
 		bcPicker.setValue(Color.CORAL);
@@ -264,7 +264,7 @@ public class Settings
 		
         VBox sBox = new VBox();
 		
-        Label sLabel = new Label("Цвет Разделителя");
+        Label sLabel = new Label("пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 		
 		final ColorPicker sPicker = new ColorPicker();
 		bcPicker.setValue(Color.CORAL);
@@ -295,7 +295,7 @@ public class Settings
 		
 		VBox cfBox = new VBox();
 		
-		Label sfLabel = new Label("Выберите шрифт");
+		Label sfLabel = new Label("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ");
 
 		
 		
@@ -306,7 +306,7 @@ public class Settings
 		
 		VBox fcBox = new VBox();
 		
-		Label fcLabel = new Label("Выберите цвет");
+		Label fcLabel = new Label("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
 		
 		fcBox.getChildren().addAll(fcLabel);
 		
@@ -314,7 +314,7 @@ public class Settings
 		
 		VBox fsBox = new VBox();
 		
-		Label fsLabel = new Label("Выберите стиль");
+		Label fsLabel = new Label("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ");
 		
 		fsBox.getChildren().addAll(fsLabel);
 		

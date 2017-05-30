@@ -17,6 +17,7 @@ public interface IReminds
 	public boolean isRemind();
 	public int getRemindCount();
 	public void setRemindCount(int remindCount);
+	public int getRemindCoutn();
 	
 	public StackPane getRemindItem(Settings settings);
 }

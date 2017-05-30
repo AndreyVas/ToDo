@@ -403,8 +403,8 @@ public class Note implements INotes
 	
 	public static void createItemWindow(Settings settings, NotesContainer notes, Resize resizeObject)
 	{
-		String titleInvite = "¬ведите название заметки...";
-		String textInvite = "¬ведите текст заметки...";
+		String titleInvite = "Enter a note name...";
+		String textInvite = "Enter a note text...";
 		
 		Stage stage = new Stage();
 		stage.initOwner(notes.getPrimaryStage());

@@ -120,9 +120,9 @@ public class Tasks extends Reminder implements INotes, IReminds
     	scene.getStylesheets().add("application/note.css");
     	scene.getStylesheets().add("application/application.css");
     	
-    	String titleInvite = "Введите название задачи...";
-		String textInvite = "Введите текст задачи...";
-		String subTaskAdded = "Подзадач добавлено - ";
+    	String titleInvite = "Enter a task name...";
+		String textInvite = "Enter a task text...";
+		String subTaskAdded = "Added subtasks - ";
 		
 		Tasks newTask = new Tasks(parentNode, resizeObject, lincToCont);
 		
@@ -357,13 +357,13 @@ public class Tasks extends Reminder implements INotes, IReminds
 
     	VBox dateCont = new VBox();
     	
-    	Label lDate = new Label ("Дата");   	
+    	Label lDate = new Label ("Date");   	
 
     	dateCont.getChildren().addAll(lDate, date);
     	
     	VBox hoursCont = new VBox();
     	
-    	Label lHours = new Label("Часы");
+    	Label lHours = new Label("Hours");
  
     	hours.getItems().addAll(
     		    "00",
@@ -396,7 +396,7 @@ public class Tasks extends Reminder implements INotes, IReminds
     	
     	VBox minCont = new VBox();
     	
-    	Label lMinutes = new Label("Минуты");
+    	Label lMinutes = new Label("Minutes");
 
     	minutes.getItems().addAll(
     		    "00",
@@ -604,7 +604,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 		    	subItemsCont.getStyleClass().add("addSubTasks");
 		    	
 		    	HBox hb = new HBox();
-		    	Label subTasksCount = new Label("Добавлено подзадач : " + this.getSubTusks().size());
+		    	Label subTasksCount = new Label("Added subtasks - " + this.getSubTusks().size());
 		    	hb.getChildren().add(subTasksCount);
 
 		    	ImageView addST = new ImageView("addTask.png");
@@ -622,7 +622,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 						if(subTasks.size() != 0)
 							subTaskChooseWindow(settings);
 						
-						subTasksCount.setText("Добавлено подзадач : " + getMyself().getSubTusks().size());
+						subTasksCount.setText("Added subtasks - " + getMyself().getSubTusks().size());
 					}
 				});
 
@@ -632,7 +632,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 					public void handle(MouseEvent arg0) 
 					{
 						createItemWindow(settings, getMyself(), resizeObject, getMyself().lincToCont);
-						subTasksCount.setText("Добавлено подзадач : " + getMyself().getSubTusks().size());
+						subTasksCount.setText("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ : " + getMyself().getSubTusks().size());
 		
 					}
 				});
