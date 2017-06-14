@@ -31,7 +31,6 @@ import javafx.stage.StageStyle;
 
 public class Sticker extends Note implements INotes
 {
-	
 	Sticker(String body, String status, Calendar created, Resize resizeObject, NotesContainer lincToCont)
 	{
 		super(resizeObject, lincToCont);
@@ -95,8 +94,7 @@ public class Sticker extends Note implements INotes
 						status = noteItems.item(i).getTextContent();
 						break;
 						
-					case INotes.EXPIRE:
-						
+					case INotes.EXPIRE:	
 						break;
 						
 					case INotes.X:
@@ -241,13 +239,11 @@ public class Sticker extends Note implements INotes
 		tbButtonsCon.getChildren().addAll(tbButtonsLeft, tbButtonsRight);
 		
 		ToolBar tb = new ToolBar();
-		
-		//tb.getStyleClass().add("topMenu");
+
 		tb.getItems().addAll(tbButtonsCon);
 		tb.setBackground(Background.EMPTY);
 
 		//---------------------------------------------------------
-    	
 		// set sticker position
 		
 		NotePosition defaultPosition = new NotePosition();
@@ -264,10 +260,6 @@ public class Sticker extends Note implements INotes
 						
 						defaultPosition.setPosition(in.getPosition().getX() + in.getPosition().getWidth()/2, 
 							in.getPosition().getY() + in.getPosition().getHeight()/2);
-					}
-					else
-					{
-						
 					}
 				}
 			}
@@ -451,8 +443,6 @@ public class Sticker extends Note implements INotes
 	
 	public StackPane getTabItem(Settings settings)
 	{
-		//Label text = new Label((this.body.substring(0, this.body.length() > 20 ? 20 : this.body.length()) + " ...").replace("\n", " "));
-		
 		Label text = new Label(this.body);
 		
 		if(isImportant())
@@ -492,7 +482,6 @@ public class Sticker extends Note implements INotes
 		cont.getChildren().add(controls);
 		
 		//-----------------------------------
-		
 
 		return cont;
 	}

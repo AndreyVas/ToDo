@@ -20,7 +20,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
-
 public class Main extends Application 
 {
 	Settings settings;
@@ -53,25 +52,7 @@ public class Main extends Application
 			scene.getStylesheets().add(getClass().getResource("note.css").toExternalForm());
 			
 			mainPane.setOpacity(settings.getOpacityActive());
-			/*
-			mainPane.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>()
-			{
-				@Override
-				public void handle(MouseEvent arg0) 
-				{
-					mainPane.setOpacity(settings.getOpacityActive());
-				}
-			});
-			
-			mainPane.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>()
-			{
-				@Override
-				public void handle(MouseEvent event) 
-				{
-					mainPane.setOpacity(settings.getOpacityInactive());
-				}
-			});
-			*/
+	
 			//------------------------------------------------------------------------
 			
 			HBox tbButtonsLeft = new HBox();
@@ -90,27 +71,10 @@ public class Main extends Application
 				public void handle(MouseEvent arg0) 
 				{
 					noteManager.showAddWindow();
-					
 				}
-				
 			});
+			
 			//------------------------------------------------------------------------
-			
-			/*
-			ImageView si = new ImageView("cogwheel.png");
-			Button settingsB = new Button();
-			settingsB.setGraphic(si);
-			settingsB.getStyleClass().add("buttons");
-			
-			settingsB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-			{
-				@Override
-				public void handle(MouseEvent arg0) 
-				{
-					settings.show();
-				}
-				
-			});*/
 			
 			Label noteIcon = noteManager.createTabIcon();
 			
@@ -119,12 +83,10 @@ public class Main extends Application
 			ToolBar tb = new ToolBar();
 			
 			tb.setBackground(Background.EMPTY);
-			
-			
+		
 			tbButtonsLeft.getStyleClass().add("buttonsLeftCont");
 			tbButtonsLeft.getChildren().add(addTaskB);
 
-			
 			tbButtonsRight.getStyleClass().add("buttonsRightCont");
 			tbButtonsRight.setPickOnBounds(true);
 

@@ -104,11 +104,11 @@ public class NoteManager implements Observer
 		
 		this.noteListLink = noteListLink;
 
-		saveFile = new File(Settings.ROOT_SETTINGS_PATH + Settings.NOTES);
+		saveFile = new File(Settings.ROOT_SETTINGS_PATH + File.separator + Settings.NOTES);
 		
 		if(!saveFile.exists())
 		{
-			new File(Settings.ROOT_SETTINGS_PATH + "/bla.xml").mkdirs();
+			new File(Settings.ROOT_SETTINGS_PATH).mkdirs();
 		}
 		
 		notesCont = new VBox();
@@ -669,7 +669,6 @@ public class NoteManager implements Observer
 		//  find modifiable item in pane
 		for(int i = 0; i < cont.getChildren().size(); i++)
 		{
-			
 			if(cont.getChildren().get(i).getId().equals(item.getID()))
 			{
 				StackPane sp = (StackPane)cont.getChildren().get(i);

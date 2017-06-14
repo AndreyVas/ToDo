@@ -14,7 +14,6 @@ public class NotePosition
 	public static final double DEFAULT_WIDHT = 300;
 	public static final double DEFAULT_HEIGHT = 300;
 	
-	
 	NotePosition()
 	{
 		x = DEFAULT_X;

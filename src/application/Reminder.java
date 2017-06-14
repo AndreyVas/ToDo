@@ -101,9 +101,7 @@ public class Reminder extends Note implements INotes, IReminds
     		    "22",
     		    "23"
     		);
-    	
-    	
-    	
+
     	hoursCont.getChildren().addAll(lHours, hours);
     	
     	VBox minCont = new VBox();
@@ -217,8 +215,8 @@ public class Reminder extends Note implements INotes, IReminds
     	VBox content = new VBox();
     	
     	DatePicker date = new DatePicker();
-    	ComboBox hours = new ComboBox();
-    	ComboBox minutes = new ComboBox();
+    	ComboBox<String> hours = new ComboBox<String>();
+    	ComboBox<String> minutes = new ComboBox<String>();
 
     	TextArea bodyE = new TextArea(textInvite);
     	bodyE.getStyleClass().add("noteText");
@@ -271,14 +269,12 @@ public class Reminder extends Note implements INotes, IReminds
 			@Override
 			public void handle(MouseEvent arg0) 
 			{
-			
 				LocalDateTime expireTime = date.getValue().atTime(Integer.valueOf(hours.getValue().toString()), Integer.valueOf(minutes.getValue().toString()));
 				
 				INotes n = new Reminder(bodyE.getText(), INotes.ACTIVE, false, expireTime, resizeObject, notes, IReminds.NO_REMIND);
 				notes.addNew(n);
 
 				stage.close();
-				
 			}
 		});
 		
@@ -311,7 +307,6 @@ public class Reminder extends Note implements INotes, IReminds
 		tbButtonsCon.getChildren().addAll(tbButtonsLeft, tbButtonsRight);
 
 		ToolBar tb = new ToolBar();
-		//tb.getStyleClass().add("topMenu");
 		tb.getItems().addAll(tbButtonsCon);
 		tb.setBackground(Background.EMPTY);
 		
@@ -446,7 +441,6 @@ public class Reminder extends Note implements INotes, IReminds
 		{
 			return null;
 		}
-
 	}
 	
 	protected static LocalDateTime parseExpireString(String expireString)
@@ -473,8 +467,6 @@ public class Reminder extends Note implements INotes, IReminds
 
 	public StackPane getTabItem(Settings settings)
 	{
-		//Label text = new Label((this.body.substring(0, this.body.length() > 20 ? 20 : this.body.length()) + " ...").replace("\n", " "));
-		
 		Label text = new Label(this.body);
 		
 		if(isImportant())
@@ -482,8 +474,7 @@ public class Reminder extends Note implements INotes, IReminds
 			ImageView importantImg = new ImageView("important.png");
 			text.setGraphic(importantImg);
 		}
-	
-		
+
 		Pane p = new Pane();
 		
 		VBox infoCont = new VBox();
@@ -501,7 +492,6 @@ public class Reminder extends Note implements INotes, IReminds
 		
 		reminde.getChildren().addAll(remindeImg, remaindeLabel);
 	
-
 		StackPane cont = new StackPane();
 		cont.getChildren().addAll(p, text, reminde);
 		cont.setId(String.valueOf(this.id));
@@ -576,7 +566,6 @@ public class Reminder extends Note implements INotes, IReminds
 					{
 						tbButtonsLeft.setVisible(true);
 					}
-    		
     			});
 
 		    	HBox expireDate = new HBox();
@@ -611,7 +600,6 @@ public class Reminder extends Note implements INotes, IReminds
 					}
 		    	});
 
-		    	
 		    	expireDate.getChildren().addAll(createDatePicker(date, hours, minutes, this.expire));
 		
 		    	contentCont.getChildren().addAll(bodyE, expireDate);
@@ -693,7 +681,6 @@ public class Reminder extends Note implements INotes, IReminds
 			
 				tb.getItems().add(tbButtonsCon);
 				tb.getStyleClass().add("buttonsMainCont");
-				//tbButtonsCon.prefWidthProperty().bind(tb.widthProperty().add(-20));   // !!!!!!!!! need correct !
 				
 				//------------------------------------------
 		    	
@@ -720,8 +707,7 @@ public class Reminder extends Note implements INotes, IReminds
 			else
 			{
 				showNote.show();
-			}
-			
+			}		
 		}
 		else
 		{
@@ -756,9 +742,7 @@ public class Reminder extends Note implements INotes, IReminds
 		
 		if(this.title.equals(""))
 			text = new Label(this.body);
-			//text = new Label((this.body.substring(0, this.body.length() > 20 ? 20 : this.body.length()) + " ...").replace("\n", " "));
 		else
-			//text = new Label((this.title.substring(0, this.title.length() > 20 ? 20 : this.title.length()) + " ...").replace("\n", " "));
 			text = new Label(this.body);
 		
 		if(isImportant())
@@ -812,7 +796,7 @@ public class Reminder extends Note implements INotes, IReminds
 		//------------------------------------------------------
 
 		StackPane cont = new StackPane();
-		cont.getChildren().addAll(/*p,*/ text, reminde, remindCountIMG);
+		cont.getChildren().addAll(text, reminde, remindCountIMG);
 		cont.setId(String.valueOf(this.id));
 		
 		text.getStyleClass().add("tabPaneItemText");

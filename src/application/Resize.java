@@ -149,8 +149,6 @@ public class Resize
 				
 				pressedX = arg0.getScreenX();
 				pressedY = arg0.getScreenY();
-				
-				
 			}
 		});
 		
@@ -159,7 +157,6 @@ public class Resize
 			@Override
 			public void handle(MouseEvent arg0) 
 			{
-				
 				noteManager.save();
 			}
 		});

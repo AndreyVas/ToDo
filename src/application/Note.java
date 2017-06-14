@@ -95,7 +95,6 @@ public class Note implements INotes
 		showNote.initOwner(lincToCont.getPrimaryStage());
 		showNote.initStyle(StageStyle.TRANSPARENT);
 		tb = new ToolBar();
-		
 	}
 	
 	public Note(String title, String body, Boolean important, String status, Calendar created, Resize resizeObject, NotesContainer lincToCont)
@@ -162,7 +161,6 @@ public class Note implements INotes
 					{
 						tbButtonsLeft.setVisible(true);
 					}
-    		
     			});
 
 		    	TextArea showBody = new TextArea();
@@ -177,7 +175,6 @@ public class Note implements INotes
 					{
 						tbButtonsLeft.setVisible(true);
 					}
-    		
     			});
 
 		    	infoCont.getChildren().addAll(showTitle, showBody);
@@ -398,7 +395,6 @@ public class Note implements INotes
 		{
 			return null;
 		}
-
 	}
 	
 	public static void createItemWindow(Settings settings, NotesContainer notes, Resize resizeObject)
@@ -466,8 +462,7 @@ public class Note implements INotes
 					}
 				}
 			});
-    	
-    	
+   
     	content.getChildren().addAll(titleE, bodyE);
     	VBox.setVgrow(bodyE, Priority.ALWAYS);
     	

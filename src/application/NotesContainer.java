@@ -51,7 +51,6 @@ public class NotesContainer extends Observable
 	
 	public void update(INotes n)
 	{
-		
 		lastUpdatedObject = n;
 
 		setChanged();
