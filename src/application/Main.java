@@ -33,6 +33,8 @@ public class Main extends Application
 	{
 		try 
 		{
+			primaryStage.getIcons().add(new Image("icon.png"));
+			
 			settings = new Settings();
 		
 			notes = new NotesContainer(primaryStage);
@@ -134,17 +136,22 @@ public class Main extends Application
 			primaryStage.setX(Screen.getPrimary().getBounds().getWidth() - (scene.getWidth() + scene.getWidth() / 10));
 			primaryStage.setY(scene.getHeight() / 10);
   
+			//primaryStage.getIcons().add(new Image("noteIcon.png"));
+			
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
 			noteManager.load();
 			resize.setResized(primaryStage, tb, resized);
 			
-			primaryStage.getIcons().add(new Image("noteIcon.png"));
+			
 		} 
 		catch(Exception e) 
 		{
 			e.printStackTrace();
+			
+			Messages.showError(e.getMessage() + "\\n\\n" 
+					+ e.getLocalizedMessage()  + "\\n\\n" + e.getStackTrace());
 		}
 	}
 	

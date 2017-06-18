@@ -200,7 +200,7 @@ public class Reminder extends Note implements INotes, IReminds
 		BorderPane pane = new BorderPane();
 		pane.setOpacity(settings.getOpacityActive());
 		
-    	Scene scene = new Scene(pane, 300,300, Color.TRANSPARENT);
+    	Scene scene = new Scene(pane, 350,350, Color.TRANSPARENT);
     	
     	scene.getStylesheets().add("application/note.css");
     	scene.getStylesheets().add("application/application.css");
@@ -545,7 +545,7 @@ public class Reminder extends Note implements INotes, IReminds
 				BorderPane pane = new BorderPane();
 				pane.setOpacity(settings.getOpacityActive());
 				
-		    	Scene scene = new Scene(pane, 300,300, Color.TRANSPARENT);
+		    	Scene scene = new Scene(pane, 350,350, Color.TRANSPARENT);
 		    	
 		    	scene.getStylesheets().add("application/note.css");
 		    	scene.getStylesheets().add("application/application.css");

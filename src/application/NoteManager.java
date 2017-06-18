@@ -104,13 +104,13 @@ public class NoteManager implements Observer
 		
 		this.noteListLink = noteListLink;
 
-		saveFile = new File(Settings.ROOT_SETTINGS_PATH + File.separator + Settings.NOTES);
+		saveFile = new File(settings.saveString() + File.separator + Settings.NOTES);
 		
 		if(!saveFile.exists())
 		{
-			new File(Settings.ROOT_SETTINGS_PATH).mkdirs();
+			new File(settings.saveString()).mkdirs();
 		}
-		
+
 		notesCont = new VBox();
 		stickersCont = new VBox();
 		remindersCont = new VBox();
@@ -414,12 +414,10 @@ public class NoteManager implements Observer
     	remindWindow.getIcons().add(new Image("reminderIcon.png"));
     	remindWindow.show();
 
-    	String musicFile = "src/alarm.mp3";     // For example
-
-    	Media sound = new Media(new File(musicFile).toURI().toString());
+    	Media sound = new Media(getClass().getResource("alarm.mp3").toString());
     	MediaPlayer mediaPlayer = new MediaPlayer(sound);
     	mediaPlayer.play();
-    	
+
     	this.resize.setResized(remindWindow, tb, resized);
 	}
 
@@ -457,20 +455,24 @@ public class NoteManager implements Observer
 		}
 		catch (ParserConfigurationException e) 
 	    {
-			e.printStackTrace();
+			Messages.showError("NoteManager class, save function \\n" + e.getMessage());
 		} 
 	    catch (FileNotFoundException e) 
 		{
-			e.printStackTrace();
+	    	Messages.showError("NoteManager class, save function \\n" + e.getMessage());
 		}
 	    catch (TransformerException e) 
 	    {
-			e.printStackTrace();
+	    	Messages.showError("NoteManager class, save function \\n" + e.getMessage());
 		} 
 	    catch(IOException e)
 	    {
-	    	e.printStackTrace();
+	    	Messages.showError("NoteManager class, save function \\n" + e.getMessage());
 	    }
+		catch(Exception e)
+		{
+			Messages.showError("NoteManager class, save function \\n" + e.getMessage());
+		}
 	}
 	
 	public void load()

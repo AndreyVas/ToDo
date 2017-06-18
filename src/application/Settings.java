@@ -1,5 +1,9 @@
 package application;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 public class Settings 
 {
 	private double opacityActive;
@@ -13,16 +17,16 @@ public class Settings
 	
 	private int widthRemindWidnow;
 	private int heightRemindWindow;
-	
-	public static final String ROOT_SETTINGS_PATH = "DATA";
-	//public static final String SETTINGS = "settings.xml";
+
+	private String PATH_TO_JAR;
+	private String NOTE_SAVE_FOLDER;
 	public static final String NOTES = "notes.xml";
 	
 	private long firstRemind;
 	private long secondRemind;
 	private long thirdRemind;
-	
-	Settings()
+
+	Settings() 
 	{
 		this.opacityActive = 0.9;
 		this.opacityInactive = 0.5;
@@ -43,6 +47,39 @@ public class Settings
 		/*this.firstRemind = 60000 * 5 ;	// 5 min
 		this.secondRemind = 60000 * 3;		// 3 min
 		this.thirdRemind = 60000 * 1; 	// 1 min*/
+		
+		if(System.getProperty("os.name").toLowerCase().contains("win"))
+		{
+			PATH_TO_JAR = "";
+			NOTE_SAVE_FOLDER = "DATA";
+		}
+		else
+		{
+			PATH_TO_JAR = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+			PATH_TO_JAR = PATH_TO_JAR.substring(0, PATH_TO_JAR.lastIndexOf(File.separator));
+			NOTE_SAVE_FOLDER = "DATA";
+			
+			try
+			{
+				PATH_TO_JAR = URLDecoder.decode(PATH_TO_JAR, "UTF-8");
+			}
+			catch(UnsupportedEncodingException e)
+			{
+				Messages.showError("Settings class, Constructor : " + e.getMessage());
+			}
+		}
+	}
+	
+	public String saveString()
+	{
+		if(this.PATH_TO_JAR.equals(""))
+		{
+			return this.NOTE_SAVE_FOLDER;
+		}
+		else
+		{
+			return this.PATH_TO_JAR + File.separator + this.NOTE_SAVE_FOLDER;
+		}
 	}
 	
 	public long getFirstRemind()
