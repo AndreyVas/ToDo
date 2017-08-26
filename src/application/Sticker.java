@@ -33,7 +33,7 @@ public class Sticker extends Note implements INotes
 {
 	Sticker(String body, String status, Calendar created, Resize resizeObject, NotesContainer lincToCont)
 	{
-		super(resizeObject, lincToCont);
+		super(resizeObject, lincToCont, null);
 
 		this.body = body;
 		this.type = INotes.STICKER;
@@ -47,9 +47,9 @@ public class Sticker extends Note implements INotes
 		showNote.setHeight(NotePosition.DEFAULT_HEIGHT);
 	}
 	
-	Sticker(String body, String status, Boolean important, Calendar created, double x, double y, double widht, double height, boolean shown, Resize resizeObject, NotesContainer lincToCont)
+	Sticker(String body, String status, Boolean important, Integer number, Calendar created, double x, double y, double widht, double height, boolean shown, Resize resizeObject, NotesContainer lincToCont)
 	{
-		super(resizeObject, lincToCont);
+		super(resizeObject, lincToCont, null);
 		
 		this.body = body;
 		this.type = INotes.STICKER;
@@ -57,6 +57,21 @@ public class Sticker extends Note implements INotes
 		this.shown = shown;
 		this.wasShown = false;
 		this.important = important;
+		
+		if(number != null)
+		{
+			this.number = number;
+		}
+		else
+		{
+			if(parent == null)
+			{
+				this.number = lincToCont.getItemsCount(this.type);
+				
+			}
+			else
+				this.number = parent.getChildrens().size();
+		}
 
 		showNote.setX(x);
 		showNote.setY(y);
@@ -77,6 +92,7 @@ public class Sticker extends Note implements INotes
 			double height = NotePosition.DEFAULT_HEIGHT;
 			boolean shown = true;
 			boolean important = false;
+			Integer number = null;
 			
 			for(int i = 0; i < noteItems.getLength(); i++)
 		    {
@@ -120,10 +136,14 @@ public class Sticker extends Note implements INotes
 					case INotes.IMPORTATN:
 						important = Boolean.valueOf(noteItems.item(i).getTextContent());
 						break;
+						
+					case INotes.NUMBER:
+						number = Integer.valueOf(noteItems.item(i).getTextContent());
+						break;
 				}
 		    }
 			
-			return new Sticker(body, status, important, created, x, y, width, height, shown, resizeObject, lincToCont);
+			return new Sticker(body, status, important, number, created, x, y, width, height, shown, resizeObject, lincToCont);
 		}
 		else
 		{
@@ -441,7 +461,7 @@ public class Sticker extends Note implements INotes
 		showNote.close();
 	}
 	
-	public StackPane getTabItem(Settings settings)
+	public VBox getTabItem(Settings settings)
 	{
 		Label text = new Label(this.body);
 		
@@ -452,7 +472,7 @@ public class Sticker extends Note implements INotes
 		}
 		
 		StackPane cont = new StackPane(text);
-		cont.setId(String.valueOf(this.id));
+		//cont.setId(String.valueOf(this.id));
 
 		text.getStyleClass().add("tabPaneItemText");
 		cont.getStyleClass().add("tabPaneItem");
@@ -483,7 +503,10 @@ public class Sticker extends Note implements INotes
 		
 		//-----------------------------------
 
-		return cont;
+		VBox ret = new VBox(cont);
+		ret.setId(String.valueOf(this.id));
+		
+		return ret;
 	}
 	
 	public Element getXML(Document doc)
@@ -515,6 +538,8 @@ public class Sticker extends Note implements INotes
 		shown.setTextContent(String.valueOf(this.shown));
 		Element important = doc.createElement(INotes.IMPORTATN);
 		important.setTextContent(String.valueOf(this.important));
+		Element number = doc.createElement(INotes.NUMBER);
+		number.setTextContent(String.valueOf(this.number));
 		
 		content.appendChild(status);
 		content.appendChild(created);
@@ -526,6 +551,7 @@ public class Sticker extends Note implements INotes
 		content.appendChild(height);
 		content.appendChild(shown);
 		content.appendChild(important);
+		content.appendChild(number);
 		
 		item.appendChild(type);
 		item.appendChild(content);
@@ -658,7 +684,7 @@ public class Sticker extends Note implements INotes
 			@Override
 			public void handle(MouseEvent event) 
 			{
-				note.getContainer().delete(note.getID());
+				note.getContainer().delete(note);
 			}
 		});
 		

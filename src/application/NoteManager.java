@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
+
+import javax.jws.soap.SOAPBinding.Style;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -25,6 +27,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -67,11 +70,19 @@ public class NoteManager implements Observer
 	public static final String ADD_SUB = "Add subtask";
 	public static final String ADD = "Add";
 	public static final String RESTORE = "Restore";
+	public static final String ADD_FOLDER = "Add folder";
+	public static final String ADD_NOTE = "Add note";
 	
 	public static final String NOTE_ICON = "noteIcon.png";
 	public static final String STICKER_ICON = "stickerIcon.png";
 	public static final String REMINDER_ICON = "reminderIcon.png";
 	public static final String TASK_ICON = "taskIcon.png";
+	
+	public static final String MOVE_BEFORE = "before";
+	public static final String MOVE_AFTER = "after";
+	public static final String MOVE_IN = "in";
+	
+	
 
 	public VBox notesCont;
 	public VBox stickersCont;
@@ -79,9 +90,24 @@ public class NoteManager implements Observer
 	public VBox tasksCont;
 	
 	private Label noteIcon;
+	private Button addFolderButton;
 	
 	private Stage remindWindow;
 	private Stage primaryStage;
+	
+	//----------------------------------------------------------------
+	// Variables for drag items in tab
+	
+	javafx.scene.Node currentNode = null;
+	javafx.scene.Node previousNode = null;
+	
+	javafx.scene.Node pickedNode = null;
+	javafx.scene.Node toNode = null;
+	
+	private String moveTo;
+	private boolean dragged = false;
+	
+	//----------------------------------------------------------------
 	
 	public Stage getPrimaryStage()
 	{
@@ -133,18 +159,22 @@ public class NoteManager implements Observer
 		            {
 		            	case INotes.NOTE:
 		            		noteIcon.setGraphic(new ImageView(NOTE_ICON));
+		            		addFolderButton.setVisible(true);
 		            		break;
 		            		
 		            	case INotes.STICKER:
 		            		noteIcon.setGraphic(new ImageView(STICKER_ICON));
+		            		addFolderButton.setVisible(false);
 		            		break;
 		            		
 		            	case INotes.REMINDER:
 		            		noteIcon.setGraphic(new ImageView(REMINDER_ICON));
+		            		addFolderButton.setVisible(false);
 		            		break;
 		            		
 		            	case INotes.TASK:
 		            		noteIcon.setGraphic(new ImageView(TASK_ICON));
+		            		addFolderButton.setVisible(false);
 		            		break;
 		            }
 		        }
@@ -163,8 +193,224 @@ public class NoteManager implements Observer
 		return this.noteIcon;
 	}
 	
+	public Button createAddFolderButton()
+	{
+		ImageView afi = new ImageView(INotes.IMG_ADD_FOLDER);
+		this.addFolderButton = new Button();
+		this.addFolderButton.setGraphic(afi);
+		this.addFolderButton.getStyleClass().add("buttons");
+
+		this.addFolderButton.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent arg0) 
+			{
+				addFolder();
+			}
+		});
+		
+		return this.addFolderButton;
+	}
+	
+	public INotes getNote(javafx.scene.Node node)
+	{
+		INotes note;
+		
+		if(node != null)
+		{
+			note = noteListLink.findNote(node.getId(), null);
+			
+			if(note != null)
+			{
+				return note;
+			}
+		}
+		
+		return null;
+	}
+	
+	javafx.scene.Node getPickNode(MouseEvent event, VBox pickedArea)
+	{
+		javafx.scene.Node node = event.getPickResult().getIntersectedNode();
+		
+
+		if(node != null && !node.equals(pickedArea))
+		{
+			// get node under the mouse
+			while(node != null && node.getId() == null)
+			{
+				node = node.getParent();
+			}
+		}
+		
+		return node;
+	}
+	
 	public Tab createTab(String name, VBox content)
 	{
+		content.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent event) 
+			{
+				pickedNode = getPickNode(event, content);
+				dragged = false;
+			}
+		});
+		
+		content.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent event) 
+			{
+				javafx.scene.Node node = event.getPickResult().getIntersectedNode();
+
+				if(node != null && !node.equals(content) && content.isHover())
+				{
+					dragged = true;
+
+					// get node under the mouse
+					while(node != null && node.getId() == null)
+					{
+						node = node.getParent();
+					}
+					
+					//INotes note = noteListLink.findNote(node.getId(), null);
+		
+					if(node != null && !node.equals(currentNode))
+					{
+						previousNode = currentNode;
+						currentNode = node;
+						
+						if(previousNode != null && previousNode.getStyleClass().size() != 0)
+							previousNode.getStyleClass().remove(previousNode.getStyleClass().size() - 1);
+					}
+					
+					if(currentNode.getStyleClass().size() != 0)
+						currentNode.getStyleClass().remove(currentNode.getStyleClass().size() -1);
+					
+					INotes n = noteListLink.findNote(node.getId(), null);
+					
+					if(event.getPickResult().getIntersectedPoint().getY() < node.getBoundsInLocal().getMaxY()/4)
+					{
+						if(!n.getType().equals(INotes.FOLDER) || (n.getType().equals(INotes.FOLDER) && !n.isShown()))
+						{
+							currentNode.getStyleClass().add("tabPaneItemInsertOnTop");	
+							moveTo = MOVE_BEFORE;
+						}
+					}
+					else if(event.getPickResult().getIntersectedPoint().getY() > (node.getBoundsInLocal().getMaxY() * 3/4))
+					{
+						if(!n.getType().equals(INotes.FOLDER) || (n.getType().equals(INotes.FOLDER) && !n.isShown()))
+						{
+							currentNode.getStyleClass().add("tabPaneItemInsertOnBottom");
+							moveTo = MOVE_AFTER;
+						}
+					}
+					else
+					{			
+						if(n.getType().equals(INotes.FOLDER) && !n.isShown())
+						{
+							currentNode.getStyleClass().add("tabPaneItemInsertOnCenter");
+							moveTo = MOVE_IN;
+						}
+						else
+						{
+							if(event.getPickResult().getIntersectedPoint().getY() <= node.getBoundsInLocal().getMaxY()/2)
+							{
+								currentNode.getStyleClass().add("tabPaneItemInsertOnTop");
+								moveTo = MOVE_BEFORE;
+							}
+							else
+							{
+								currentNode.getStyleClass().add("tabPaneItemInsertOnBottom");
+								moveTo = MOVE_AFTER;
+							}
+						}
+					}	
+				}
+				else
+				{
+					
+				}
+						
+				event.consume();
+			}
+		});
+		
+		content.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent event) 
+			{
+				toNode = getPickNode(event, content);	
+				
+				if(currentNode != null)
+					currentNode.getStyleClass().remove(currentNode.getStyleClass().size() - 1);
+				
+				previousNode = null;
+				currentNode = null;
+				
+				if(dragged && content.isHover() && !toNode.equals(content))
+				{
+					//----------------------------------------------------
+					
+					if(pickedNode != null && toNode != null && pickedNode != toNode)
+					{
+						VBox parentFrom = (VBox)pickedNode.getParent();
+							
+						VBox parentTo = (VBox)toNode.getParent();
+						
+						int fromIndex = parentFrom.getChildren().indexOf(pickedNode);
+						int toIndex = parentTo.getChildren().indexOf(toNode);
+						
+						parentFrom.getChildren().remove(pickedNode);
+						
+						switch(moveTo)
+						{
+							case MOVE_IN:
+								
+								//((VBox) toNode).getChildren().add(pickedNode);
+								
+								break;
+								
+							case MOVE_AFTER:
+								
+								if(parentTo.equals(parentFrom))
+									parentTo.getChildren().add((fromIndex > toIndex) ? toIndex + 1 : toIndex, pickedNode);
+								else
+									parentTo.getChildren().add(toIndex + 1, pickedNode);
+		
+								break;
+								
+							case MOVE_BEFORE:
+								
+								if(parentTo.equals(parentFrom))
+									parentTo.getChildren().add((toIndex > fromIndex) ? 
+											((toIndex - 1 > 0) ? toIndex - 1 : 0) : toIndex, pickedNode);
+								else
+									parentTo.getChildren().add(toIndex, pickedNode);
+								
+								break;
+						}	
+						
+						noteListLink.moveNote(pickedNode.getId(), toNode.getId(), moveTo);
+					}
+					//----------------------------------------------------
+				}
+
+			}
+		});
+		
+		content.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent event) 
+			{
+				dragged = false;
+			}
+		});
+
 		Tab tab = new Tab(name);
 		
 		ScrollPane sp = new ScrollPane();
@@ -527,8 +773,12 @@ public class NoteManager implements Observer
 			    		switch(type)
 			    		{
 			    			case INotes.NOTE:
-			    				tmpNote = Note.createItem(content, resize, noteListLink);
+			    				tmpNote = Note.createItem(content, resize, noteListLink, null);
 			    				
+			    				break;
+			    				
+			    			case INotes.FOLDER:
+			    				tmpNote = Folder.createItem(content, noteListLink, resize, null);
 			    				break;
 			    				
 			    			case INotes.TASK:
@@ -589,10 +839,11 @@ public class NoteManager implements Observer
 	public void removeItemFromTab(INotes item)
 	{
 		String id = item.getID();
+		String type = (item.getType() == INotes.FOLDER) ? INotes.NOTE : item.getType();
 		
 		for(Tab t : tp.getTabs())
 		{
-			if(t.getId() == item.getType())
+			if(t.getId() == type)
 			{
 				VBox vb = (VBox)((ScrollPane)t.getContent()).getContent();
 
@@ -613,37 +864,63 @@ public class NoteManager implements Observer
 	
 	public void addItemToTab(INotes item)
 	{
-		StackPane p = item.getTabItem(settings);
+		VBox p = item.getTabItem(settings);
 
 		p.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
 		{
 			@Override
 			public void handle(MouseEvent event) 
 			{
-				item.show(settings);
+				if(!dragged)
+					item.show(settings);
 			}
 		});
+		
+		VBox cont = null;
 		
 		switch(item.getType())
 		{
 			case INotes.NOTE:
-				this.notesCont.getChildren().add(p);
+				//this.notesCont.getChildren().add(p);
+				cont = this.notesCont;
 				break;
 				
 			case INotes.STICKER:
-				this.stickersCont.getChildren().add(p);
+				//this.stickersCont.getChildren().add(p);
+				cont = this.stickersCont;
 				break;
 				
 			case INotes.TASK:
-				this.tasksCont.getChildren().add(p);
+				//this.tasksCont.getChildren().add(p);
+				cont = this.tasksCont;
 				break;
 				
 			case INotes.REMINDER:
-				this.remindersCont.getChildren().add(p);
+				cont = this.remindersCont;
+				//this.remindersCont.getChildren().add(p);
+				break;
+				
+			case INotes.FOLDER:
+				cont = this.notesCont;
+				//this.notesCont.getChildren().add(p);
+				
 				break;
 		}
+		
+		if(cont != null)
+		{
+			int i;
+			
+			for(i = 0; i < cont.getChildren().size(); i++)
+			{
+				if(item.getNumber() < getNote(cont.getChildren().get(i)).getNumber())
+					break;
+			}
+			
+			cont.getChildren().add(i, p);
+		}
 	}
-	
+
 	public void updateItemInTab(INotes item)
 	{
 		VBox cont = new VBox();
@@ -666,131 +943,52 @@ public class NoteManager implements Observer
 			case INotes.TASK:
 				cont = this.tasksCont;
 				break;
+				
+			case INotes.FOLDER:
+				cont = this.notesCont;
+								
+				break;
 		}
-	
+
 		//  find modifiable item in pane
 		for(int i = 0; i < cont.getChildren().size(); i++)
 		{
 			if(cont.getChildren().get(i).getId().equals(item.getID()))
 			{
-				StackPane sp = (StackPane)cont.getChildren().get(i);
+				VBox sp = (VBox)cont.getChildren().get(i);
 				sp.getChildren().removeAll(sp.getChildren());
 				
-				StackPane tmpItemCont = item.getTabItem(settings);
+				VBox tmpItemCont = item.getTabItem(settings);
 
 				sp.getChildren().addAll(tmpItemCont.getChildren());
 			}
 		}
 	}
 	
+	public void addFolder()
+	{
+		Folder.createItemWindow(settings, noteListLink, resize);
+	}
+	
 	public void showAddWindow()
 	{
-		Stage stage = new Stage();
-		stage.initOwner(primaryStage);
-		stage.initStyle(StageStyle.TRANSPARENT);
-		
-		BorderPane pane = new BorderPane();
-    	pane.setOpacity(settings.getOpacityActive());
-    	
-    	Scene scene = new Scene(pane, settings.getWidthAddItems(), settings.getHeightAddItems(), Color.TRANSPARENT);
-    	scene.getStylesheets().add("application/application.css");
-    	
-    	//--------------------------------------------------------------
-
-    	ToolBar topMenu = new ToolBar();
-    	topMenu.getStyleClass().add("buttonsRightCont");
-    	
-    	ImageView ci = new ImageView("close.png");
-		Button closeB = new Button();
-		closeB.setGraphic(ci);
-		closeB.getStyleClass().add("buttons");
-		
-		closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		switch(this.tp.getSelectionModel().getSelectedItem().getId())
 		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				stage.close();
-			}
-		});
-		
-		topMenu.getItems().add(closeB);
-    	
-    	//--------------------------------------------------------------
-    	
-    	VBox content = new VBox();
-    	
-    	Button addNote = new Button("Note");
-    	addNote.setStyle("-fx-pref-width:" + settings.getWidthAddItems() + "px; ");
-    	addNote.getStyleClass().add("addItemButton");
-    	
-    	addNote.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				Note.createItemWindow(settings, noteListLink, resize);
-
-				stage.close();
-			}
-		});
-    	
-    	Button addSticker = new Button("Sticker");
-    	addSticker.setStyle("-fx-pref-width:" + settings.getWidthAddItems() + "px; ");
-    	addSticker.getStyleClass().add("addItemButton");
-    	
-    	addSticker.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
+			case INotes.NOTE:
+				Note.createItemWindow(settings, noteListLink, resize, null);
+				break;
+			
+			case INotes.STICKER:
 				Sticker.createItemWindow(settings, noteListLink, resize);
+				break;
 				
-				stage.close();
-			}
-		});
-    	
-    	Button addTask = new Button("Task");
-    	addTask.setStyle("-fx-pref-width:" + settings.getWidthAddItems() + "px; ");
-    	addTask.getStyleClass().add("addItemButton");
-    	
-    	addTask.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				INotes n = null;
-				Tasks.createItemWindow(settings, n, resize, noteListLink);
-				stage.close();
-			}
-		});
-    	
-    	Button addReminder = new Button("Reminder");
-    	addReminder.setStyle("-fx-pref-width:" + settings.getWidthAddItems() + "px; ");
-    	addReminder.getStyleClass().add("addItemButton");
-    	
-    	addReminder.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
+			case INotes.REMINDER:
 				Reminder.createItemWindow(settings, noteListLink, resize);
+				break;
 				
-				stage.close();
-			}
-		});
-
-    	content.getChildren().addAll(addNote, addSticker, addTask, addReminder);
-    	
-    	//--------------------------------------------------------------
-    	
-    	pane.setTop(topMenu);
-    	pane.setCenter(content);
-        
-    	stage.setScene(scene);
-    	
-    	stage.show();
-    	
-    	this.resize.setResized(stage, topMenu);
+			case INotes.TASK:
+				Tasks.createItemWindow(settings, null, resize, noteListLink);
+				break;
+		}
 	}
 }

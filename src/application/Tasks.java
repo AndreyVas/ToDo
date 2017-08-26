@@ -42,7 +42,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 	private LinkedList<INotes> subTasks;
 	private INotes parent;
 	private boolean reminde;
-	private TreeItem<StackPane> subTuskTreeRoot;
+	private TreeItem<VBox> subTuskTreeRoot;
 	private Stage subTusksWindow;
 
 	Tasks(Resize resizeObject, NotesContainer lincToCont)
@@ -783,6 +783,8 @@ public class Tasks extends Reminder implements INotes, IReminds
 		important.setTextContent(String.valueOf(this.important));
 		Element remindCount = doc.createElement(IReminds.REMIND_COUNT);
 		remindCount.setTextContent(String.valueOf(this.remindCount));
+		Element number = doc.createElement(INotes.NUMBER);
+		number.setTextContent(String.valueOf(this.number));
 		
 		if(this.expire != null)
 			expire.setTextContent(this.expire.getYear() +":" + this.expire.getMonthValue() + ":" + this.expire.getDayOfMonth() + ":"
@@ -814,6 +816,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 		content.appendChild(height);
 		content.appendChild(important);
 		content.appendChild(remindCount);
+		content.appendChild(number);
 		
 		item.appendChild(type);
 		item.appendChild(content);
@@ -837,6 +840,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 			double height = NotePosition.DEFAULT_HEIGHT;
 			Boolean important = false;
 			int remindCount = IReminds.NO_REMIND;
+			Integer number = null;
 			
 			for(int i = 0; i < noteItems.getLength(); i++)
 		    {
@@ -905,6 +909,10 @@ public class Tasks extends Reminder implements INotes, IReminds
 					case IReminds.REMIND_COUNT:
 						remindCount = Integer.valueOf(noteItems.item(i).getTextContent());
 						break;
+						
+					case INotes.NUMBER:
+						number = Integer.valueOf(noteItems.item(i).getTextContent());
+						break;
 				}
 		    }
 
@@ -912,16 +920,17 @@ public class Tasks extends Reminder implements INotes, IReminds
 			newTask.setImportant(important);
 			newTask.setExpireDate(remind, expire, remindCount);
 			newTask.setSizeAndPosition(x, y, width, height);
+			if(number != null) newTask.setNumber(number);
 		
 			return (INotes)newTask;
-		}
+		} 
 		else
 		{
 			return null;
 		}
 	}
 
-	public StackPane getTabItem(Settings settings)
+	public VBox getTabItem(Settings settings)
 	{
 		Label text = new Label(this.title);
 		
@@ -965,7 +974,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 
 		StackPane cont = new StackPane();
 		cont.getChildren().addAll(p, text, reminde);
-		cont.setId(String.valueOf(this.id));
+		//cont.setId(String.valueOf(this.id));
 		
 		cont.getStyleClass().add("tabPaneItem");
 		reminde.getStyleClass().add("reminder");
@@ -998,7 +1007,10 @@ public class Tasks extends Reminder implements INotes, IReminds
 		
 		//-----------------------------------
 		
-		return cont;
+		VBox ret = new VBox(cont);
+		ret.setId(String.valueOf(this.id));
+		
+		return ret;
 	}
 	
 	private void subTaskChooseWindow(Settings settings)
@@ -1020,9 +1032,9 @@ public class Tasks extends Reminder implements INotes, IReminds
     	
     	//------------------------------------------------------------------------
 
-		StackPane rootTreeValue = getTabItem(settings);
-		rootTreeValue.getChildren().add(addControls(this, settings));
-		subTuskTreeRoot = new TreeItem<StackPane> (); // TreeItem<String> rootItem = new TreeItem<String> ("Inbox", rootIcon);
+		VBox rootTreeValue = getTabItem(settings);
+		//rootTreeValue.getChildren().add(addControls(this, settings));
+		subTuskTreeRoot = new TreeItem<VBox> (); // TreeItem<String> rootItem = new TreeItem<String> ("Inbox", rootIcon);
 		subTuskTreeRoot.setValue(rootTreeValue);
 		subTuskTreeRoot.setExpanded(true);
  
@@ -1070,7 +1082,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 		
         //------------------------------------------------------------------------
 
-        TreeView<StackPane> tree = new TreeView<StackPane> (subTuskTreeRoot); 
+        TreeView<VBox> tree = new TreeView<VBox> (subTuskTreeRoot); 
         tree.getStyleClass().add("subTaskTreeCont");
         StackPane root = new StackPane();
         root.getChildren().add(tree);
@@ -1084,7 +1096,7 @@ public class Tasks extends Reminder implements INotes, IReminds
         subTusksWindow.showAndWait(); 
 	}
 	
-	public void updateSubNotes(String type, TreeItem<StackPane> rootTree, INotes note, Settings settings)
+	public void updateSubNotes(String type, TreeItem<VBox> rootTree, INotes note, Settings settings)
 	{
 		if(type.equals(INotes.ADD))
 		{
@@ -1094,7 +1106,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 				{
 					Tasks t = (Tasks)note;
 					
-					TreeItem<StackPane> addTreeItem = new TreeItem<StackPane>();
+					TreeItem<VBox> addTreeItem = new TreeItem<VBox>();
 					addTreeItem.setValue(createTreeItem(t, settings, rootTree));
 					
 					if(t.getSubTusks().size() > 0)
@@ -1105,7 +1117,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 								0, addTreeItem);
 				}
 
-				for(TreeItem<StackPane> ti : rootTree.getChildren())
+				for(TreeItem<VBox> ti : rootTree.getChildren())
 				{
 					updateSubNotes(type, ti, note, settings);					
 				}
@@ -1115,7 +1127,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 		{
 			if(rootTree != null)
 			{
-				for(TreeItem<StackPane> ti : rootTree.getChildren())
+				for(TreeItem<VBox> ti : rootTree.getChildren())
 				{
 					if(ti.getValue().getId().equals(note.getID()))
 					{
@@ -1136,8 +1148,8 @@ public class Tasks extends Reminder implements INotes, IReminds
 			{
 				if(rootTree.getValue().getId().equals(note.getID()))
 				{
-					StackPane sp = note.getTabItem(settings);
-					sp.getChildren().add(note.addControls(note, settings));
+					VBox sp = note.getTabItem(settings);
+					//sp.getChildren().add(note.addControls(note, settings));
 					rootTree.setValue(sp);
 					
 					sp.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
@@ -1150,12 +1162,12 @@ public class Tasks extends Reminder implements INotes, IReminds
 					});
 				}
 				
-				for(TreeItem<StackPane> ti : rootTree.getChildren())
+				for(TreeItem<VBox> ti : rootTree.getChildren())
 				{
 					if(ti.getValue().getId().equals(note.getID()))
 					{
-						StackPane sp = note.getTabItem(settings);
-						sp.getChildren().add(note.addControls(note, settings));
+						VBox sp = note.getTabItem(settings);
+						//sp.getChildren().add(note.addControls(note, settings));
 						ti.setValue(sp);
 						
 						sp.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
@@ -1179,17 +1191,17 @@ public class Tasks extends Reminder implements INotes, IReminds
 		}
 	}
 	
-	public TreeItem<StackPane> getSubTasksTree()
+	public TreeItem<VBox> getSubTasksTree()
 	{
 		return this.subTuskTreeRoot;
 	}
 	
-	private void createTree(TreeItem<StackPane> root, LinkedList<INotes> items, Settings settings)
+	private void createTree(TreeItem<VBox> root, LinkedList<INotes> items, Settings settings)
 	{
 		for(INotes in : items)
 		{
 			Tasks tmp = (Tasks)in;
-			TreeItem<StackPane> treeItem = new TreeItem<StackPane>();
+			TreeItem<VBox> treeItem = new TreeItem<VBox>();
 			treeItem.setValue(createTreeItem(tmp, settings, treeItem));
 			
 			if(tmp.getSubTusks().size() != 0)
@@ -1201,15 +1213,15 @@ public class Tasks extends Reminder implements INotes, IReminds
 		}
 	}
 	
-	private StackPane createTreeItem(INotes t, Settings settings, TreeItem<StackPane> treeCont)
+	private VBox createTreeItem(INotes t, Settings settings, TreeItem<VBox> treeCont)
 	{
-		StackPane item = new StackPane();
+		VBox item = new VBox();
 		item.setId(t.getID());
 
 		//--------------------------------------------------------
 		
 		item = t.getTabItem(settings);
-		item.getChildren().addAll(t.addControls(t, settings));
+		//item.getChildren().addAll(t.addControls(t, settings));
 		
 		item.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
 		{
@@ -1242,14 +1254,13 @@ public class Tasks extends Reminder implements INotes, IReminds
 			{
 				if(note.getParent() == null)
 				{
-					note.getContainer().delete(note.getID());
+					note.getContainer().delete(note);
 				}
 				else
 				{
 					Tasks pTask = (Tasks)note.getParent();
 					pTask.getSubTusks().remove(note);
 					
-					while(pTask != null)
 					{
 						updateSubNotes(INotes.REMOVE, pTask.subTuskTreeRoot, note, settings);
 						pTask = (Tasks)pTask.getParent();
@@ -1410,6 +1421,11 @@ public class Tasks extends Reminder implements INotes, IReminds
 		{
 			n.closeActiveWindow();
 		}
+	}
+	
+	public LinkedList<INotes> getChildrens()
+	{
+		return this.subTasks;
 	}
 
 	public void setStatus(String status)

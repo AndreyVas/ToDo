@@ -1,1 +1,49 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><items><item><type>note</type><content><status>active</status><created>1497803973929</created><expire>N/A</expire><title>sdf</title><text>asdf</text><X>NaN</X><Y>NaN</Y><WIDTH>NaN</WIDTH><HEIGHT>NaN</HEIGHT><importatn>false</importatn></content></item><item><type>note</type><content><status>active</status><created>1497803973929</created><expire>N/A</expire><title>asdfasdf</title><text>asdfsfda</text><X>NaN</X><Y>NaN</Y><WIDTH>NaN</WIDTH><HEIGHT>NaN</HEIGHT><importatn>false</importatn></content></item></items>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><items><item><type>reminder</type><content><status>active</status><expire>2017:9:9:0:0</expire><text>1111111111111111</text><X>NaN</X><Y>NaN</Y><WIDTH>NaN</WIDTH><HEIGHT>NaN</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>2</number></content></item><item><type>reminder</type><content><status>active</status><expire>2017:9:9:0:0</expire><text>222222222222222222</text><X>NaN</X><Y>NaN</Y><WIDTH>NaN</WIDTH><HEIGHT>NaN</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>1</number></content></item><item><type>reminder</type><content><status>active</status><expire>2017:9:9:0:0</expire><text>33333333333333333333</text><X>NaN</X><Y>NaN</Y><WIDTH>NaN</WIDTH><HEIGHT>NaN</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item><item><type>note</type><content><status>active</status><created>1503737331555</created><expire>N/A</expire><title>Паттерны статьи</title><text>Паттерны для новичков
+https://tproger.ru/translations/design-patterns-for-beginners/
+
+Паттерн «Локатор служб» (Service Locator):  http://www.java2blog.com/2016/07/connection-pool-using-service-locator-pattern.html
+
+Паттерн «Строитель» (Builder): 
+http://www.java2blog.com/2012/09/builder-design-pattern-in-java.html
+
+Паттерн «Прокси»
+http://www.java2blog.com/2012/09/proxy-design-pattern-in-java.html
+
+Паттерн «Компоновщик» (Composite)
+http://www.java2blog.com/2012/09/composite-design-pattern-in-java.html
+
+Паттерн «Адаптер»: 
+http://www.java2blog.com/2012/09/adapter-design-pattern-in-java.html
+
+ Паттерн «Мост» (Bridge): 
+http://www.java2blog.com/2012/09/bridge-design-pattern-in-java.html
+
+Паттерн «Декоратор»
+http://www.java2blog.com/2012/07/decorator-design-pattern.html</text><X>416.0</X><Y>125.0</Y><WIDTH>637.0</WIDTH><HEIGHT>477.0</HEIGHT><importatn>false</importatn><number>0</number></content></item><item><type>sticker</type><content><status>active</status><created>1503737331556</created><expire>N/A</expire><text>Aduino nano (двух форматов)
+Blouutosh модуль для ардуино
+? Двигатели с винатми
+Провода для подключения на плате
+Макетная плата
+? Набор диодов
+3 сервы
+Набор светодиодов</text><X>116.0</X><Y>77.0</Y><WIDTH>300.0</WIDTH><HEIGHT>300.0</HEIGHT><SHOWN>true</SHOWN><importatn>false</importatn><number>0</number></content></item><item><type>task</type><content><status>active</status><expire>non</expire><remind>false</remind><title>SQL client</title><text>Возможнось быстрого подключения к SQL базам разных производителей
+</text><subtasks><item><type>task</type><content><status>active</status><expire>non</expire><remind>false</remind><title>Логирование ошибок</title><text>Окна с ошибками
+Запись ошибок в лог файл</text><subtasks/><X>506.0</X><Y>139.0</Y><WIDTH>400.0</WIDTH><HEIGHT>400.0</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item><item><type>task</type><content><status>completed</status><expire>non</expire><remind>false</remind><title>Query Collection</title><text>Сохранение уже созданных запросов
+Возможность запуска запросов из коллекции</text><subtasks/><X>NaN</X><Y>NaN</Y><WIDTH>NaN</WIDTH><HEIGHT>NaN</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item><item><type>task</type><content><status>completed</status><expire>non</expire><remind>false</remind><title>Выгрузка в Excel</title><text>Возможность выгрузить результат запроса в Excel таблицу. Возможно так же в текстовый файл.</text><subtasks/><X>NaN</X><Y>NaN</Y><WIDTH>NaN</WIDTH><HEIGHT>NaN</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item></subtasks><X>456.0</X><Y>122.0</Y><WIDTH>400.0</WIDTH><HEIGHT>400.0</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item><item><type>note</type><content><status>active</status><created>1503737331557</created><expire>N/A</expire><title>MySQL на Ubuntu</title><text>Запустить\остановить\перезагрузить :
+
+	sudo service mysql restart\start\stop
+
+Автозагрузка :
+
+	Стоит ли сервис в автозагрузке
+		systemctl is-enabled SERVICE
+	
+	Убрать сервис из автозагрузке
+		sudo systemctl disable SERVICE
+
+	Добавить сервис в автозагрузку
+		sudo systemctl enable SERVICE
+
+Статья :
+
+	http://help.ubuntu.ru/wiki/mysql</text><X>484.0</X><Y>93.0</Y><WIDTH>460.0</WIDTH><HEIGHT>460.0</HEIGHT><importatn>false</importatn><number>1</number></content></item><item><type>folder</type><content><name>test f</name><childrens><item><type>note</type><content><status>active</status><created>1503737331557</created><expire>N/A</expire><title>test n</title><text>test n</text><X>512.0</X><Y>139.0</Y><WIDTH>320.0</WIDTH><HEIGHT>200.0</HEIGHT><importatn>false</importatn><number>0</number></content></item></childrens><number>2</number><SHOWN>true</SHOWN></content></item></items>

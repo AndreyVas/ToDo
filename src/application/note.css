@@ -80,6 +80,21 @@
 	-fx-cursor:hand;
 }
 
+.tabPaneItemInsertOnTop
+{
+	-fx-background-color:linear-gradient(from 0% 100% to 0% 0%, transparent 80%, gray 100%);
+
+}
+
+.tabPaneItemInsertOnBottom
+{
+	-fx-background-color:linear-gradient(from 0% 0% to 0% 100%, transparent 80%, gray 100%);
+}
+
+.tabPaneItemInsertOnCenter
+{
+	-fx-background-color:rgb(186,189,182);
+}
 
 .tabPaneItemText
 {
@@ -250,4 +265,12 @@
 .subTaskTreeCont  .tree-cell
 {
     -fx-background-color: transparent;
+}
+
+
+/*----------------------------------------------------------*/
+
+.tabPanSubItemCont
+{
+	-fx-padding: 0 0 0 30;
 }

@@ -41,15 +41,15 @@ public class Reminder extends Note implements INotes, IReminds
 
 	Reminder(Resize resizeObject, NotesContainer lincToCont)
 	{
-		super(resizeObject, lincToCont);
+		super(resizeObject, lincToCont, null);
 		
 		this.remindCount = IReminds.NO_REMIND;
 		this.title = "";
 	}
 
-	Reminder(String body, String status, Boolean important, LocalDateTime expire, Resize resizeObject, NotesContainer lincToCont, int remindCount)
+	Reminder(String body, String status, Boolean important, Integer number, LocalDateTime expire, Resize resizeObject, NotesContainer lincToCont, int remindCount)
 	{
-		super(resizeObject, lincToCont);
+		super(resizeObject, lincToCont, null);
 		
 		this.type = INotes.REMINDER;
 		this.body = body;
@@ -58,6 +58,9 @@ public class Reminder extends Note implements INotes, IReminds
 		this.important = important;
 		this.title = "";
 		this.remindCount = remindCount;
+		
+		if(number != null)
+			this.number = number;
 	}
 
 	protected static HBox createDatePicker(DatePicker date, ComboBox<String> hours, ComboBox<String> minutes, LocalDateTime expire)
@@ -271,7 +274,7 @@ public class Reminder extends Note implements INotes, IReminds
 			{
 				LocalDateTime expireTime = date.getValue().atTime(Integer.valueOf(hours.getValue().toString()), Integer.valueOf(minutes.getValue().toString()));
 				
-				INotes n = new Reminder(bodyE.getText(), INotes.ACTIVE, false, expireTime, resizeObject, notes, IReminds.NO_REMIND);
+				INotes n = new Reminder(bodyE.getText(), INotes.ACTIVE, false, null, expireTime, resizeObject, notes, IReminds.NO_REMIND);
 				notes.addNew(n);
 
 				stage.close();
@@ -359,6 +362,8 @@ public class Reminder extends Note implements INotes, IReminds
 		important.setTextContent(String.valueOf(this.important));
 		Element remindCount = doc.createElement(IReminds.REMIND_COUNT);
 		remindCount.setTextContent(String.valueOf(this.remindCount));
+		Element number = doc.createElement(INotes.NUMBER);
+		number.setTextContent(String.valueOf(this.number));
 		
 		content.appendChild(status);
 		content.appendChild(expire);
@@ -369,6 +374,7 @@ public class Reminder extends Note implements INotes, IReminds
 		content.appendChild(height);
 		content.appendChild(important);
 		content.appendChild(remindCount);
+		content.appendChild(number);
 		
 		item.appendChild(type);
 		item.appendChild(content);
@@ -389,6 +395,7 @@ public class Reminder extends Note implements INotes, IReminds
 			double height = NotePosition.DEFAULT_HEIGHT;
 			Boolean important = false;
 			int remindCount = IReminds.NO_REMIND;
+			Integer number = null;
 			
 			for(int i = 0; i < noteItems.getLength(); i++)
 		    {
@@ -429,10 +436,14 @@ public class Reminder extends Note implements INotes, IReminds
 					case IReminds.REMIND_COUNT:
 						remindCount = Integer.valueOf(noteItems.item(i).getTextContent());
 						break;
+						
+					case INotes.NUMBER:
+						number = Integer.valueOf(noteItems.item(i).getTextContent());
+						break;
 				}
 		    }
 			
-			Reminder ret = new Reminder(body, status, important,  expire, resizeObject, notes, remindCount);
+			Reminder ret = new Reminder(body, status, important, number, expire, resizeObject, notes, remindCount);
 			ret.setSizeAndPosition(x, y, width, height);
 	
 			return ret; 
@@ -465,7 +476,7 @@ public class Reminder extends Note implements INotes, IReminds
 		return ldt;
 	}
 
-	public StackPane getTabItem(Settings settings)
+	public VBox getTabItem(Settings settings)
 	{
 		Label text = new Label(this.body);
 		
@@ -494,7 +505,7 @@ public class Reminder extends Note implements INotes, IReminds
 	
 		StackPane cont = new StackPane();
 		cont.getChildren().addAll(p, text, reminde);
-		cont.setId(String.valueOf(this.id));
+		//cont.setId(String.valueOf(this.id));
 		
 		text.getStyleClass().add("tabPaneItemText");
 		cont.getStyleClass().add("tabPaneItem");
@@ -528,7 +539,10 @@ public class Reminder extends Note implements INotes, IReminds
 		
 		//-----------------------------------
 
-		return cont;
+		VBox ret = new VBox(cont);
+		ret.setId(String.valueOf(this.id));
+		
+		return ret;
 	}
 	
 	public void show(Settings settings)
@@ -841,7 +855,7 @@ public class Reminder extends Note implements INotes, IReminds
 		delete.setTooltip(new Tooltip(NoteManager.DELETE));
 		delete.getStyleClass().add("tabPaneItemButtons");
 	
-		delete.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> note.getContainer().delete(note.getID()));
+		delete.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> note.getContainer().delete(note));
 		delete.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> delete.setOpacity(0.4));
 		delete.addEventHandler(MouseEvent.MOUSE_EXITED, (e) -> delete.setOpacity(1));
 		

@@ -1,6 +1,8 @@
 package application;
 
 import java.util.Calendar;
+import java.util.LinkedList;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -31,6 +33,7 @@ import javafx.stage.StageStyle;
 
 public class Note implements INotes
 {
+	protected INotes parent;
 	protected String title;
 	protected String body;
 	protected String status;
@@ -40,6 +43,7 @@ public class Note implements INotes
 	protected boolean wasShown;
 	protected boolean important;
 	protected String type;
+	protected int number;
 	
 	protected Resize resizeObject;
 
@@ -59,8 +63,9 @@ public class Note implements INotes
 		return this.lincToCont;
 	}
 	
-	public Note(Resize resizeObject, NotesContainer lincToCont)
+	public Note(Resize resizeObject, NotesContainer lincToCont, INotes parent)
 	{
+		this.parent = parent;
 		this.self = this;
 		this.resizeObject = resizeObject;
 		this.lincToCont = lincToCont;
@@ -74,10 +79,12 @@ public class Note implements INotes
 		showNote.initOwner(lincToCont.getPrimaryStage());
 		showNote.initStyle(StageStyle.TRANSPARENT);
 		tb = new ToolBar();
+		
 	}
 
-	public Note(String title, String body, Resize resizeObject, NotesContainer lincToCont)
+	public Note(String title, String body, Resize resizeObject, NotesContainer lincToCont, INotes parent)
 	{
+		this.parent = parent;
 		this.self = this;
 		this.title = title;
 		this.body = body;
@@ -91,14 +98,23 @@ public class Note implements INotes
 		this.lincToCont = lincToCont;
 		this.important = false;
 		
+		/*if(parent == null)
+		{
+			this.number = lincToCont.getItemsCount(this.type);
+			
+		}
+		else
+			this.number = parent.getChildrens().size();*/
+	
 		showNote = new Stage();
 		showNote.initOwner(lincToCont.getPrimaryStage());
 		showNote.initStyle(StageStyle.TRANSPARENT);
 		tb = new ToolBar();
 	}
 	
-	public Note(String title, String body, Boolean important, String status, Calendar created, Resize resizeObject, NotesContainer lincToCont)
+	public Note(String title, String body, Boolean important, String status, Integer number, Calendar created, Resize resizeObject, NotesContainer lincToCont, INotes parent)
 	{
+		this.parent = parent;
 		this.self = this;
 		this.title = title;
 		this.body = body;
@@ -111,6 +127,21 @@ public class Note implements INotes
 		this.lincToCont = lincToCont;
 		this.important = important;
 		
+		if(number != null)
+		{
+			this.number = number;
+		}
+		else
+		{
+			if(parent == null)
+			{
+				this.number = lincToCont.getItemsCount(this.type);
+				
+			}
+			else
+				this.number = parent.getChildrens().size();
+		}
+			
 		showNote = new Stage();
 		showNote.initOwner(lincToCont.getPrimaryStage());
 		showNote.initStyle(StageStyle.TRANSPARENT);
@@ -282,7 +313,12 @@ public class Note implements INotes
 		}
 	}
 	
-	public StackPane getTabItem(Settings settings)
+	public void setParent(INotes n)
+	{
+		this.parent = n;
+	}
+	
+	public VBox getTabItem(Settings settings)
 	{
 		Label text = new Label(this.title);
 		
@@ -293,7 +329,7 @@ public class Note implements INotes
 		}
 		
 		StackPane cont = new StackPane(text);
-		cont.setId(String.valueOf(this.id));
+		//cont.setId(String.valueOf(this.id));
 		
 		text.getStyleClass().add("tabPaneItemText");
 		cont.getStyleClass().add("tabPaneItem");
@@ -324,10 +360,13 @@ public class Note implements INotes
 		
 		//-----------------------------------
 		
-		return cont;
+		VBox ret = new VBox(cont);
+		ret.setId(String.valueOf(this.id));
+		
+		return ret;
 	}
 
-	public static INotes createItem(NodeList noteItems, Resize resizeObject, NotesContainer lincToCont)
+	public static INotes createItem(NodeList noteItems, Resize resizeObject, NotesContainer lincToCont, INotes parent)
 	{
 		if(noteItems != null)
 		{
@@ -340,6 +379,7 @@ public class Note implements INotes
 			double width = NotePosition.DEFAULT_WIDHT;
 			double height = NotePosition.DEFAULT_HEIGHT;
 			Boolean importatn = false;
+			Integer number = null;
 			
 			for(int i = 0; i < noteItems.getLength(); i++)
 		    {
@@ -383,10 +423,14 @@ public class Note implements INotes
 					case INotes.IMPORTATN:
 						importatn = Boolean.valueOf(noteItems.item(i).getTextContent());
 						break;
+						
+					case INotes.NUMBER:
+						number = Integer.valueOf(noteItems.item(i).getTextContent());
+						break;
 				}
 		    }
 			
-			Note ret = new Note(title, body, importatn, status, created, resizeObject, lincToCont);
+			Note ret = new Note(title, body, importatn, status, number, created, resizeObject, lincToCont, parent);
 			ret.setSizeAndPosition(x,  y, width, height);
 			
 			return ret; 
@@ -397,7 +441,7 @@ public class Note implements INotes
 		}
 	}
 	
-	public static void createItemWindow(Settings settings, NotesContainer notes, Resize resizeObject)
+	public static void createItemWindow(Settings settings, NotesContainer notes, Resize resizeObject, INotes parent)
 	{
 		String titleInvite = "Enter a note name...";
 		String textInvite = "Enter a note text...";
@@ -498,7 +542,7 @@ public class Note implements INotes
 				}
 				else
 				{
-					INotes n = new Note(titleE.getText(), bodyE.getText(), false,  INotes.ACTIVE, Calendar.getInstance(), resizeObject, notes);
+					INotes n = new Note(titleE.getText(), bodyE.getText(), false,  INotes.ACTIVE, null, Calendar.getInstance(), resizeObject, notes, parent);
 					notes.addNew(n);
 					
 					stage.close();
@@ -569,22 +613,22 @@ public class Note implements INotes
 	@Override
 	public Element getXML(Document doc) 
 	{
-		Element item = doc.createElement("item"); 
+		Element item = doc.createElement(INotes.ITEM); 
 		
-		Element type = doc.createElement("type"); 
+		Element type = doc.createElement(INotes.TYPE); 
 		type.setTextContent(INotes.NOTE);
 
-		Element content = doc.createElement("content"); 
+		Element content = doc.createElement(INotes.CONTENT); 
 		
-		Element title = doc.createElement("title"); 
+		Element title = doc.createElement(INotes.TITLE); 
 		title.setTextContent(this.title);
-		Element text = doc.createElement("text"); 
+		Element text = doc.createElement(INotes.TEXT); 
 		text.setTextContent(this.body);
-		Element status = doc.createElement("status"); 
+		Element status = doc.createElement(INotes.STATUS); 
 		status.setTextContent(this.getStatus());
-		Element created = doc.createElement("created"); 
+		Element created = doc.createElement(INotes.CREATED); 
 		created.setTextContent(Long.toString(Calendar.getInstance().getTimeInMillis()));
-		Element expire = doc.createElement("expire"); 
+		Element expire = doc.createElement(INotes.EXPIRE); 
 		expire.setTextContent("N/A");
 		Element x = doc.createElement(INotes.X); 
 		x.setTextContent(String.valueOf(this.showNote.getX()));
@@ -596,6 +640,8 @@ public class Note implements INotes
 		height.setTextContent(String.valueOf(this.showNote.getHeight()));
 		Element important = doc.createElement(INotes.IMPORTATN);
 		important.setTextContent(String.valueOf(this.important));
+		Element number = doc.createElement(INotes.NUMBER);
+		number.setTextContent(String.valueOf(this.number));
 		
 		content.appendChild(status);
 		content.appendChild(created);
@@ -607,11 +653,22 @@ public class Note implements INotes
 		content.appendChild(width);
 		content.appendChild(height);
 		content.appendChild(important);
+		content.appendChild(number);
 		
 		item.appendChild(type);
 		item.appendChild(content);
 		
 		return item;
+	}
+	
+	public int getNumber()
+	{
+		return this.number;
+	}
+	
+	public void setNumber(int number)
+	{
+		this.number = number;
 	}
 
 	@Override
@@ -643,7 +700,7 @@ public class Note implements INotes
 
 	public INotes getParent()
 	{
-		return null;
+		return this.parent;
 	}
 	
 	protected void setSizeAndPosition(double x, double y, double widht, double height)
@@ -654,9 +711,9 @@ public class Note implements INotes
 		showNote.setHeight(height);
 	}
 
-	public void updateSubNotes(String type, TreeItem<StackPane> rootTree, INotes note, Settings settings){}
+	public void updateSubNotes(String type, TreeItem<VBox> rootTree, INotes note, Settings settings){}
 	
-	public TreeItem<StackPane> getSubTasksTree()
+	public TreeItem<VBox> getSubTasksTree()
 	{
 		return null;
 	}
@@ -677,6 +734,7 @@ public class Note implements INotes
 	{
 		return this.status;
 	}
+	
 	public HBox addControls(INotes note, Settings settings)
 	{
 		HBox controls = new HBox();
@@ -736,7 +794,7 @@ public class Note implements INotes
 		delete.setTooltip(new Tooltip(NoteManager.DELETE));
 		delete.getStyleClass().add("tabPaneItemButtons");
 		
-		delete.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> note.getContainer().delete(note.getID()));
+		delete.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> note.getContainer().delete(note));
 		delete.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> delete.setOpacity(0.4));
 		delete.addEventHandler(MouseEvent.MOUSE_EXITED, (e) -> delete.setOpacity(1));
 		
@@ -750,5 +808,36 @@ public class Note implements INotes
 	public void setImportant(Boolean b)
 	{
 		this.important = b;
+	}
+	
+	public LinkedList<INotes> getChildrens()
+	{
+		return null;
+	}
+	
+	public void addChildren(INotes n, Integer position)
+	{
+		
+	}
+	
+	public void killChild(INotes child) {}
+	
+	public INotes getRootItem()
+	{
+		if(this.parent != null)
+		{
+			INotes ret = this.parent;
+			
+			while(ret.getParent() != null)
+			{
+				ret = ret.getParent();
+			}
+			
+			return ret;
+		}
+		else
+		{
+			return this;
+		}
 	}
 }

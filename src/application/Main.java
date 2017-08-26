@@ -78,6 +78,25 @@ public class Main extends Application
 			
 			//------------------------------------------------------------------------
 			
+			/*
+			ImageView afi = new ImageView(INotes.IMG_ADD_FOLDER);
+			Button addFolderB = new Button();
+			addFolderB.setGraphic(afi);
+			addFolderB.getStyleClass().add("buttons");
+
+			addFolderB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+			{
+				@Override
+				public void handle(MouseEvent arg0) 
+				{
+					noteManager.addFolder();
+				}
+			});*/
+			
+			Button addFolderB = noteManager.createAddFolderButton();
+			
+			//------------------------------------------------------------------------
+			
 			Label noteIcon = noteManager.createTabIcon();
 			
 			//------------------------------------------------------------------------
@@ -87,7 +106,7 @@ public class Main extends Application
 			tb.setBackground(Background.EMPTY);
 		
 			tbButtonsLeft.getStyleClass().add("buttonsLeftCont");
-			tbButtonsLeft.getChildren().add(addTaskB);
+			tbButtonsLeft.getChildren().addAll(addTaskB, addFolderB);
 
 			tbButtonsRight.getStyleClass().add("buttonsRightCont");
 			tbButtonsRight.setPickOnBounds(true);
