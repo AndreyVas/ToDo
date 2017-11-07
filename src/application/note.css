@@ -274,3 +274,26 @@
 {
 	-fx-padding: 0 0 0 30;
 }
+
+/*----------------------------------------------------------*/
+/*Attachments load file. File path area */
+
+.filePath
+{
+	-fx-border-width: 0 0 0 0;
+    -fx-background-color: transparent;
+    -fx-border-insets: 0 5 0 5;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-font-size:16px;
+    -fx-pref-height:30px;
+    -fx-padding:0.0 0.0 0.0 10px  
+}
+
+/* Attachmtnt not added label */
+
+.attachmentsNotAdded
+{
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-font-size:14px;
+    -fx-padding:20px 20px 20px 20px  
+}

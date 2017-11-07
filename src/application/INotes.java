@@ -20,6 +20,8 @@ public interface INotes
 	public final String SAVE = "save";
 	public final String SHOW_REMIND = "show_remind";
 	
+	// XML tags
+	
 	public final String ITEM = "item";
 	public final String TYPE = "type";
 	public final String STATUS = "status";
@@ -39,12 +41,22 @@ public interface INotes
 	public final String REMIND = "remind";
 	public final String IMPORTATN = "importatn";
 	public final String NUMBER = "number";
+	public final String ATTACHMENTS = "attachments";
+	
+	// items type 
 	
 	public final String NOTE = "note";
 	public final String TASK = "task";
 	public final String STICKER = "sticker";
 	public final String REMINDER = "reminder";
 	public final String FOLDER = "folder";
+	
+	// shown content type
+	
+	public final String SHOW_TEXT = "show_text";
+	public final String SHOW_ATTACHMENTS = "show_attachments";
+	
+	// item status
 	
 	public final String ACTIVE = "active";
 	public final String CANSELED = "canseled";
@@ -62,9 +74,9 @@ public interface INotes
 	public final String RESIZE_R = "resizeR";
 	public final String MOVE = "move";
 	
-	public final String IMG_ADD_FOLDER = "addFolder.png";
-	public final String IMG_FOLDER = "folder.png";
-	public final String IMG_OPENT_FOLDER = "openFolder.png";
+	//public final String IMG_ADD_FOLDER = "addFolder.png";
+	//public final String IMG_FOLDER = "folder.png";
+	//public final String IMG_OPENT_FOLDER = "openFolder.png";
 	
 	public final String NOT_ACTION = "notAction";
 
@@ -96,4 +108,7 @@ public interface INotes
 	public void killChild(INotes child);
 	public int getNumber();
 	public void setNumber(int number);
+	
+	public void addAttachment(IAttachment a);
+//	public void removeAttachment(IAttachment a);
 }

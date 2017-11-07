@@ -17,6 +17,8 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
@@ -77,6 +79,7 @@ public class Sticker extends Note implements INotes
 		showNote.setY(y);
 		showNote.setWidth(widht);
 		showNote.setHeight(height);
+		
 	}
 
 	public static INotes createItem(NodeList noteItems, Resize resizeObject, NotesContainer lincToCont)
@@ -198,36 +201,25 @@ public class Sticker extends Note implements INotes
     	
     	//---------------------------------------------------------
     	
-    	ImageView ci = new ImageView("close.png");
+    	ImageView ci = new ImageView(Resources.getResource(Resources.IMG_CLOSE));
 		Button closeB = new Button();
 		closeB.setGraphic(ci);
 		closeB.getStyleClass().add("buttons");
 		
-		closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				stage.close();
-			}
-		});
+		closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> stage.close());
 
-		ImageView coi = new ImageView("confirmation.png");
+		ImageView coi = new ImageView(Resources.getResource(Resources.IMG_CONFIRMATION));
 		Button confirmationB = new Button();
 		confirmationB.setGraphic(coi);
 		confirmationB.getStyleClass().add("buttons");
 		
-		confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
 				INotes n = new Sticker(text.getText(), INotes.ACTIVE, Calendar.getInstance(), resizeObject, notes);
 				notes.addNew(n);
 				n.show(settings);
 	
 				stage.close();
-			}
 		});
 		
 		tbButtonsLeft.getStyleClass().add("buttonsLeftCont");
@@ -240,19 +232,15 @@ public class Sticker extends Note implements INotes
 		StackPane tbButtonsCon = new StackPane();
 		HBox.setHgrow(tbButtonsCon, Priority.ALWAYS);
 		
-		tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>()
+		tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent arg0) 
+			if(e.getX() > tbButtonsCon.getWidth()/2)
 			{
-				if(arg0.getX() > tbButtonsCon.getWidth()/2)
-				{
-					tbButtonsRight.setMouseTransparent(false);
-				}
-				else
-				{
-					tbButtonsRight.setMouseTransparent(true);
-				}
+				tbButtonsRight.setMouseTransparent(false);
+			}
+			else
+			{
+				tbButtonsRight.setMouseTransparent(true);
 			}
 		});
 		
@@ -289,7 +277,7 @@ public class Sticker extends Note implements INotes
     	
 		HBox resizedCont = new HBox();
 		resizedCont.setAlignment(Pos.CENTER_RIGHT);
-		ImageView resizeImg = new ImageView("resize.png");
+		ImageView resizeImg = new ImageView(Resources.getResource(Resources.IMG_RESIZE));
 		Label resized = new Label();
 		resized.setGraphic(resizeImg);
 		resizedCont.getChildren().add(resized);
@@ -300,12 +288,12 @@ public class Sticker extends Note implements INotes
     	pane.setBottom(resizedCont);
     	
     	stage.setScene(scene);
-    	stage.getIcons().add(new Image("stickerIcon.png"));
+    	stage.getIcons().add(new Image(Resources.getResource(Resources.IMG_STICKER_ICON)));
     	stage.show();
     	
     	resizeObject.setResized(stage, tb, resized);
 	}
-	
+
 	public void show(Settings settings)
 	{
 		if(wasShown)
@@ -339,6 +327,20 @@ public class Sticker extends Note implements INotes
 		    	showBody.getStyleClass().add("stickerText");
 		    	showBody.setWrapText(true);
 		    	
+		    	showBody.addEventHandler(KeyEvent.KEY_PRESSED, (e) -> {
+		    		if(e.isControlDown())
+		    		{
+		    			if(e.getCode().equals(KeyCode.S) || e.getText().toLowerCase().equals("ы"))
+		    			{
+		    				tbButtonsLeft.setVisible(false);
+
+							body = showBody.getText();
+			
+							lincToCont.update(self);
+		    			}
+		    		}
+		    	});
+		    	
 		    	showBody.textProperty().addListener(new ChangeListener<String>()
     			{
 					@Override
@@ -355,37 +357,29 @@ public class Sticker extends Note implements INotes
 		    	//------------------------------------------
 		    	// add save and update buttons
 
-		    	ImageView ci = new ImageView("close.png");
+		    	ImageView ci = new ImageView(Resources.getResource(Resources.IMG_CLOSE));
 				Button closeB = new Button();
 				closeB.setGraphic(ci);
 				closeB.getStyleClass().add("buttons");
 				
-				closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+				closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 				{
-					@Override
-					public void handle(MouseEvent arg0) 
-					{
 						shown = false;
 						showNote.close();
-					}
 				});
 				
-				ImageView coi = new ImageView("confirmation.png");
+				ImageView coi = new ImageView(Resources.getResource(Resources.IMG_CONFIRMATION));
 				Button confirmationB = new Button();
 				confirmationB.setGraphic(coi);
 				confirmationB.getStyleClass().add("buttons");
 				
-				confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+				confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 				{
-					@Override
-					public void handle(MouseEvent arg0) 
-					{
-						tbButtonsLeft.setVisible(false);
+					tbButtonsLeft.setVisible(false);
 
-						body = showBody.getText();
-		
-						lincToCont.update(self);
-					}
+					body = showBody.getText();
+	
+					lincToCont.update(self);
 				});
 
 				tbButtonsLeft.getStyleClass().add("buttonsLeftCont");
@@ -399,19 +393,16 @@ public class Sticker extends Note implements INotes
 				
 				StackPane tbButtonsCon = new StackPane();
 				HBox.setHgrow(tbButtonsCon, Priority.ALWAYS);
-				tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>()
+				
+				tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, (e) ->
 				{
-					@Override
-					public void handle(MouseEvent arg0) 
+					if(e.getX() > tbButtonsCon.getWidth()/2)
 					{
-						if(arg0.getX() > tbButtonsCon.getWidth()/2)
-						{
-							tbButtonsRight.setMouseTransparent(false);
-						}
-						else
-						{
-							tbButtonsRight.setMouseTransparent(true);
-						}
+						tbButtonsRight.setMouseTransparent(false);
+					}
+					else
+					{
+						tbButtonsRight.setMouseTransparent(true);
 					}
 				});
 				
@@ -424,7 +415,7 @@ public class Sticker extends Note implements INotes
 		    	
 				HBox resizedCont = new HBox();
 				resizedCont.setAlignment(Pos.CENTER_RIGHT);
-				ImageView resizeImg = new ImageView("resize.png");
+				ImageView resizeImg = new ImageView(Resources.getResource(Resources.IMG_RESIZE));
 				Label resized = new Label();
 				resized.setGraphic(resizeImg);
 				resizedCont.getChildren().add(resized);
@@ -436,7 +427,7 @@ public class Sticker extends Note implements INotes
 		    	pane.setBottom(resizedCont);
 		    	
 		    	showNote.setScene(scene);
-		    	showNote.getIcons().add(new Image("stickerIcon.png"));
+		    	showNote.getIcons().add(new Image(Resources.getResource(Resources.IMG_STICKER_ICON)));
 		    	showNote.show();
 		    	
 		    	resizeObject.setResized(this.showNote, tb, resized);
@@ -467,7 +458,7 @@ public class Sticker extends Note implements INotes
 		
 		if(isImportant())
 		{
-			ImageView importantImg = new ImageView("important.png");
+			ImageView importantImg = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT));
 			text.setGraphic(importantImg);
 		}
 		
@@ -481,23 +472,8 @@ public class Sticker extends Note implements INotes
 		
 		HBox controls = addControls(this, settings);
 		
-		controls.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent event) 
-			{
-				text.setOpacity(0.4);
-			}
-		});
-		
-		controls.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent event) 
-			{
-				text.setOpacity(1);
-			}
-		});
+		controls.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> text.setOpacity(0.4));
+		controls.addEventHandler(MouseEvent.MOUSE_EXITED, (e) -> text.setOpacity(1));
 		
 		cont.getChildren().add(controls);
 		
@@ -583,43 +559,39 @@ public class Sticker extends Note implements INotes
 		
 		if(note.isShown())
 		{
-			showImgYes = new ImageView("showYes.png");
+			showImgYes = new ImageView(Resources.getResource(Resources.IMG_SHOW_YES));
 			show.setGraphic(showImgYes);
 		}
 		else
 		{
-			showImgNo = new ImageView("showNo.png");
+			showImgNo = new ImageView(Resources.getResource(Resources.IMG_SHOW_NO));
 			show.setGraphic(showImgNo);
 		}
 		
 		show.getStyleClass().add("tabPaneItemButtons");
 		
-		show.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		show.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent event) 
+			if(note.isShown())
 			{
-				if(note.isShown())
-				{
-					ImageView showImgNo;
-					showImgNo = new ImageView("showNo.png");
-					show.setGraphic(showImgNo);
-					
-					note.setShown(false);
-					note.hide();
-				}
-				else
-				{
-					ImageView showImgYes;
-					showImgYes = new ImageView("showYes.png");
-					show.setGraphic(showImgYes);
-					
-					note.show(settings);
-					note.setShown(true);
-				}
+				ImageView shImgNo;
+				shImgNo = new ImageView(Resources.getResource(Resources.IMG_SHOW_NO));
+				show.setGraphic(shImgNo);
 				
-				note.getContainer().save();
+				note.setShown(false);
+				note.hide();
 			}
+			else
+			{
+				ImageView shImgYes;
+				shImgYes = new ImageView(Resources.getResource(Resources.IMG_SHOW_YES));
+				show.setGraphic(shImgYes);
+				
+				note.show(settings);
+				note.setShown(true);
+			}
+			
+			note.getContainer().save();
 		});
 		
 		show.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> show.setOpacity(0.4));
@@ -635,37 +607,33 @@ public class Sticker extends Note implements INotes
 		
 		if(note.isImportant())
 		{
-			importantImgYes = new ImageView("importantNo.png");
+			importantImgYes = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_NO));
 			importantBut.setGraphic(importantImgYes);
 		}
 		else
 		{
-			importantImgNo = new ImageView("importantYes.png");
+			importantImgNo = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_YES));
 			importantBut.setGraphic(importantImgNo);
 		}
 		
-		importantBut.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		importantBut.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent event) 
+			if(note.isImportant())
 			{
-				if(note.isImportant())
-				{
-					ImageView importantImgNo;
-					importantImgNo = new ImageView("importantYes.png");
-					importantBut.setGraphic(importantImgNo);
-					note.setImportant(false);
-				}
-				else
-				{
-					ImageView importantImgYes;
-					importantImgYes = new ImageView("importantNo.png");
-					importantBut.setGraphic(importantImgYes);
-					note.setImportant(true);
-				}
-				
-				note.getContainer().update(note);
+				ImageView impImgNo;
+				impImgNo = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_YES));
+				importantBut.setGraphic(impImgNo);
+				note.setImportant(false);
 			}
+			else
+			{
+				ImageView impImgYes;
+				impImgYes = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_NO));
+				importantBut.setGraphic(impImgYes);
+				note.setImportant(true);
+			}
+			
+			note.getContainer().update(note);
 		});
 		
 		importantBut.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> importantBut.setOpacity(0.4));
@@ -673,21 +641,13 @@ public class Sticker extends Note implements INotes
 		
 		//-------------------------------------------
 		
-		ImageView delImg = new ImageView("trash.png");
+		ImageView delImg = new ImageView(Resources.getResource(Resources.IMG_TRASH));
 		Button delete = new Button();
 		delete.setGraphic(delImg);
 		delete.setTooltip(new Tooltip(NoteManager.DELETE));
 		delete.getStyleClass().add("tabPaneItemButtons");
 		
-		delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent event) 
-			{
-				note.getContainer().delete(note);
-			}
-		});
-		
+		delete.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> note.getContainer().delete(note));
 		delete.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> delete.setOpacity(0.4));
 		delete.addEventHandler(MouseEvent.MOUSE_EXITED, (e) -> delete.setOpacity(1));
 		

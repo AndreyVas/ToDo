@@ -248,37 +248,26 @@ public class Reminder extends Note implements INotes, IReminds
     	
     	//---------------------------------------------------------
     	
-    	ImageView ci = new ImageView("close.png");
+    	ImageView ci = new ImageView(Resources.getResource(Resources.IMG_CLOSE));
 		Button closeB = new Button();
 		closeB.setGraphic(ci);
 		closeB.getStyleClass().add("buttons");
 		
-		closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				stage.close();
-			}
-		});
+		closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> stage.close());
 
-		ImageView coi = new ImageView("confirmation.png");
+		ImageView coi = new ImageView(Resources.getResource(Resources.IMG_CONFIRMATION));
 		Button confirmationB = new Button();
 		confirmationB.setGraphic(coi);
 		confirmationB.getStyleClass().add("buttons");
 		
-		confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> 
 		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				LocalDateTime expireTime = date.getValue().atTime(Integer.valueOf(hours.getValue().toString()), Integer.valueOf(minutes.getValue().toString()));
-				
-				INotes n = new Reminder(bodyE.getText(), INotes.ACTIVE, false, null, expireTime, resizeObject, notes, IReminds.NO_REMIND);
-				notes.addNew(n);
+			LocalDateTime expireTime = date.getValue().atTime(Integer.valueOf(hours.getValue().toString()), Integer.valueOf(minutes.getValue().toString()));
+			
+			INotes n = new Reminder(bodyE.getText(), INotes.ACTIVE, false, null, expireTime, resizeObject, notes, IReminds.NO_REMIND);
+			notes.addNew(n);
 
-				stage.close();
-			}
+			stage.close();
 		});
 		
 		tbButtonsLeft.getStyleClass().add("buttonsLeftCont");
@@ -291,19 +280,15 @@ public class Reminder extends Note implements INotes, IReminds
 		StackPane tbButtonsCon = new StackPane();
 		HBox.setHgrow(tbButtonsCon, Priority.ALWAYS);
 		
-		tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>()
+		tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent arg0) 
+			if(e.getX() > tbButtonsCon.getWidth()/2)
 			{
-				if(arg0.getX() > tbButtonsCon.getWidth()/2)
-				{
-					tbButtonsRight.setMouseTransparent(false);
-				}
-				else
-				{
-					tbButtonsRight.setMouseTransparent(true);
-				}
+				tbButtonsRight.setMouseTransparent(false);
+			}
+			else
+			{
+				tbButtonsRight.setMouseTransparent(true);
 			}
 		});
 		
@@ -317,7 +302,7 @@ public class Reminder extends Note implements INotes, IReminds
     	
 		HBox resizedCont = new HBox();
 		resizedCont.setAlignment(Pos.CENTER_RIGHT);
-		ImageView resizeImg = new ImageView("resize.png");
+		ImageView resizeImg = new ImageView(Resources.getResource(Resources.IMG_RESIZE));
 		Label resized = new Label();
 		resized.setGraphic(resizeImg);
 		resizedCont.getChildren().add(resized);
@@ -328,7 +313,7 @@ public class Reminder extends Note implements INotes, IReminds
     	pane.setCenter(content);
     	pane.setBottom(resizedCont);
     	stage.setScene(scene);
-    	stage.getIcons().add(new Image("reminderIcon.png"));
+    	stage.getIcons().add(new Image(Resources.getResource(Resources.IMG_REMINDER_ICON)));
     	stage.show();
     	
     	resizeObject.setResized(stage, tb, resized);
@@ -482,7 +467,7 @@ public class Reminder extends Note implements INotes, IReminds
 		
 		if(isImportant())
 		{
-			ImageView importantImg = new ImageView("important.png");
+			ImageView importantImg = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT));
 			text.setGraphic(importantImg);
 		}
 
@@ -493,7 +478,7 @@ public class Reminder extends Note implements INotes, IReminds
 		
 		HBox reminde = new HBox();
 
-		ImageView remindeImg = new ImageView("reminde.png");
+		ImageView remindeImg = new ImageView(Resources.getResource(Resources.IMG_REMINDE));
 		remindeImg.setFitWidth(12);
 		remindeImg.setFitHeight(12);
 		
@@ -515,24 +500,16 @@ public class Reminder extends Note implements INotes, IReminds
 	
 		HBox controls = addControls(this, settings);
 		
-		controls.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>()
+		controls.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent event) 
-			{
 				text.setOpacity(0.4);
 				reminde.setOpacity(0.4);
-			}
 		});
 		
-		controls.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>()
+		controls.addEventHandler(MouseEvent.MOUSE_EXITED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent event) 
-			{
 				text.setOpacity(1);
 				reminde.setOpacity(1);
-			}
 		});
 		
 		cont.getChildren().add(controls);
@@ -622,45 +599,37 @@ public class Reminder extends Note implements INotes, IReminds
 		    	//------------------------------------------
 		    	// add save and update buttons
 	
-		    	ImageView ci = new ImageView("close.png");
+		    	ImageView ci = new ImageView(Resources.getResource(Resources.IMG_CLOSE));
 				Button closeB = new Button();
 				closeB.setGraphic(ci);
 				closeB.getStyleClass().add("buttons");
 				
-				closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+				closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 				{
-					@Override
-					public void handle(MouseEvent arg0) 
-					{
 						shown = false;
 						showNote.close();
-					}
 				});
 				
-				ImageView coi = new ImageView("confirmation.png");
+				ImageView coi = new ImageView(Resources.getResource(Resources.IMG_CONFIRMATION));
 				Button confirmationB = new Button();
 				confirmationB.setGraphic(coi);
 				confirmationB.getStyleClass().add("buttons");
 				
-				confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+				confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 				{
-					@Override
-					public void handle(MouseEvent arg0) 
+					tbButtonsLeft.setVisible(false);
+
+					body = bodyE.getText();
+					
+					LocalDateTime ldt = date.getValue().atTime(Integer.valueOf(hours.getValue().toString()), Integer.valueOf(minutes.getValue().toString()));
+
+					if(!ldt.equals(expire))
 					{
-						tbButtonsLeft.setVisible(false);
-
-						body = bodyE.getText();
-						
-						LocalDateTime ldt = date.getValue().atTime(Integer.valueOf(hours.getValue().toString()), Integer.valueOf(minutes.getValue().toString()));
-
-						if(!ldt.equals(expire))
-						{
-							remindCount = IReminds.NO_REMIND;
-							expire = ldt;
-						}
-
-						lincToCont.update(self);
+						remindCount = IReminds.NO_REMIND;
+						expire = ldt;
 					}
+
+					lincToCont.update(self);
 				});
 
 				tbButtonsLeft.getStyleClass().add("buttonsLeftCont");
@@ -675,19 +644,15 @@ public class Reminder extends Note implements INotes, IReminds
 				StackPane tbButtonsCon = new StackPane();
 				HBox.setHgrow(tbButtonsCon, Priority.ALWAYS);
 				
-				tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>()
+				tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, (e) ->
 				{
-					@Override
-					public void handle(MouseEvent arg0) 
+					if(e.getX() > tbButtonsCon.getWidth()/2)
 					{
-						if(arg0.getX() > tbButtonsCon.getWidth()/2)
-						{
-							tbButtonsRight.setMouseTransparent(false);
-						}
-						else
-						{
-							tbButtonsRight.setMouseTransparent(true);
-						}
+						tbButtonsRight.setMouseTransparent(false);
+					}
+					else
+					{
+						tbButtonsRight.setMouseTransparent(true);
 					}
 				});
 				
@@ -700,7 +665,7 @@ public class Reminder extends Note implements INotes, IReminds
 		    	
 				HBox resizedCont = new HBox();
 				resizedCont.setAlignment(Pos.CENTER_RIGHT);
-				ImageView resizeImg = new ImageView("resize.png");
+				ImageView resizeImg = new ImageView(Resources.getResource(Resources.IMG_RESIZE));
 				Label resized = new Label();
 				resized.setGraphic(resizeImg);
 				resizedCont.getChildren().add(resized);
@@ -713,7 +678,7 @@ public class Reminder extends Note implements INotes, IReminds
 		    	pane.setBottom(resizedCont);
 		    	
 		    	showNote.setScene(scene);
-		    	showNote.getIcons().add(new Image("reminderIcon.png"));
+		    	showNote.getIcons().add(new Image(Resources.getResource(Resources.IMG_REMINDER_ICON)));
 		    	showNote.show();
 		    	
 		    	resizeObject.setResized(this.showNote, tb, resized);
@@ -761,7 +726,7 @@ public class Reminder extends Note implements INotes, IReminds
 		
 		if(isImportant())
 		{
-			ImageView importantImg = new ImageView("important.png");
+			ImageView importantImg = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT));
 			text.setGraphic(importantImg);
 		}
 
@@ -770,7 +735,7 @@ public class Reminder extends Note implements INotes, IReminds
 		
 		HBox reminde = new HBox();
 
-		ImageView remindeImg = new ImageView("reminde.png");
+		ImageView remindeImg = new ImageView(Resources.getResource(Resources.IMG_REMINDE));
 		remindeImg.setFitWidth(12);
 		remindeImg.setFitHeight(12);
 		
@@ -790,15 +755,15 @@ public class Reminder extends Note implements INotes, IReminds
 		switch(this.getRemindCount())
 		{
 			case IReminds.FIRST_REMIND:
-				rcIMG = new ImageView("firstRemind.png");
+				rcIMG = new ImageView(Resources.getResource(Resources.IMG_FIRST_REMIND));
 				break;
 				
 			case IReminds.SECOND_REMIND:
-				rcIMG = new ImageView("secondRemind.png");
+				rcIMG = new ImageView(Resources.getResource(Resources.IMG_SECOND_REMIND));
 				break;
 				
 			case IReminds.THIRD_REMIND:
-				rcIMG = new ImageView("thirdRemind.png");
+				rcIMG = new ImageView(Resources.getResource(Resources.IMG_THIRD_REMIND));
 				break;
 		}
 		
@@ -819,23 +784,8 @@ public class Reminder extends Note implements INotes, IReminds
 		
 		//----------------------------------------------------------------
 		
-		cont.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent event) 
-			{
-				text.setOpacity(0.4);
-			}
-		});
-		
-		cont.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent event) 
-			{
-				text.setOpacity(1);
-			}
-		});
+		cont.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> text.setOpacity(0.4));
+		cont.addEventHandler(MouseEvent.MOUSE_EXITED, (e) -> text.setOpacity(1));
 		
 		//----------------------------------------------------------------
 
@@ -849,7 +799,7 @@ public class Reminder extends Note implements INotes, IReminds
 		
 		//-------------------------------------------
 		
-		ImageView delImg = new ImageView("trash.png");
+		ImageView delImg = new ImageView(Resources.getResource(Resources.IMG_TRASH));
 		Button delete = new Button();
 		delete.setGraphic(delImg);
 		delete.setTooltip(new Tooltip(NoteManager.DELETE));
@@ -869,37 +819,33 @@ public class Reminder extends Note implements INotes, IReminds
 		
 		if(note.isImportant())
 		{
-			importantImgYes = new ImageView("importantNo.png");
+			importantImgYes = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_NO));
 			importantBut.setGraphic(importantImgYes);
 		}
 		else
 		{
-			importantImgNo = new ImageView("importantYes.png");
+			importantImgNo = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_YES));
 			importantBut.setGraphic(importantImgNo);
 		}
 		
-		importantBut.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		importantBut.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent event) 
+			if(note.isImportant())
 			{
-				if(note.isImportant())
-				{
-					ImageView importantImgNo;
-					importantImgNo = new ImageView("importantYes.png");
-					importantBut.setGraphic(importantImgNo);
-					note.setImportant(false);
-				}
-				else
-				{
-					ImageView importantImgYes;
-					importantImgYes = new ImageView("importantNo.png");
-					importantBut.setGraphic(importantImgYes);
-					note.setImportant(true);
-				}
-				
-				note.getContainer().update(note);
+				ImageView impImgNo;
+				impImgNo = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_YES));
+				importantBut.setGraphic(impImgNo);
+				note.setImportant(false);
 			}
+			else
+			{
+				ImageView impImgYes;
+				impImgYes = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_NO));
+				importantBut.setGraphic(impImgYes);
+				note.setImportant(true);
+			}
+			
+			note.getContainer().update(note);
 		});
 		
 		importantBut.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> importantBut.setOpacity(0.4));

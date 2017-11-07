@@ -64,7 +64,7 @@ public class Folder implements INotes
 		}
 	}
 	
-	public static void createItemWindow(Settings settings, NotesContainer notes, Resize resizeObject)
+	public static void createItemWindow(Settings settings, NotesContainer notes, Resize resizeObject, INotes parent)
 	{
 		String inviteText = "Enter a folder name...";
 		
@@ -112,7 +112,7 @@ public class Folder implements INotes
     	
     	//---------------------------------------------------------
     	
-    	ImageView ci = new ImageView("close.png");
+    	ImageView ci = new ImageView(Resources.getResource(Resources.IMG_CLOSE));
 		Button closeB = new Button();
 		closeB.setGraphic(ci);
 		closeB.getStyleClass().add("buttons");
@@ -126,7 +126,7 @@ public class Folder implements INotes
 			}
 		});
 		
-		ImageView coi = new ImageView("confirmation.png");
+		ImageView coi = new ImageView(Resources.getResource(Resources.IMG_CONFIRMATION));
 		Button confirmationB = new Button();
 		confirmationB.setGraphic(coi);
 		confirmationB.getStyleClass().add("buttons");
@@ -138,11 +138,12 @@ public class Folder implements INotes
 			{
 				if(!enterName.getText().equals(inviteText))
 				{
-					// add folder ...
-					//INotes n = new Note(titleE.getText(), bodyE.getText(), false,  INotes.ACTIVE, Calendar.getInstance(), resizeObject, notes);
-					//notes.addNew(n);
-					
-					notes.addNew(new Folder(enterName.getText(), null, notes, resizeObject, null));
+					if(parent == null)
+						notes.addNew(new Folder(enterName.getText(), null, notes, resizeObject, null));
+					else
+					{
+						parent.addChildren(new Folder(enterName.getText(), null, notes, resizeObject, parent), null);
+					}
 					
 					stage.close();
 				}
@@ -186,7 +187,7 @@ public class Folder implements INotes
 		
 		HBox resizedCont = new HBox();
 		resizedCont.setAlignment(Pos.CENTER_RIGHT);
-		ImageView resizeImg = new ImageView("resize.png");
+		ImageView resizeImg = new ImageView(Resources.getResource(Resources.IMG_RESIZE));
 		Label resized = new Label();
 		resized.setGraphic(resizeImg);
 		resizedCont.getChildren().add(resized);
@@ -198,7 +199,7 @@ public class Folder implements INotes
     	pane.setBottom(resizedCont);
         
     	stage.setScene(scene);
-    	stage.getIcons().add(new Image("noteIcon.png"));
+    	stage.getIcons().add(new Image(Resources.getResource(Resources.IMG_NOTE_ICON)));
     	stage.show();
     	
     	//---------------------------------------------------------
@@ -388,12 +389,12 @@ public class Folder implements INotes
 		if(this.shown)
 		{
 			// if folder opened
-			folderIcon = new ImageView(INotes.IMG_OPENT_FOLDER);
+			folderIcon = new ImageView(Resources.getResource(Resources.IMG_OPEN_FOLDER));
 		}
 		else
 		{	
 			// if folder not opened
-			folderIcon = new ImageView(INotes.IMG_FOLDER);
+			folderIcon = new ImageView(Resources.getResource(Resources.IMG_FOLDER));
 		}
 		
 		name.setGraphic(folderIcon);
@@ -458,18 +459,6 @@ public class Folder implements INotes
 						}
 					});
 					
-					/*
-					 * int i;
-			
-			for(i = 0; i < cont.getChildren().size(); i++)
-			{
-				if(item.getNumber() < getNote(cont.getChildren().get(i)).getNumber())
-					break;
-			}
-			
-			cont.getChildren().add(i, p);
-					 */
-					
 					int i;
 					
 					for(i = 0; i < childrenCont.getChildren().size(); i++)
@@ -479,9 +468,6 @@ public class Folder implements INotes
 					}
 					
 					childrenCont.getChildren().add(i, tabItem);
-					//childrenCont.getChildren().add(tabItem);
-					
-					
 				}
 			}
 			else
@@ -522,7 +508,10 @@ public class Folder implements INotes
 			this.childrens.add(n);	
 		}
 		
+		this.shown = true;
 		n.setParent(this);
+		
+		this.lincToCont.update(this);
 	}
 	
 	@Override
@@ -653,7 +642,7 @@ public class Folder implements INotes
 		
 		//-------------------------------------------
 		
-		ImageView delImg = new ImageView("trash.png");
+		ImageView delImg = new ImageView(Resources.getResource(Resources.IMG_TRASH));
 		Button delete = new Button();
 		delete.setGraphic(delImg);
 		delete.setTooltip(new Tooltip(NoteManager.DELETE));
@@ -665,7 +654,7 @@ public class Folder implements INotes
 		
 		//-------------------------------------------
 		
-		ImageView addNoteImg = new ImageView("addTask.png");
+		ImageView addNoteImg = new ImageView(Resources.getResource(Resources.IMG_ADD_TASK));
 		Button addNote = new Button();
 		addNote.setGraphic(addNoteImg);
 		addNote.setTooltip(new Tooltip(NoteManager.ADD_NOTE));
@@ -674,12 +663,10 @@ public class Folder implements INotes
 		addNote.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> addNote.setOpacity(0.4));
 		addNote.addEventHandler(MouseEvent.MOUSE_EXITED, (e) -> addNote.setOpacity(1));
 		addNote.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> Note.createItemWindow(settings, lincToCont, resizeObject, folder));
-		
-		
-		
+
 		//-------------------------------------------
 		
-		ImageView addFolderImg = new ImageView(INotes.IMG_ADD_FOLDER);
+		ImageView addFolderImg = new ImageView(Resources.getResource(Resources.IMG_ADD_FOLDER));
 		Button addFolder = new Button();
 		addFolder.setGraphic(addFolderImg);
 		addFolder.setTooltip(new Tooltip(NoteManager.ADD_FOLDER));
@@ -687,6 +674,11 @@ public class Folder implements INotes
 		
 		addFolder.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> addFolder.setOpacity(0.4));
 		addFolder.addEventHandler(MouseEvent.MOUSE_EXITED, (e) -> addFolder.setOpacity(1));
+		
+		addFolder.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> 
+		{
+			Folder.createItemWindow(settings, this.lincToCont, this.resizeObject, this);
+		});
 		
 		//-------------------------------------------
 		
@@ -725,5 +717,10 @@ public class Folder implements INotes
 	public LinkedList<INotes> getChildrens()
 	{
 		return this.childrens;
+	}
+	
+	public void addAttachment(IAttachment a)
+	{
+		
 	}
 }

@@ -139,7 +139,7 @@ public class NotesContainer extends Observable
 			
 			parent.addChildren(n, null);
 			
-			lastUpdatedObject = parent;
+			lastUpdatedObject = n.getRootItem();
 			
 			setChanged();
 			notifyObservers(INotes.UPDATE);
@@ -316,7 +316,6 @@ public class NotesContainer extends Observable
 				{
 					n.setNumber(n.getNumber() - 1);
 				}
-					
 			}
 			
 			setChanged();
@@ -375,5 +374,4 @@ public class NotesContainer extends Observable
 		
 		return null;
 	}
-
 }

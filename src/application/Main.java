@@ -33,7 +33,7 @@ public class Main extends Application
 	{
 		try 
 		{
-			primaryStage.getIcons().add(new Image("icon.png"));
+			primaryStage.getIcons().add(new Image(Resources.getResource(Resources.IMG_ICON)));
 			
 			settings = new Settings();
 		
@@ -62,7 +62,7 @@ public class Main extends Application
 			
 			//------------------------------------------------------------------------
 			
-			ImageView ati = new ImageView("addTask.png");
+			ImageView ati = new ImageView(Resources.getResource(Resources.IMG_ADD_TASK));
 			Button addTaskB = new Button();
 			addTaskB.setGraphic(ati);
 			addTaskB.getStyleClass().add("buttons");
@@ -75,6 +75,9 @@ public class Main extends Application
 					noteManager.showAddWindow();
 				}
 			});
+			
+			addTaskB.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> addTaskB.setOpacity(0.4));
+			addTaskB.addEventHandler(MouseEvent.MOUSE_EXITED, (e) -> addTaskB.setOpacity(1));
 			
 			//------------------------------------------------------------------------
 			
@@ -140,7 +143,7 @@ public class Main extends Application
 			
 			HBox resizedCont = new HBox();
 			resizedCont.setAlignment(Pos.CENTER_RIGHT);
-			ImageView resizeImg = new ImageView("resize.png");
+			ImageView resizeImg = new ImageView(Resources.getResource(Resources.IMG_RESIZE));
 			Label resized = new Label();
 			resized.setGraphic(resizeImg);
 			resizedCont.getChildren().add(resized);

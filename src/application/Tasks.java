@@ -204,32 +204,18 @@ public class Tasks extends Reminder implements INotes, IReminds
     	Label subTasks = new Label(subTaskAdded + newTask.getSubTusks().size());
     	hb.getChildren().add(subTasks);
 
-    	ImageView addST = new ImageView("addTask.png");
+    	ImageView addST = new ImageView(Resources.getResource(Resources.IMG_ADD_TASK));
 		Button addSubTask = new Button();
 		addSubTask.setGraphic(addST);
 		//addSubTask.getStyleClass().add("topMenuButtons");
 		addSubTask.getStyleClass().add("buttons");
 		
 		subItemsCont.getChildren().addAll(hb, addSubTask);
-		
-		subItemsCont.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
 
-				
-			}
-		});
-
-		addSubTask.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		addSubTask.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				createItemWindow(settings, newTask, resizeObject, lincToCont);
-				subTasks.setText(subTaskAdded + newTask.getSubTusks().size());
-			}
+			createItemWindow(settings, newTask, resizeObject, lincToCont);
+			subTasks.setText(subTaskAdded + newTask.getSubTusks().size());
 		});
     	
     	contentCont.getChildren().add(subItemsCont);
@@ -237,59 +223,48 @@ public class Tasks extends Reminder implements INotes, IReminds
     	//---------------------------------------------------------
     	// actions buttons : close and confirmation
     	
-    	ImageView ci = new ImageView("close.png");
+    	ImageView ci = new ImageView(Resources.getResource(Resources.IMG_CLOSE));
 		Button closeB = new Button();
 		closeB.setGraphic(ci);
 		closeB.getStyleClass().add("buttons");
 		
-		closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				stage.close();
-			}
-		});
+		closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> stage.close());
 	
-		ImageView coi = new ImageView("confirmation.png");
+		ImageView coi = new ImageView(Resources.getResource(Resources.IMG_CONFIRMATION));
 		Button confirmationB = new Button();
 		confirmationB.setGraphic(coi);
 		confirmationB.getStyleClass().add("topMenuButtons");
 		confirmationB.getStyleClass().add("buttons");
 		
-		confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent arg0) 
+			if(titleE.getText().equals(titleInvite) || bodyE.getText().equals(textInvite))
 			{
-				if(titleE.getText().equals(titleInvite) || bodyE.getText().equals(textInvite))
+				System.out.println("not ready");
+			}
+			else
+			{
+				newTask.setInfo(titleE.getText(), bodyE.getText(), INotes.ACTIVE);
+				
+				if(enableExpire.isSelected())
 				{
-					System.out.println("not ready");
+					newTask.setExpireDate(true, LocalDateTime.of(date.getValue(), LocalTime.of(Integer.valueOf(hours.getValue()), Integer.valueOf(minutes.getValue()))), IReminds.NO_REMIND);
+				}
+		
+				if(parentNode != null)
+				{
+					Tasks parent = (Tasks)parentNode;
+					parent.getSubTusks().add(newTask);
+	
+					newTask.lincToCont.addNew(newTask.getMyself());
 				}
 				else
 				{
-					newTask.setInfo(titleE.getText(), bodyE.getText(), INotes.ACTIVE);
-					
-					if(enableExpire.isSelected())
-					{
-						newTask.setExpireDate(true, LocalDateTime.of(date.getValue(), LocalTime.of(Integer.valueOf(hours.getValue()), Integer.valueOf(minutes.getValue()))), IReminds.NO_REMIND);
-					}
-			
-					if(parentNode != null)
-					{
-						Tasks parent = (Tasks)parentNode;
-						parent.getSubTusks().add(newTask);
-		
-						newTask.lincToCont.addNew(newTask.getMyself());
-					}
-					else
-					{
-						newTask.lincToCont.addNew(newTask);
-					}
-					
-					stage.close();
-				}	
-			}
+					newTask.lincToCont.addNew(newTask);
+				}
+				
+				stage.close();
+			}	
 		});
 		
 		tbButtonsLeft.getStyleClass().add("buttonsLeftCont");
@@ -302,19 +277,15 @@ public class Tasks extends Reminder implements INotes, IReminds
 		StackPane tbButtonsCon = new StackPane();
 		HBox.setHgrow(tbButtonsCon, Priority.ALWAYS);
 		
-		tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>()
+		tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent arg0) 
+			if(e.getX() > tbButtonsCon.getWidth()/2)
 			{
-				if(arg0.getX() > tbButtonsCon.getWidth()/2)
-				{
-					tbButtonsRight.setMouseTransparent(false);
-				}
-				else
-				{
-					tbButtonsRight.setMouseTransparent(true);
-				}
+				tbButtonsRight.setMouseTransparent(false);
+			}
+			else
+			{
+				tbButtonsRight.setMouseTransparent(true);
 			}
 		});
 		
@@ -328,7 +299,7 @@ public class Tasks extends Reminder implements INotes, IReminds
     	
 		HBox resizedCont = new HBox();
 		resizedCont.setAlignment(Pos.CENTER_RIGHT);
-		ImageView resizeImg = new ImageView("resize.png");
+		ImageView resizeImg = new ImageView(Resources.getResource(Resources.IMG_RESIZE));
 		Label resized = new Label();
 		resized.setGraphic(resizeImg);
 		resizedCont.getChildren().add(resized);
@@ -343,7 +314,7 @@ public class Tasks extends Reminder implements INotes, IReminds
     	
     	resizeObject.setResized(stage, tb, resized);
     	
-    	stage.getIcons().add(new Image("taskIcon.png"));
+    	stage.getIcons().add(new Image(Resources.getResource(Resources.IMG_TASK_ICON)));
     	stage.showAndWait();
 	}
 	
@@ -602,88 +573,71 @@ public class Tasks extends Reminder implements INotes, IReminds
 		    	Label subTasksCount = new Label("Added subtasks - " + this.getSubTusks().size());
 		    	hb.getChildren().add(subTasksCount);
 
-		    	ImageView addST = new ImageView("addTask.png");
+		    	ImageView addST = new ImageView(Resources.getResource(Resources.IMG_ADD_TASK));
 				Button addSubTask = new Button();
 				addSubTask.setGraphic(addST);
 				addSubTask.getStyleClass().add("buttons");
 				
 				subItemsCont.getChildren().addAll(hb, addSubTask);
 				
-				subItemsCont.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+				subItemsCont.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 				{
-					@Override
-					public void handle(MouseEvent arg0) 
-					{
-						if(subTasks.size() != 0)
-							subTaskChooseWindow(settings);
-						
-						subTasksCount.setText("Added subtasks - " + getMyself().getSubTusks().size());
-					}
+					if(subTasks.size() != 0)
+						subTaskChooseWindow(settings);
+					
+					subTasksCount.setText("Added subtasks - " + getMyself().getSubTusks().size());
 				});
 
-				addSubTask.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+				addSubTask.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 				{
-					@Override
-					public void handle(MouseEvent arg0) 
-					{
-						createItemWindow(settings, getMyself(), resizeObject, getMyself().lincToCont);
-						subTasksCount.setText("Added subtasks - " + getMyself().getSubTusks().size());
-		
-					}
+					createItemWindow(settings, getMyself(), resizeObject, getMyself().lincToCont);
+					subTasksCount.setText("Added subtasks - " + getMyself().getSubTusks().size());
 				});
 		    	
 		    	//------------------------------------------
 		    	// add save and update buttons
 	
-		    	ImageView ci = new ImageView("close.png");
+		    	ImageView ci = new ImageView(Resources.getResource(Resources.IMG_CLOSE));
 				Button closeB = new Button();
 				closeB.setGraphic(ci);
 				closeB.getStyleClass().add("buttons");
 				
-				closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+				closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 				{
-					@Override
-					public void handle(MouseEvent arg0) 
-					{
-						shown = false;
-						showNote.close();
-					}
+					shown = false;
+					showNote.close();
 				});
 				
-				ImageView coi = new ImageView("confirmation.png");
+				ImageView coi = new ImageView(Resources.getResource(Resources.IMG_CONFIRMATION));
 				Button confirmationB = new Button();
 				confirmationB.setGraphic(coi);
 				confirmationB.getStyleClass().add("buttons");
 				
-				confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+				confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 				{
-					@Override
-					public void handle(MouseEvent arg0) 
+					tbButtonsLeft.setVisible(false);
+					
+					title = titleE.getText();
+					body = bodyE.getText();
+
+					if(enableExpire.isSelected())
 					{
-						tbButtonsLeft.setVisible(false);
-						
-						title = titleE.getText();
-						body = bodyE.getText();
+						LocalDateTime ldt = date.getValue().atTime(Integer.valueOf(hours.getValue().toString()), Integer.valueOf(minutes.getValue().toString()));
 
-						if(enableExpire.isSelected())
+						if(!ldt.equals(expire))
 						{
-							LocalDateTime ldt = date.getValue().atTime(Integer.valueOf(hours.getValue().toString()), Integer.valueOf(minutes.getValue().toString()));
-
-							if(!ldt.equals(expire))
-							{
-								remindCount = IReminds.NO_REMIND;
-								expire = ldt;
-							}
-							
-							reminde = true;
-						}
-						else
-						{
-							reminde = false;
+							remindCount = IReminds.NO_REMIND;
+							expire = ldt;
 						}
 						
-						lincToCont.update(self);
+						reminde = true;
 					}
+					else
+					{
+						reminde = false;
+					}
+					
+					lincToCont.update(self);
 				});
 
 				tbButtonsLeft.getStyleClass().add("buttonsLeftCont");
@@ -698,19 +652,15 @@ public class Tasks extends Reminder implements INotes, IReminds
 				StackPane tbButtonsCon = new StackPane();
 				HBox.setHgrow(tbButtonsCon, Priority.ALWAYS);
 				
-				tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>()
+				tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, (e) ->
 				{
-					@Override
-					public void handle(MouseEvent arg0) 
+					if(e.getX() > tbButtonsCon.getWidth()/2)
 					{
-						if(arg0.getX() > tbButtonsCon.getWidth()/2)
-						{
-							tbButtonsRight.setMouseTransparent(false);
-						}
-						else
-						{
-							tbButtonsRight.setMouseTransparent(true);
-						}
+						tbButtonsRight.setMouseTransparent(false);
+					}
+					else
+					{
+						tbButtonsRight.setMouseTransparent(true);
 					}
 				});
 				
@@ -723,7 +673,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 		    	
 				HBox resizedCont = new HBox();
 				resizedCont.setAlignment(Pos.CENTER_RIGHT);
-				ImageView resizeImg = new ImageView("resize.png");
+				ImageView resizeImg = new ImageView(Resources.getResource(Resources.IMG_RESIZE));
 				Label resized = new Label();
 				resized.setGraphic(resizeImg);
 				resizedCont.getChildren().add(resized);
@@ -737,7 +687,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 		    	pane.setBottom(resizedCont);
 		    	
 		    	showNote.setScene(scene);
-		    	showNote.getIcons().add(new Image("taskIcon.png"));
+		    	showNote.getIcons().add(new Image(Resources.getResource(Resources.IMG_TASK_ICON)));
 		    	showNote.show();
 		    	
 		    	resizeObject.setResized(this.showNote, tb, resized);
@@ -936,19 +886,19 @@ public class Tasks extends Reminder implements INotes, IReminds
 		
 		if(this.status.equals(INotes.CANSELED))
 		{
-			ImageView importantImg = new ImageView("canselSmal.png");
+			ImageView importantImg = new ImageView(Resources.getResource(Resources.IMG_CANSEL_SMAL));
 			text.setGraphic(importantImg);
 			text.getStyleClass().add("tabPaneItemTextCansel");
 		}
 		else if(this.status.equals(INotes.COMPLETED))
 		{
-			ImageView importantImg = new ImageView("ok.png");
+			ImageView importantImg = new ImageView(Resources.getResource(Resources.IMG_OK));
 			text.setGraphic(importantImg);
 			text.getStyleClass().add("tabPaneItemTextCompleted");
 		}
 		else if(isImportant())
 		{
-			ImageView importantImg = new ImageView("important.png");
+			ImageView importantImg = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT));
 			text.setGraphic(importantImg);
 		}
 		
@@ -961,7 +911,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 
 		if(this.reminde == true)
 		{
-			ImageView remindeImg = new ImageView("reminde.png");
+			ImageView remindeImg = new ImageView(Resources.getResource(Resources.IMG_REMINDE));
 			remindeImg.setFitWidth(12);
 			remindeImg.setFitHeight(12);
 			
@@ -983,24 +933,16 @@ public class Tasks extends Reminder implements INotes, IReminds
 
 		HBox controls = addControls(this, settings);
 		
-		controls.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>()
+		controls.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent event) 
-			{
-				text.setOpacity(0.4);
-				reminde.setOpacity(0.4);
-			}
+			text.setOpacity(0.4);
+			reminde.setOpacity(0.4);
 		});
 		
-		controls.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>()
+		controls.addEventHandler(MouseEvent.MOUSE_EXITED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent event) 
-			{
-				text.setOpacity(1);
-				reminde.setOpacity(1);
-			}
+			text.setOpacity(1);
+			reminde.setOpacity(1);
 		});
 		
 		cont.getChildren().add(controls);
@@ -1043,19 +985,15 @@ public class Tasks extends Reminder implements INotes, IReminds
         //------------------------------------------------------------------------
         // add save and update buttons
     	
-    	ImageView ci = new ImageView("close.png");
+    	ImageView ci = new ImageView(Resources.getResource(Resources.IMG_CLOSE));
 		Button closeB = new Button();
 		closeB.setGraphic(ci);
 		closeB.getStyleClass().add("buttons");
 		
-		closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				subTuskTreeRoot = null;
-				subTusksWindow.close();
-			}
+			subTuskTreeRoot = null;
+			subTusksWindow.close();
 		});
 
 		tbButtonsRight.getStyleClass().add("buttonsRightCont");
@@ -1075,7 +1013,7 @@ public class Tasks extends Reminder implements INotes, IReminds
     	
 		HBox resizedCont = new HBox();
 		resizedCont.setAlignment(Pos.CENTER_RIGHT);
-		ImageView resizeImg = new ImageView("resize.png");
+		ImageView resizeImg = new ImageView(Resources.getResource(Resources.IMG_RESIZE));
 		Label resized = new Label();
 		resized.setGraphic(resizeImg);
 		resizedCont.getChildren().add(resized);
@@ -1170,14 +1108,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 						//sp.getChildren().add(note.addControls(note, settings));
 						ti.setValue(sp);
 						
-						sp.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-						{
-							@Override
-							public void handle(MouseEvent arg0) 
-							{
-								note.show(settings);
-							}
-						});
+						sp.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> note.show(settings));
 						
 						break;
 					}
@@ -1223,14 +1154,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 		item = t.getTabItem(settings);
 		//item.getChildren().addAll(t.addControls(t, settings));
 		
-		item.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				t.show(settings);
-			}
-		});
+		item.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> t.show(settings));
 		
 		return item;
 	}
@@ -1241,35 +1165,31 @@ public class Tasks extends Reminder implements INotes, IReminds
 
 		//----------------------------------------------
 		
-		ImageView ci = new ImageView("trash.png");
+		ImageView ci = new ImageView(Resources.getResource(Resources.IMG_TRASH));
 		Button delete = new Button();
 		delete.setGraphic(ci);
 		delete.getStyleClass().add("buttons");
 		delete.getStyleClass().add("tabPaneItemButtons");
 		
-		delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		delete.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> 
 		{
-			@Override
-			public void handle(MouseEvent arg0) 
+			if(note.getParent() == null)
 			{
-				if(note.getParent() == null)
+				note.getContainer().delete(note);
+			}
+			else
+			{
+				Tasks pTask = (Tasks)note.getParent();
+				pTask.getSubTusks().remove(note);
+				
 				{
-					note.getContainer().delete(note);
+					updateSubNotes(INotes.REMOVE, pTask.subTuskTreeRoot, note, settings);
+					pTask = (Tasks)pTask.getParent();
 				}
-				else
-				{
-					Tasks pTask = (Tasks)note.getParent();
-					pTask.getSubTusks().remove(note);
-					
-					{
-						updateSubNotes(INotes.REMOVE, pTask.subTuskTreeRoot, note, settings);
-						pTask = (Tasks)pTask.getParent();
-					}
-					
-					note.closeActiveWindow();
+				
+				note.closeActiveWindow();
 
-					lincToCont.save();
-				}
+				lincToCont.save();
 			}
 		});
 		
@@ -1278,7 +1198,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 		
 		//----------------------------------------------
 		
-		ImageView doneImg = new ImageView("done.png");
+		ImageView doneImg = new ImageView(Resources.getResource(Resources.IMG_DONE));
 		Button done = new Button();
 		done.setGraphic(doneImg);
 		done.getStyleClass().add("tabPaneItemButtons");
@@ -1290,20 +1210,16 @@ public class Tasks extends Reminder implements INotes, IReminds
 		
 		//----------------------------------------------
 		
-		ImageView canselImg = new ImageView("cansel.png");
+		ImageView canselImg = new ImageView(Resources.getResource(Resources.IMG_CANSEL));
 		Button cansel = new Button();
 		cansel.setGraphic(canselImg);
 		cansel.getStyleClass().add("tabPaneItemButtons");
 		cansel.setTooltip(new Tooltip(NoteManager.CANSEL));
 		
-		cansel.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		cansel.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent event) 
-			{
-				note.setStatus(INotes.CANSELED);
-				note.getContainer().update(note);
-			}
+			note.setStatus(INotes.CANSELED);
+			note.getContainer().update(note);
 		});
 		
 		cansel.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> cansel.setOpacity(0.4));
@@ -1319,37 +1235,33 @@ public class Tasks extends Reminder implements INotes, IReminds
 		
 		if(note.isImportant())
 		{
-			importantImgYes = new ImageView("importantNo.png");
+			importantImgYes = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_NO));
 			importantBut.setGraphic(importantImgYes);
 		}
 		else
 		{
-			importantImgNo = new ImageView("importantYes.png");
+			importantImgNo = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_YES));
 			importantBut.setGraphic(importantImgNo);
 		}
 		
-		importantBut.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		importantBut.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent event) 
+			if(note.isImportant())
 			{
-				if(note.isImportant())
-				{
-					ImageView importantImgNo;
-					importantImgNo = new ImageView("importantYes.png");
-					importantBut.setGraphic(importantImgNo);
-					note.setImportant(false);
-				}
-				else
-				{
-					ImageView importantImgYes;
-					importantImgYes = new ImageView("importantNo.png");
-					importantBut.setGraphic(importantImgYes);
-					note.setImportant(true);
-				}
-
-				note.getContainer().update(note);
+				ImageView impImgNo;
+				impImgNo = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_YES));
+				importantBut.setGraphic(impImgNo);
+				note.setImportant(false);
 			}
+			else
+			{
+				ImageView impImgYes;
+				impImgYes = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_NO));
+				importantBut.setGraphic(impImgYes);
+				note.setImportant(true);
+			}
+
+			note.getContainer().update(note);
 		});
 		
 		importantBut.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> importantBut.setOpacity(0.4));
@@ -1357,7 +1269,7 @@ public class Tasks extends Reminder implements INotes, IReminds
 		
 		//-------------------------------------------
 		
-		ImageView addImg = new ImageView("addTask.png");
+		ImageView addImg = new ImageView(Resources.getResource(Resources.IMG_ADD_TASK));
 		Button addSubTask = new Button();
 		addSubTask.setGraphic(addImg);
 		addSubTask.getStyleClass().add("tabPaneItemButtons");
@@ -1369,20 +1281,16 @@ public class Tasks extends Reminder implements INotes, IReminds
 
 		//----------------------------------------------
 		
-		ImageView restoreImg = new ImageView("restore.png");
+		ImageView restoreImg = new ImageView(Resources.getResource(Resources.IMG_RESTORE));
 		Button restore = new Button();
 		restore.setGraphic(restoreImg);
 		restore.getStyleClass().add("tabPaneItemButtons");
 		restore.setTooltip(new Tooltip(NoteManager.RESTORE));
 		
-		restore.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		restore.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> 
 		{
-			@Override
-			public void handle(MouseEvent event) 
-			{
-				note.setStatus(INotes.ACTIVE);
-				note.getContainer().update(note);
-			}
+			note.setStatus(INotes.ACTIVE);
+			note.getContainer().update(note);
 		});
 		
 		restore.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> restore.setOpacity(0.4));

@@ -1,35 +1,932 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><items><item><type>sticker</type><content><status>active</status><created>1497807672542</created><expire>N/A</expire><text>Aduino nano (двух форматов)
-Blouutosh модуль для ардуино
-? Двигатели с винатми
-Провода для подключения на плате
-Макетная плата
-? Набор диодов
-3 сервы
-Набор светодиодов</text><X>235.0</X><Y>114.0</Y><WIDTH>332.0</WIDTH><HEIGHT>252.0</HEIGHT><SHOWN>true</SHOWN><importatn>false</importatn></content></item><item><type>task</type><content><status>active</status><expire>non</expire><remind>false</remind><title>SQL client</title><text>Возможнось подключения к SQL базам разных производителей
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><items><item><type>task</type><content><status>active</status><expire>non</expire><remind>false</remind><title>SQL client</title><text>Возможнось подключения к SQL базам разных производителей
 </text><subtasks><item><type>task</type><content><status>active</status><expire>non</expire><remind>false</remind><title>Логирование ошибок</title><text>Окна с ошибками
-Запись ошибок в лог файл</text><subtasks/><X>454.0</X><Y>139.0</Y><WIDTH>400.0</WIDTH><HEIGHT>400.0</HEIGHT><importatn>false</importatn><remind_count>0</remind_count></content></item><item><type>task</type><content><status>completed</status><expire>non</expire><remind>false</remind><title>Query Collection</title><text>Сохранение уже созданных запросов
+Запись ошибок в лог файл</text><subtasks/><X>586.0</X><Y>148.0</Y><WIDTH>400.0</WIDTH><HEIGHT>400.0</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item><item><type>task</type><content><status>completed</status><expire>non</expire><remind>false</remind><title>Query Collection</title><text>Сохранение уже созданных запросов
 Возможность запуска запросов из коллекции
-</text><subtasks/><X>506.0</X><Y>139.0</Y><WIDTH>400.0</WIDTH><HEIGHT>400.0</HEIGHT><importatn>false</importatn><remind_count>0</remind_count></content></item></subtasks><X>425.0</X><Y>165.0</Y><WIDTH>452.0</WIDTH><HEIGHT>378.0</HEIGHT><importatn>false</importatn><remind_count>0</remind_count></content></item><item><type>note</type><content><status>active</status><created>1497807672543</created><expire>N/A</expire><title>MySQL на Ubuntu</title><text>Запустить\остановить\перезагрузить :
+</text><subtasks/><X>506.0</X><Y>139.0</Y><WIDTH>400.0</WIDTH><HEIGHT>400.0</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item><item><type>task</type><content><status>completed</status><expire>non</expire><remind>false</remind><title>Выгрузка в Excel</title><text>Возможность выгрузить результат запроса в Excel таблицу. Возможно так же в текстовый файл.</text><subtasks/><X>733.0</X><Y>181.0</Y><WIDTH>463.0</WIDTH><HEIGHT>454.0</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item></subtasks><X>433.0</X><Y>142.0</Y><WIDTH>452.0</WIDTH><HEIGHT>378.0</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item><item><type>task</type><content><status>active</status><expire>non</expire><remind>false</remind><title>To Do</title><text>Исправления в подзадачах</text><subtasks><item><type>task</type><content><status>completed</status><expire>non</expire><remind>false</remind><title>Добавление элементов</title><text>Переделать добавление всех элементов. Убрать окно выбора создаваемого элемента. 
 
-	sudo service mysql restart\start\stop
+Тип создаваемого элемента должен выбираться в зависимости от выбранной вкладки.</text><subtasks/><X>92.0</X><Y>94.0</Y><WIDTH>320.0</WIDTH><HEIGHT>422.0</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item><item><type>task</type><content><status>completed</status><expire>non</expire><remind>false</remind><title>Папки</title><text>Для Notes добавить элемент - папка для более удобной группировки заметок
+Заметки должны перемещаться в папки движением мыши
+Папки должны иметь возможность содержать подпапки</text><subtasks/><X>472.0</X><Y>156.0</Y><WIDTH>483.0</WIDTH><HEIGHT>410.0</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item><item><type>task</type><content><status>active</status><expire>non</expire><remind>false</remind><title>Отображение задач</title><text>Задачи должны отображаться сразу с деревом подзадач.
 
-Автозагрузка :
+При открытии должна быть описана информация о главной задачи.
 
-	Стоит ли сервис в автозагрузке
-		systemctl is-enabled SERVICE
+При клике мыши на подзадачи должна открываться информация о ней, и скрываться ранне открытая.</text><subtasks/><X>NaN</X><Y>NaN</Y><WIDTH>NaN</WIDTH><HEIGHT>NaN</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item><item><type>task</type><content><status>active</status><expire>non</expire><remind>false</remind><title>Вложения</title><text>Для всех элементов необходима возможность закрузки и просмотра вложений.
+
+Предположительно кнопка в нижней части элемента.</text><subtasks/><X>527.0</X><Y>169.0</Y><WIDTH>320.0</WIDTH><HEIGHT>200.0</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item><item><type>task</type><content><status>active</status><expire>non</expire><remind>false</remind><title>Ремайндеры</title><text>В подзадачах список необходимых изменений</text><subtasks><item><type>task</type><content><status>active</status><expire>non</expire><remind>false</remind><title>Повторяющиеся ремайндеры</title><text>Возможность создавать напоминания с регулярным повторением</text><subtasks/><X>NaN</X><Y>NaN</Y><WIDTH>NaN</WIDTH><HEIGHT>NaN</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item><item><type>task</type><content><status>active</status><expire>non</expire><remind>false</remind><title>Удаление напоминнаий</title><text>При создании напоминаний сделать галочку, чтобы оно автоматически удалялось из списка
+
+Если эта галочка не установлена, напоминание становится красным, но не напоминает о себе</text><subtasks/><X>NaN</X><Y>NaN</Y><WIDTH>NaN</WIDTH><HEIGHT>NaN</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item></subtasks><X>NaN</X><Y>NaN</Y><WIDTH>NaN</WIDTH><HEIGHT>NaN</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item><item><type>task</type><content><status>active</status><expire>non</expire><remind>false</remind><title>closeActiveWindow</title><text>closeActiveWindow и hide методы дублируют друг друга !!! оставить только один.</text><subtasks/><X>406.0</X><Y>178.0</Y><WIDTH>422.0</WIDTH><HEIGHT>328.0</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item><item><type>task</type><content><status>active</status><expire>non</expire><remind>false</remind><title>Изменение цвета и прозрачности</title><text>Дополнительная кнопка в верхней правой части основного окна, которая переводит в окно с настройками :
+
+* цвет программы
+* установить, убрать прозрачность
+* ЗАКРЫТЬ ПРОГРАММУ</text><subtasks/><X>437.0</X><Y>114.0</Y><WIDTH>611.0</WIDTH><HEIGHT>513.0</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>7</number></content></item></subtasks><X>460.0</X><Y>108.0</Y><WIDTH>400.0</WIDTH><HEIGHT>400.0</HEIGHT><importatn>false</importatn><remind_count>0</remind_count><number>0</number></content></item><item><type>folder</type><content><name>Java</name><childrens><item><type>folder</type><content><name>XML</name><childrens><item><type>note</type><content><status>active</status><created>1510088402873</created><expire>N/A</expire><title>SAX</title><text>SAX (Simple API for XML) базируется на модели последовательной одноразовой обработки и не создает внутренних деревьев. При прохождении по XML вызывает соответствующие методы у классов, реализующих интерфейсы, предоставляемые SAX-парсером.
+
+Нет возможности записать документ, только считывание
+Использует push модель чтения документа
+
+
+Пример реализации : 
+
+/* Класы обрабатывающий XML файл */
+
+import javax.xml.parsers.*;
+import org.xml.sax.*;
+import org.xml.sax.helpers.*;
+
+import java.util.*;
+import java.io.*;
+
+public class SAXParse extends DefaultHandler
+{
+	private Hashtable&lt;String, Integer&gt; tags;
+	private XMLReader xmlReader;
+
+	SAXParse() throws SAXException, ParserConfigurationException
+	{
+		SAXParserFactory spf = SAXParserFactory.newInstance();
+	    spf.setNamespaceAware(true);
+
+		SAXParser saxParser = spf.newSAXParser();
+
+	    xmlReader = saxParser.getXMLReader();
+	    xmlReader.setContentHandler(this);
+	    xmlReader.setErrorHandler(new SAXParseErrorHandler(System.err));
+	}
 	
-	Убрать сервис из автозагрузке
-		sudo systemctl disable SERVICE
+	public void parseFile(File file) throws IOException, SAXException
+	{
+		this.xmlReader.parse(file.toString());
+	}
+	
+	public void startDocument() throws SAXException 
+	{
+        tags = new Hashtable&lt;String, Integer&gt;();
+    }
+	
+	public void startElement(String namespaceURI,String localName,String qName,Attributes atts) throws SAXException 
+	{
+		String key = localName;
+		Object value = tags.get(key);
+		
+		if (value == null) 
+		{
+			tags.put(key, new Integer(1));
+		} 
+		else 
+		{
+			int count = ((Integer)value).intValue();
+			count++;
+			tags.put(key, new Integer(count));
+		}
+	}
 
-	Добавить сервис в автозагрузку
-		sudo systemctl enable SERVICE
+    public void endDocument() throws SAXException 
+    {
+        Enumeration&lt;String&gt; e = tags.keys();
+        
+        while (e.hasMoreElements()) 
+        {
+            String tag = (String)e.nextElement();
+            int count = ((Integer)tags.get(tag)).intValue();
+            System.out.println("Local Name \"" + tag + "\" occurs " 
+                               + count + " times");
+        }    
+    }
+}
 
-Статья :
+/*  Обработка ошибок */
 
-	http://help.ubuntu.ru/wiki/mysql</text><X>287.0</X><Y>150.0</Y><WIDTH>500.0</WIDTH><HEIGHT>496.0</HEIGHT><importatn>false</importatn></content></item><item><type>note</type><content><status>active</status><created>1497807672543</created><expire>N/A</expire><title>Паттерны статьи</title><text>Паттерны для новичков
+import java.io.PrintStream;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
+public class SAXParseErrorHandler implements ErrorHandler
+{
+	private PrintStream out;
+
+	SAXParseErrorHandler(PrintStream out) 
+    {
+        this.out = out;
+    }
+
+    private String getParseExceptionInfo(SAXParseException spe) 
+    {
+        String systemId = spe.getSystemId();
+
+        if (systemId == null) {
+            systemId = "null";
+        }
+
+        String info = "URI=" + systemId + " Line=" 
+            + spe.getLineNumber() + ": " + spe.getMessage();
+
+        return info;
+    }
+
+    public void warning(SAXParseException spe) throws SAXException 
+    {
+        out.println("Warning: " + getParseExceptionInfo(spe));
+    }
+        
+    public void error(SAXParseException spe) throws SAXException 
+    {
+        String message = "Error: " + getParseExceptionInfo(spe);
+        throw new SAXException(message);
+    }
+
+    public void fatalError(SAXParseException spe) throws SAXException 
+    {
+    	String message = "Fatal Error: " + getParseExceptionInfo(spe);
+        throw new SAXException(message);
+    }
+}</text><X>211.0</X><Y>56.0</Y><WIDTH>916.0</WIDTH><HEIGHT>678.0</HEIGHT><importatn>false</importatn><number>1</number><attachments><link><name> Official website for SAX</name><address>http://www.saxproject.org/about.html</address></link><link><name>The Java™ Tutorials Parsing an XML using SAX</name><address>https://docs.oracle.com/javase/tutorial/jaxp/sax/parsing.html</address></link></attachments></content></item><item><type>folder</type><content><name>StAX</name><childrens><item><type>note</type><content><status>active</status><created>1510088402873</created><expire>N/A</expire><title>Cursor API</title><text>
+// чтение документа
+
+public interface XMLStreamReader 
+{
+    public int next() throws XMLStreamException;
+    public boolean hasNext() throws XMLStreamException;
+
+    public String getText();
+    public String getLocalName();
+    public String getNamespaceURI();
+    // ... other methods not shown
+}
+
+// запсиь документа
+
+public interface XMLStreamWriter 
+{
+    public void writeStartElement(String localName) throws XMLStreamException;
+    public void writeEndElement() throws XMLStreamException;
+    public void writeCharacters(String text) throws XMLStreamException;
+    // ... other methods not shown
+}</text><X>258.0</X><Y>79.0</Y><WIDTH>707.0</WIDTH><HEIGHT>546.0</HEIGHT><importatn>false</importatn><number>1</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402873</created><expire>N/A</expire><title>Iterator API</title><text>
+// чтение документа
+
+public interface XMLEventReader extends Iterator 
+{
+    public XMLEvent nextEvent() throws XMLStreamException;
+    public boolean hasNext();
+    public XMLEvent peek() throws XMLStreamException;
+    // ...
+}
+
+// запись документа
+
+public interface XMLEventWriter 
+{
+    public void flush() throws XMLStreamException;
+    public void close() throws XMLStreamException;
+    public void add(XMLEvent e) throws XMLStreamException;
+    public void add(Attribute attribute) throws XMLStreamException;
+    // ...
+}</text><X>315.0</X><Y>83.0</Y><WIDTH>657.0</WIDTH><HEIGHT>523.0</HEIGHT><importatn>false</importatn><number>2</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402873</created><expire>N/A</expire><title>Определения</title><text>StAX (Streaming API for XML) не создает дерево объектов в памяти, но, в отличие от SAX-парсера, за переход от одной вершины XML к другой отвечает приложение, которое запускает разбор документа.</text><X>393.0</X><Y>151.0</Y><WIDTH>544.0</WIDTH><HEIGHT>342.0</HEIGHT><importatn>false</importatn><number>0</number><attachments><link><name>The Java Tutorials</name><address>https://docs.oracle.com/javase/tutorial/jaxp/stax/index.html</address></link></attachments></content></item></childrens><number>2</number><SHOWN>false</SHOWN></content></item><item><type>note</type><content><status>active</status><created>1510088402873</created><expire>N/A</expire><title>Определения</title><text>XML (/ˌeks em ˈel/ англ. eXtensible Markup Language) — расширяемый язык разметки. 
+
+DOM (Document Object Model - объектная модель документов) - платформенно-независимый программный интерфейс, позволяющий программами скриптам управлять содержимым документов HTML и XML, а также изменять их структуру и оформление. Модель DOM не накладывает ограничений на структуру документа. Любой документ известной структуры с помощью DOM может быть представлен в виде дерева узлов, каждый узел которого содержит элемент, атрибут, текстовый, графический или любой другой объект. Узлы связаны между собой отношениями родитель-потомок.
+
+SAX (Simple API for XML) базируется на модели последовательной одноразовой обработки и не создает внутренних деревьев. При прохождении по XML вызывает соответствующие методы у классов, реализующих интерфейсы, предоставляемые SAX-парсером.
+
+StAX (Streaming API for XML) не создает дерево объектов в памяти, но, в отличие от SAX-парсера, за переход от одной вершины XML к другой отвечает приложение, которое запускает разбор документа.
+
+
+Когда следует использовать DOM, а когда - SAX, StAX анализаторы
+
+DOM-анализаторы следует использовать тогда, когда нужно знать структуру документа и может понадобиться изменять эту структуру либо использовать информацию из XML-документа несколько раз.
+
+SAX/StAX-анализаторы используются тогда, когда нужно извлечь информацию о нескольких элементах из XML-файла либо когда информация из документа нужна только один раз.</text><X>295.0</X><Y>131.0</Y><WIDTH>737.0</WIDTH><HEIGHT>537.0</HEIGHT><importatn>false</importatn><number>0</number><attachments/></content></item></childrens><number>4</number><SHOWN>true</SHOWN></content></item><item><type>folder</type><content><name>JavaFx</name><childrens><item><type>note</type><content><status>active</status><created>1510088402873</created><expire>N/A</expire><title>Clipboard</title><text>Add text to clipboard
+
+	final Clipboard clipboard = Clipboard.getSystemClipboard();
+     	final ClipboardContent content = new ClipboardContent();
+     	content.putString("Some text");
+     	content.putHtml("&lt;b&gt;Some&lt;/b&gt; text");
+     	clipboard.setContent(content);
+
+</text><X>429.0</X><Y>186.0</Y><WIDTH>629.0</WIDTH><HEIGHT>329.0</HEIGHT><importatn>false</importatn><number>0</number><attachments><link><name>Clipboard oracle doc</name><address>https://docs.oracle.com/javafx/2/api/javafx/scene/input/Clipboard.html</address></link></attachments></content></item><item><type>note</type><content><status>active</status><created>1510088402873</created><expire>N/A</expire><title>File Chooser</title><text>Пример использования
+
+final FileChooser fileChooser = new FileChooser();
+	 
+final Button openButton = new Button("Open a file...");
+	 
+openButton.setOnAction(new EventHandler&lt;ActionEvent&gt;() 
+{
+	@Override
+	public void handle(final ActionEvent e) 
+	{
+		File file = fileChooser.showOpenDialog(primaryStage);
+                    
+		if (file != null) 
+		{
+                    	
+		}
+	}
+});</text><X>371.0</X><Y>129.0</Y><WIDTH>685.0</WIDTH><HEIGHT>554.0</HEIGHT><importatn>false</importatn><number>1</number><attachments><link><name>JavaFX (Using JavaFX UI controls) </name><address>http://docs.oracle.com/javafx/2/ui_controls/file-chooser.htm</address></link></attachments></content></item></childrens><number>5</number><SHOWN>false</SHOWN></content></item><item><type>folder</type><content><name>NIO</name><childrens><item><type>note</type><content><status>active</status><created>1510088402873</created><expire>N/A</expire><title>Files &amp; Paths</title><text>Create folder
+Files.createDirectory(Paths path);
+
+Cope file
+Path Files.copy(Path source, Path target, CopyOption... options)
+Path Files.copy(Path source, Path target)
+
+CopyOption :
+StandardCopyOption.REPLACE_EXISTING - replace file if it already exist</text><X>399.0</X><Y>166.0</Y><WIDTH>526.0</WIDTH><HEIGHT>365.0</HEIGHT><importatn>false</importatn><number>0</number><attachments/></content></item></childrens><number>6</number><SHOWN>false</SHOWN></content></item><item><type>folder</type><content><name>Maven</name><childrens><item><type>note</type><content><status>active</status><created>1510088402873</created><expire>N/A</expire><title>POM.xml</title><text>Супер POM
+Все файлы РОМ явялютвя наследниками родительского POM. Этот POM файл называется Super POM и содержит значения, унаследованные по умолчанию.
+
+Посмотреть настройки по умолчанию Super POM файла:
+mvn help:effective-pom
+
+
+Структура 
+
+1. Корневой элемент и заголовок
+
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                    http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  .............
+&lt;/project&gt;
+
+Корневой элемент &lt;project&gt;, схема, которая облегчает редактирование и проверку и версия POM.
+
+2. Основная и обязательная информация опроекте
+
+&lt;groupId&gt;...&lt;/groupId&gt;
+&lt;artifactId&gt;...&lt;/artifactId&gt;
+&lt;version&gt;...&lt;/version&gt;
+
+groupId - Id группы проекта, обычно название организации 
+artifactId - индитификаторо проекта, чаще всего его имя
+version - версия проекта
+
+3. Зависимости - список всех библиотек (зависимостей), которые используются в проекте. Каждая библиотека идентифицируется так же как и сам проект - тройкой groupid, artifactId, version (GAV).
+
+&lt;dependencies&gt;
+	 &lt;dependency&gt;
+		&lt;groupId&gt;junit&lt;/groupId&gt;
+		&lt;artifactId&gt;junit&lt;/artifactId&gt;
+		&lt;version&gt;4.4&lt;/version&gt;
+		&lt;scope&gt;test&lt;/scope&gt;
+	 &lt;/dependency&gt;
+          . . .
+&lt;/dependencies&gt;
+
+&lt;scope&gt; - задаёт, для чего библиотека используется
+	
+	compile (значение по умолчанию) 
+	provided - 
+	test - используется для компиляции и запуска тестов
+
+4. Тег &lt;build&gt; не обязательный, т.к. существуют значения по умолчанию. Этот раздел содержит информацию по самой сборке : где находятся исходные файлы, где ресурсы, какие плагины используются :
+
+&lt;build&gt;
+	&lt;outputDirectory&gt;target2&lt;/outputDirectory&gt;
+	&lt;finalName&gt;ROOT&lt;/finalName&gt;
+	&lt;sourceDirectory&gt;src/java&lt;/sourceDirectory&gt;
+ 	&lt;resources&gt;
+		&lt;resource&gt;
+			&lt;directory&gt;${basedir}/src/java&lt;/directory&gt;
+			&lt;includes&gt;
+			&lt;include&gt;**/*.properties&lt;/include&gt;
+			&lt;/includes&gt;
+		&lt;/resource&gt;
+	&lt;/resources&gt;
+	&lt;plugins&gt;
+		&lt;plugin&gt;
+			&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+			&lt;artifactId&gt;maven-pmd-plugin&lt;/artifactId&gt;
+			&lt;version&gt;2.4&lt;/version&gt;
+		&lt;/plugin&gt;
+	&lt;/plugins&gt;
+&lt;/build&gt;
+
+&lt;sourceDirectory&gt;
+определяет, откуда maven будет брать файлы исходного кода. По умолчанию это src/main/java. Директория может быть только одна (без использования специальных плагинов)
+
+&lt;resources&gt;
+и вложенные в неё тэги &lt;resource&gt; определяют, одну или несколько директорий, где хранятся файлы ресурсов. Ресурсы в отличие от файлов исходного кода при сборке просто копируются . Директория по умолчанию src/main/resources
+
+&lt;outputDirectory&gt;
+определяет, в какую директорию компилятор будет сохранять результаты компиляции - *.class файлы. Значение по умолчанию - target/classes
+
+&lt;finalName&gt;
+имя результирующего jar (war, ear..) файла с соответствующим типу расширением, который создаётся на фазе package. Значение по умолчанию — artifactId-version.</text><X>215.0</X><Y>89.0</Y><WIDTH>895.0</WIDTH><HEIGHT>592.0</HEIGHT><importatn>false</importatn><number>2</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402873</created><expire>N/A</expire><title>Определения</title><text>POM (Project Object Model) - XML файл pom.xml, описывающий всю структуру проекта. Находится в корневой папке проекта
+
+Атрефакт - любая библиотека, хранящаяся в репозитории, это может быть какая - то зависимость или плагин.
+
+Зависимости - библиотеки, которые непосредственно используются в проекте для компиляции кода или его тестирования.
+
+Плагины - используются самим Maven'ом при сборке проекта или для каких то других целей (деплоймент, создание файлов проекта для Eclipse и др.)
+
+Архетип - стандартная компоновка файлов и каталоков в проектах различного рода.
+
+
+
+полезно\разобрать
+When you download Maven, you are getting
+the core of Maven, which consists of a very basic shell that knows only how to parse the command line,
+manage a classpath, parse a POM file, and download Maven plugins as needed. 
+
+
+
+</text><X>257.0</X><Y>63.0</Y><WIDTH>905.0</WIDTH><HEIGHT>652.0</HEIGHT><importatn>false</importatn><number>1</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402873</created><expire>N/A</expire><title>Жизненный цикл</title><text>validate — проверяет корректность метаинформации о проекте
+
+compile — компилирует исходники
+
+test — прогоняет тесты классов из предыдущего шага
+
+package — упаковывает скомпилированые классы в удобноперемещаемый формат (jar или war, к примеру)
+
+integration-test — отправляет упаковынные классы в среду интеграционного тестирования и прогоняет тесты
+
+verify — проверяет корректность пакета и удовлетворение требованиям качества
+
+install — загоняет пакет в локальный репозиторий, откуда он (пекат) будет доступен для использования как зависимость в других проектах
+
+deploy — отправляет пакет на удаленный production сервер, откуда другие разработчики его могут получить и использовать</text><X>332.0</X><Y>119.0</Y><WIDTH>643.0</WIDTH><HEIGHT>572.0</HEIGHT><importatn>false</importatn><number>2</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402873</created><expire>N/A</expire><title>Полезные зависимости</title><text>MySQL
+group ID - mysql
+aftefact ID = mysql-connector-java
+version - 5.1.29
+Deskription : Java библиотека драйвера MySQL</text><X>747.0</X><Y>167.0</Y><WIDTH>557.0</WIDTH><HEIGHT>265.0</HEIGHT><importatn>false</importatn><number>3</number><attachments/></content></item></childrens><number>3</number><SHOWN>false</SHOWN></content></item></childrens><number>0</number><SHOWN>false</SHOWN></content></item><item><type>folder</type><content><name>SQL</name><childrens><item><type>folder</type><content><name>DDL, Data Definition Lanhuage</name><childrens><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>CREATE</title><text>CREATE создает объект БД (саму базу, таблицу, представление, пользователя и т. д.)
+
+//----------------------------------------------------------------------------------------------
+
+Создание базы данных
+
+CREATE DABABASE `&lt;database name&gt;`;
+
+Создание базы с заданной кодировкой :
+
+CREATE DATABASE `&lt;database_name&gt;` DEFAULT CHARACTER SET cp1251
+COLLATE cp1251_general_ci;
+
+//----------------------------------------------------------------------------------------------
+
+Создание таблицы
+
+CREATE TABLE &lt;table name&gt;
+	(&lt;colum name1&gt; &lt;type&gt; [&lt;опции&gt;],
+	 &lt;colum name2&gt; &lt;type&gt; [&lt;опции&gt;],
+	 ...
+	) [&lt;дополнительные опции];
+
+В параметре &lt;опции&gt; могут быть указаны следующие значения :
+
+* NOT NULL - поле обязательно должно иметь значениее при вставке новой записи в таблицу ( если не задано значение по умолчанию). Если опция не указана то поле может быть пустым
+
+* PRIMARY KEY - указывает, что поле является первичным ключом таблицы. Записи в таком поле должны быть уникальными. Опция так же может быть указана после перечисления всех полей.
+
+* AUTO_INCREMENT - указывает, что поле является счётчиком : если при вставке новой записи указать NULL то MySQL автоматически сгенерирует значение. В таблице может быть только одно поле с этой опцией.
+
+* DEFAULT - задаёт для поля значение по умолчанию, которое будет использовано, если при вставке записи для этого поля не бло явно указано значение
+
+* CHARACTER SET - определяет кодировку текстового поляж 
+
+* COLLATE - задаёт тип сортировки текстового поля
+
+В параметре &lt;Дополнительные опции&gt; моут быть указаны следующие значения :
+
+* ENGINE - тип таблицы (MyISAM, InnoDB)
+
+* DEFAULT CHARSET - кодировка (например cp1251)
+
+* AUTO INCREMENT - начальное значение для автоматической генерации значения поля.
+
+</text><X>344.0</X><Y>131.0</Y><WIDTH>587.0</WIDTH><HEIGHT>431.0</HEIGHT><importatn>false</importatn><number>0</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>ALTER</title><text>Вставку нового столбца можно осуществить при помощи следующей конструкции:
+
+ALTER TABLE &lt;table_name&gt; ADD &lt;field_name&gt; &lt;parametrs&gt; 
+
+table_name - имя таблицы, в которой будет вставлен новый столбец;
+field_name - имя вставляемого столбца;
+parametrs - параметры, описывающие вставляемый столбец.
+
+Обязательным параметром является указание типа данных.</text><X>413.0</X><Y>109.0</Y><WIDTH>587.0</WIDTH><HEIGHT>416.0</HEIGHT><importatn>false</importatn><number>1</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>DROP</title><text>DROP - удаляет объект</text><X>NaN</X><Y>NaN</Y><WIDTH>NaN</WIDTH><HEIGHT>NaN</HEIGHT><importatn>true</importatn><number>2</number><attachments/></content></item></childrens><number>2</number><SHOWN>false</SHOWN></content></item><item><type>folder</type><content><name>DCL, Data Control Language</name><childrens/><number>3</number><SHOWN>false</SHOWN></content></item><item><type>folder</type><content><name>TCL, Transaction Control Language</name><childrens/><number>4</number><SHOWN>false</SHOWN></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Определения</title><text>SQL (ˈɛsˈkjuˈɛl; англ. structured query language — «язык структурированных запросов»)
+
+Операторы SQL делятся на:
+
+операторы определения данных (Data Definition Language, DDL):
+
+CREATE создает объект БД (саму базу, таблицу, представление, пользователя и т. д.),
+ALTER изменяет объект,
+DROP удаляет объект;
+
+операторы манипуляции данными (Data Manipulation Language, DML):
+
+SELECT выбирает данные, удовлетворяющие заданным условиям,
+INSERT добавляет новые данные,
+UPDATE изменяет существующие данные,
+DELETE удаляет данные;
+
+операторы определения доступа к данным (Data Control Language, DCL):
+
+GRANT предоставляет пользователю (группе) разрешения на определенные операции с объектом,
+REVOKE отзывает ранее выданные разрешения,
+DENY задает запрет, имеющий приоритет над разрешением;
+
+операторы управления транзакциями (Transaction Control Language, TCL):
+
+COMMIT применяет транзакцию,
+ROLLBACK откатывает все изменения, сделанные в контексте текущей транзакции,
+SAVEPOINT делит транзакцию на более мелкие участки.</text><X>395.0</X><Y>118.0</Y><WIDTH>504.0</WIDTH><HEIGHT>445.0</HEIGHT><importatn>false</importatn><number>0</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>SHOW</title><text>SHOW ENGINES; - вывод все х типов таблиц, поддерживаемых текущей версией MySQL
+
+SHOW CHARACTER SET; - вывод всех возможных кодировок
+
+SHOW COLLATION - список всех типов сортировки
+
+SHOW DATABASES - список баз данных.
+
+SHOW COLUMNS FROM `&lt;table&gt;` FROM `&lt;database&gt;` - структура конкретной таблицы (То же самое DESCRIBE `&lt;table&gt;`)</text><X>427.0</X><Y>176.0</Y><WIDTH>553.0</WIDTH><HEIGHT>438.0</HEIGHT><importatn>false</importatn><number>5</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Нормальная форма БД</title><text>
+Не должно быть повторений строк в таблице
+в одной яцейке должен находится только один элемент
+каждое неключевое поле зависит от первичного ключа
+неключевое поле не должно зависить от другого неключевого поля
+
+</text><X>521.0</X><Y>69.0</Y><WIDTH>465.0</WIDTH><HEIGHT>342.0</HEIGHT><importatn>false</importatn><number>6</number><attachments/></content></item><item><type>folder</type><content><name>DML, Data Manipulation Language</name><childrens><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>SELECT</title><text>SELECT [DISTINCT] &lt;список столбцов&gt;
+	FROM &lt;имя таблицы&gt; [JOIN &lt;имя таблицы&gt; ON &lt;условие связывания&gt;]
+	[WHERE &lt;условия выборки&gt;]
+	[GROUP BY &lt;список столбцов для группировки&gt; [HAVING &lt;условия выборки групп&gt;]]
+	[ORDER BY &lt;список столбцов для сортировки&gt;]</text><X>329.0</X><Y>147.0</Y><WIDTH>755.0</WIDTH><HEIGHT>309.0</HEIGHT><importatn>false</importatn><number>0</number><attachments/></content></item></childrens><number>1</number><SHOWN>false</SHOWN></content></item></childrens><number>1</number><SHOWN>false</SHOWN></content></item><item><type>sticker</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><text>Косяки в ToDo
+
+При создании нового элемента размер окна и положение не сохраняется
+
+Переделать хранение и добавление Tooltip
+
+Сделать сохранение по Ctrl + s (для напоминаний и тасков)
+
+проверить в windows
+сохранение файлов, их открытие и скачивание из программы
+
+Окно с настройками
+* закрыть приложение
+* прозрачность
+* цвет</text><X>112.0</X><Y>99.0</Y><WIDTH>375.0</WIDTH><HEIGHT>365.0</HEIGHT><SHOWN>true</SHOWN><importatn>false</importatn><number>0</number></content></item><item><type>sticker</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><text>Inversion of Control (IoC) - инверсия управления
+dependency injection (DI)
+data access objects (DAOs)
+Spring Expression Language (SpEL)
+
+Java Data Object - JDO
+</text><X>199.0</X><Y>402.0</Y><WIDTH>439.0</WIDTH><HEIGHT>204.0</HEIGHT><SHOWN>true</SHOWN><importatn>false</importatn><number>1</number></content></item><item><type>folder</type><content><name>Spring</name><childrens><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>XML конфигурация ApplicationContext</title><text>Простая конфигурацияЮ с обхявлением только пространства имен beans для определения бинов Spring
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   	 http://www.springframework.org/schema/beans/spring-beans.xsd"&gt;
+&lt;/beans&gt;
+
+Для испльзования поддержки аннотаций Spring в конфигурации XML необходимо объявить дескрипторы :
+
+xmlns:context="thhp://www.springframework.org/schema/context"
+&lt;context:component-scan base-package="&lt;package_name&gt;" /&gt;
+
+//----------------------------------------------------------------------------------------------------------------
+ВНЕДРЕНИЕ ЧЕРЕЗ СЕТТЕР
+
+Для конфигурирования Setter Injection c применением XML необходимо указать дескрипторы &lt;property&gt; внутри &lt;bean&gt; :
+
+&lt;bean id="someID"
+	class="&lt;pachage_name&gt;.&lt;class_name&gt;"&gt;
+	&lt;property name="injected_bean_name" ref="injected_bean"/&gt;
+&lt;/bean&gt;
+&lt;bean id="injected_bean"
+	class="&lt;package_name&gt;.&lt;class_name&gt;"/&gt;
+
+то же самое для Spring 2.5 и выше
+
+&lt;bean id="someID"
+	class="&lt;pachage_name&gt;.&lt;class_name&gt;"&gt;
+	p:injected_bean-ref="injected_bean"/&gt;
+
+&lt;bean id="injected_bean"
+	class="&lt;package_name&gt;.&lt;class_name&gt;"/&gt;
+
+!!! Необходимо добавить пространство имен р : xmlns:p="http://www.springframework.org/schema/p"
+
+!!! в дескрипторе &lt;ref&gt; может быть указан атрубут local &lt;ref loca="bean_id"&gt;, означающий, что дескриптор &lt;ref&gt; всегда просматривает индетификатор бина и никогда не принимает во внимание его псевдонимы.
+
+//----------------------------------------------------------------------------------------------------------------
+ВНЕДРЕНИЕ ЧЕРЕЗ КОНСТРУКТОР
+
+Внедрение простой стоки :
+
+	&lt;bean id="confMessageProvider"
+		class="study.StudySpring.ConfiguableMessageProvider"&gt;
+		&lt;constructor-arg value="Injected string"/&gt;
+	&lt;/bean&gt;
+
+Внедрение бина :
+	
+	&lt;bean id="injectedBeanID" class="&lt;package_name&gt;.&lt;class_name&gt;"/&gt;
+			
+	&lt;bean id="beanID"
+		class="&lt;package_name&gt;.&lt;class_name&gt;"&gt;
+		&lt;constructor-arg ref="injectedBeanID"/&gt;
+	&lt;/bean&gt;
+
+!!! 	можно так же испльзовать пространство имён с :
+	с:message="injected message"
+	Необходимо добавить : xmlns:c="http://www.springframework.org/schema/c"
+
+
+!!! 	в конструкторе так же можно указывать тип значения, для случаев, если имеются конструкторы с 		одинаковым колличеством параметров
+	&lt;constructor-arg type="int"&gt;
+		&lt;value&gt;1&lt;/value&gt;
+	&lt;/constructor-arg&gt;
+
+//----------------------------------------------------------------------------------------------------------------</text><X>224.0</X><Y>85.0</Y><WIDTH>904.0</WIDTH><HEIGHT>545.0</HEIGHT><importatn>false</importatn><number>0</number><attachments/></content></item><item><type>folder</type><content><name>АОП</name><childrens><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Ключевые концепции</title><text>ТОЧКИ СОЕДИНЕНИЯ. 
+Точка соединения (joinpoint) - это чутко определённая точка во время выполнения приложения. Типовые примеры точек соединения включают бращение к методу, собственно вызов метода (Method Invocation), инициализацию класса и создание экземпляра объекта. Точки соединения являются ключевой концепцией АОП и определяют места в приложении, в которые можно вставлять дополнительную логику с применением АОП.
+
+СОВЕТЫ
+Фрагмент кода, который должен выполняться в отдельной точке соединения, представляет собой совет (advice), определённы методом в классе. Существует много типов советов, среди которых перед, когда совет выполняется до точки соединения, и после, когда совет выполняется после точки соединения.
+
+СРЕЗЫ
+Срез (pointcut) - это коллекция точек соединения, которая используется для определения ситуации, когда совет должен быть выплнен. Создавая срезы, вы получаете точный контроль над тем, как применять совет к компонентам приложения. Как упоминалось ранее, типичной точкой соединения является вызов метода или коллекция все вызовов методов в отдельном классе. Часто между срезами можно устанавливать сложные отношения, чтобы дополнительно ограничить то, когда будет выполнен совет.
+
+АСПЕКТЫ
+Аспект (aspect) - это комбинация совета и срезов, инкапсулированных в классе. Такая комбинация даёт в результате определение логики, которая должна быть включена в приложение, и указание мест, где она должна выполняться.
+
+СВЯЗЫВАНИЕ
+Связываение (weaving) представляет собой процесс вставки аспектов в определённую точку внутри кода приложения. Для решений АОП времени компиляции связывание обычно делается на этапе сборки. Подобным же образом для решений АОП времени выполнения связывание роисходит динамически во время выолнения. В AspectJ поддерживается ещё один механизм связывания, называемый связыванием во время загрузки (Load-time weaving - LTW), при котором перехватывается лежащий в основе загрузчик классов JVM и обеспечивается связывание с байт - кодом, когда он загружается загрузчиком классов.
+
+ЦЕЛЬ
+Цель (target) - это обхект, поток выполнения которого изменятеся каким то процессом АОП. На целевой объект часто ссылаются как на объект снабжёённый советом.
+
+ВВЕДЕНИЕ
+Введение (introduction) представляет собой процесс, посредством которого можно изменить структуру объекта за счёт помещения в него дополнительных методов или олей. Введение АОП можно использовать для обеспечения реализации любым объектом определённого интерфейса без необходимости в том, чтобы класс этого объекта реализовывал такой интерфейс явно.</text><X>253.0</X><Y>90.0</Y><WIDTH>794.0</WIDTH><HEIGHT>564.0</HEIGHT><importatn>false</importatn><number>0</number><attachments/></content></item><item><type>folder</type><content><name>Типы советов в Spring</name><childrens><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Перед (before)</title><text>Интерфейс 
+org.springframework.aop.MethodBeforeAdvice
+
+Используя совет "перед", можно осуществлять специальную обработку перед входом в точку соединения. Поскольку в Spring точка соединения  - всегда вызов метода, по существу это позволяет реализовать предварительную обработку до выполнения метода. Совет "перед" имеет полный доступ к цели вызова метода, а так же к аргументам, переданным методу, но не обладает никаким контролем над выполнением самого метода. В случае если совет "перед" генерирует исключение, дальнейшее выполнение цепочки перехватчиков (а так же целевого метода) прекращается, и исключение распространяется обратно по цепочке перехватчиоков.</text><X>400.0</X><Y>150.0</Y><WIDTH>600.0</WIDTH><HEIGHT>392.0</HEIGHT><importatn>false</importatn><number>2</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Вокруг (around)</title><text>Интерфейс
+org.aopalliance.intercept.MethodInterceptor
+
+В Spring совет "вокруг" моделируется с использованием стандарта Альянса АОП для перехватчика метода. Совету разрешено выполняться перед и после вызова метода, и есть возможность управления точкой, в которой вызов метода может быть продолжен. При необходимости можно вообще пропустить выполнение метода, предоставив собственную реализацию его логики.
+
+* функционирует подобно компбинации "перед" и "после", но имеется возможность модифицировать возвращаемое значение.
+* можно предотвратить действительное выполнение метода (можно заменить всю реализацию метода новым кодом)
+
+ПРИМЕНЕНИЕ
+
+1. Перехватывающий класс
+
+	import org.aopalliance.intercept.MethodInterceptor;
+	import org.aopalliance.intercept.MethodInvocation;
+
+	public class AroundAdvice implements MethodInterceptor
+	{
+		public Object invoke(MethodInvocation invocation) throws Throwable 
+		{
+			// actions before target method start
+			Object o = invocation.proceed();	
+			// action after target method
+		
+			return o;
+		}
+	}
+
+2. Основной класс
+
+	TargetClass target = new TargetClass();
+	ProxyFactory pfa = new ProxyFactory();
+    	
+    	pfa.addAdvice(new AroundAdvice());
+    	pfa.setTarget(target);
+    	
+    	TargetClass proxya = (TargetClass) pfa.getProxy();
+    	System.out.println(proxya.targetFunction());
+
+</text><X>378.0</X><Y>114.0</Y><WIDTH>820.0</WIDTH><HEIGHT>607.0</HEIGHT><importatn>false</importatn><number>3</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Перехват (throws)</title><text>Интерфейс 
+org.springframework.aop.ThrowsAdvice
+
+Совет "перехват" выполняется после возврата из вызова метода, но только в случае, если во время вызова было сгенерировано исключение. Совет этого типа может перехватывать только специфичные исключения, и тогда возможет доступ к методу, сгенерировавшему исключение, к аргументам, переданным вызову, и к цели вызова.
+
+* при использовании совета "перехват" нельзя проингнорировать возникшее исключение и взамен возвратить какоето значение, но можно изменить тип сгенерированного исключения
+
+* можно испльзовать для централизованной регистрации ошибок
+
+* первое, что делает Spring для совета "перехват" - это один или более открытых методов по имени afterThrowing(). Возвращаемый тип не важен, но лучше указывать void.
+
+* Возможны следующие варианты принимаемых параметров в методах класса перехватчика ( порядок следования важен) :
+
+	public void afterThrowing(Exception ex) throws Throwable
+
+	public void afterThrowing(Method method, Object[] args, Object target,
+			IllegalArgumentException ex) throws Throwable</text><X>250.0</X><Y>81.0</Y><WIDTH>849.0</WIDTH><HEIGHT>593.0</HEIGHT><importatn>false</importatn><number>4</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Введение (introduction)</title><text>Интерфейс
+org.springframework.aop.IntroductionInterceptor
+
+Платформа Spring моделирует введения как специальные типы перехватчиков. Используя перехватчик введения, можно указать реализацию методов, которые должны быть введены советом.</text><X>355.0</X><Y>125.0</Y><WIDTH>550.0</WIDTH><HEIGHT>430.0</HEIGHT><importatn>false</importatn><number>5</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>После возврата (after returning)</title><text>Интерфейс 
+org.springframework.aop.AfterReturningAdvice
+
+Совет "после возврата" выполняется после завершения выполнения вызова метода в точке соединения и возврата значения. Совет "после возврата" имеет доступ к цели вызова метода, к аргументам, переданным методу, а также возвращаемому значению. Поскольку когда вызывается совет этого типа, метод уже выполнен, совет не имеет никакого контроля над вызовом метода. Если целевой метод генерирует исключение, совет "после возврата" выполняться не будет, а исключение распространится вверх по стеку вызовов обычным образом.
+
+* невозможно модифицировать переданные методу аргументы, так как целевой метод уже выполнена.
+* невозможно модифицировать возвращаемое значение, но можно сгенерировать исключение, которое будет передано на верхпо стуку вместо возвращаемого значения
+* удобно применять при проведении дополнительно проверки ошибок, когда это возможно, для метода, возвращающего недопустимое значение.
+
+ИСПОЛЬЗОВАНИЕ :
+
+1. В перехватывающем классе раелизовать интерфейс AfterReturningAdvice
+
+public class someClass implements  implements AfterReturningAdvice
+{
+	public void afterReturning(Object returnValue, Method method, Object[] arg2, Object target) throws Throwable 
+	{
+		// some actions	
+	}
+	
+}
+
+2. В основном классе : 
+
+	TargetClass target = new TargetClass();
+	ProxyFactory pfar = new ProxyFactory();
+    	
+    	pfar.addAdvice(new AfterReturnAdvice());
+    	pfar.setTarget(target);
+    	
+    	TargetClass proxyar = (TargetClass)pfb.getProxy();
+    	proxyar = (TargetClass)pfar.getProxy();
+    	proxyar.targetFunction();</text><X>204.0</X><Y>34.0</Y><WIDTH>952.0</WIDTH><HEIGHT>584.0</HEIGHT><importatn>false</importatn><number>0</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>После (after finally)</title><text>Интерфейс
+org.springframework.aop.AfterAdvice
+
+Совет "после возврата" выполняется только в случае нормального завершения метода снабжённого советом. Однако совет после будет выполняться вне зависимости от результата метода, снабжённого этим советом. Совет данного типа выполняется, даже когда метод, снабжёный советом, даёт сбой или когда генерируется исключение.</text><X>373.0</X><Y>117.0</Y><WIDTH>601.0</WIDTH><HEIGHT>494.0</HEIGHT><importatn>false</importatn><number>1</number><attachments/></content></item></childrens><number>1</number><SHOWN>false</SHOWN></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>не знаю как назвать</title><text>Proxy Factory.addAdvice() - метод делегирует свою работу методу addAdvisor(), создающему экземпляр DefaultPointcutAdvisor и кофигурирующему его со срезом, который указывает на все методы.</text><X>360.0</X><Y>101.0</Y><WIDTH>635.0</WIDTH><HEIGHT>482.0</HEIGHT><importatn>false</importatn><number>4</number><attachments/></content></item><item><type>folder</type><content><name>Введения</name><childrens><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Основы</title><text>
+* за счёт использования введений можно динамически добавлять новую функциональность к существующему объекту.
+
+* в Spring введения трактуются как специальный тип совета, точнее - как как специальный совет "вокруг". 
+
+* введения применяются исключительно на уровне классов, использовать срезы с введениями нельзя, они не совпадают семантически (введение добавляет к классу новые реализации интерфейсов, а срез, определяем к каким методам применяется совет.
+
+* введение создаётся путём реализации интерфейса IntruductionInterceptor, который расширяет интерфейсы MethodInterceptor и DynamicIntroductionAdvice. (Во вложении структура интерфейсов для введений) !!! Добавить !!!
+
+* Spring предоставляет стандартную реализацию IntruductionInterceptor по имени DelegatingIntruductionInterceptor, которая упрощает создание введений.
+
+* Точно так же, как необходимо испльзовать PointcutAdvisor при работе с советом срезаж, потребуется применять IntuductionAdvisor для добавления введения к прокси.  Стандартной реализацией IntruductionAdvisor является DefaultIntroductionAdvisor.
+
+* Добавление введения с помощью ProxyFactory.addAvice() не разрешено, вместо него должен использоваться метод addAdvisor() с передачей ему экземпляра реализации интерфейса IntruductionAdvisor.
+
+</text><X>250.0</X><Y>88.0</Y><WIDTH>912.0</WIDTH><HEIGHT>598.0</HEIGHT><importatn>false</importatn><number>0</number><attachments/></content></item></childrens><number>3</number><SHOWN>false</SHOWN></content></item><item><type>folder</type><content><name>Срезы</name><childrens><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Интерфейс Pointcut</title><text>Срезы создаются путём реализации интерфейса Pointcut : 
+
+	package org.springframework.aop;
+
+	public interface Pointcut
+	{
+		ClassFilter getClassFilter();
+		MethodMatcher getMethodMatcher();
+	}
+
+При выяснении применим ли интерфейс Pointcut к конкретному методу, Spring сначала проверяет, применим ли Pointcut к классу этого метода, используя экземпляр ClassFilter.
+
+Интерфейс ClassFilter
+
+	org.springframework.aop
+
+	public interface ClassFilter
+	{
+		boolean matches(Class&lt;?&gt; clazz); // возвращает ture, если срез прменим к классу 
+	}
+
+Интерфейс MethodMatcher
+
+	paclage org.springframework.aop;
+
+	public interface MethodMatcher
+	{
+		boolean matches(Method m, Class&lt;?&gt; targetClass; // вызывается для статического среза
+		boolean isRuntime(); // проверяет статический (false) или динамический (true) тип MethodMatcher
+		boolean matches(Method m, Class&lt;?&gt; targetClass, Object[] args); // вызывается для динамического среза
+	}
+
+
+</text><X>248.0</X><Y>72.0</Y><WIDTH>936.0</WIDTH><HEIGHT>555.0</HEIGHT><importatn>false</importatn><number>2</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Реализации Pointcut</title><text>Решаемые задачи : 
+
+* объединение множества срезво в одно целое;
+* поддержка срезов потока управления;
+* выполнение простых сопоставлений на основе имени;
+* определение срезов с использованием регулярных выражений;
+* определение срезов с применением выражений AspectJ;
+* Определение срезов, которые ищут специфические аннотации на уровне классов или методов.
+
+РЕАЛИЗАЦИИ ИНТЕРФЕЙСА POINTCAT
+
+org.springFramework.aop.support.annotation.AnnotationMatchingPointcut
+Срез, который ищет специфическую Java аннотацию в классе или методе. Этот класс требует JDK5 или выше.
+
+org.springFramework.aop.aspectj.AspectJExpressionPointcut
+Срез, который использует средство связывания AspectJ для оценки выражения среза, представленного с помощью синтаксиса AspectJ
+
+org.springFramework.aop.support.ComposablePointcut
+Класс CompsablePointcut применяется для объединения двух и более срезов с помощью таких операций, как union() и intersection()
+
+org.springFramework.aop.support.ControlFlowPointcut
+Класс ControlFlowPointcut представляет срез, предназначенный для специального случая, который соответствует всем методам в потоке управления другого метода - т.е. любому методу, который вызван прямо или косвенно в результате выполнения другого метода.
+
+org.springFramework.aop.support.DynamicMethodMatcherPointcut
+Класс DynamicMethodMatcherPointcut служит базовым классом для построения динамических срезов.
+
+org.springFramework.aop.support.JdkRegexpMethodPointcut
+Позволяет определять срезы с использованием поддержки регулярных выражений JDK 1.4. 
+
+org.springFramework.aop.support.NameMathcMethodPointcut
+Позволяет создать срез, который выполняет простое сопоставление со списко имён методов.
+
+org.springFramework.aop.support.StaticMethodMatcherPointcut
+Служит базовым классом для построения статических срезов.
+</text><X>212.0</X><Y>94.0</Y><WIDTH>756.0</WIDTH><HEIGHT>535.0</HEIGHT><importatn>false</importatn><number>1</number><attachments/></content></item></childrens><number>2</number><SHOWN>false</SHOWN></content></item></childrens><number>2</number><SHOWN>false</SHOWN></content></item><item><type>folder</type><content><name>JDBC</name><childrens><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Пакеты JDBC в Spring</title><text>org.springframework.jdbc.core
+Содержит ядро для классов JDBC в Spring. Пакет включает класс JDBC по имени JdbcTemplate, который упрощает программирование операций для базы данных с помощью JDBC. Множество его подпакетов предоставляют поддержку доступа к данным JDBC с более специализированым назначением (например, класс JdbcTemplate, который поддерживает именованные параметры), а так же связанные служебные классы.
+
+org.pringframework.jdbc.datasource
+Содержит вспомогательные классы и реализации DataSource, которые можно испльзовать для запуска кода JDBC вне контейнера JEE. Множество подпакетов предоставляют поддержку для встроеных баз данных, инициализации баз данных и разнообразных механизмов поиска в источниках данных.
+
+org.springframework.jdbc.object
+Содержит классы, которые помогают преобразовывать даные, возвращаемые из базы, в объекты или списки объектов. Эти объекты и списки являются простыми Java - объектами, следовательно, они отключены от базы данных.
+
+org.springframework.jdbc.support
+Наиболее важным средством в этом пакете является поддержка трансляции SQLException. Это позволяет Spring распознавать коды ошибок, используемые базой данных, и отображать их на исключения более высокого топлива.
+
+org.springframework.jdbc.config
+Содержит классы, которые поддерживают конфигурацию JDBC внутри ApplicationContext. Например, этот пакет включает класс обработчика для пространства имён jdbc (скажем, для дескрипторов &lt;jdbc:embedded-database&gt;)</text><X>253.0</X><Y>96.0</Y><WIDTH>972.0</WIDTH><HEIGHT>590.0</HEIGHT><importatn>false</importatn><number>0</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Подключение к базе данных</title><text>DriverManagerDataSource
+
+* Реализует интерфейс javax.sql.DataSource. (Отличие ежду DataSource и Connection состоит в том, что DataSource предоставляет и управляет набором реализаций Connection)
+* DriverManagerDataSource не поддерживает пул подключений к базе данный, что делает этот класс неподходящим ни для каких других целей кроме тестирования.
+
+Конфигурация DriverManagerDataSource
+
+file appcontext.xml : 
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd
+	   					   http://www.springframework.org/schema/context
+	   					   http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+	&lt;bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		p:driverClassName="${jdbc.driverClassName}"
+		p:url="${jdbc.url}"
+		p:username="${jdbc.username}"
+		p:password="${jdbc.password}"/&gt;		
+	&lt;context:property-placeholder location="classpath:resources/jdbc.properties"/&gt;	
+&lt;/beans&gt;
+
+file jdbc.properties : 
+
+jdbc.driverClassName=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/study
+jdbc.username=root
+jdbc.password=root
+
+
+
+!!! Разобрать BasicDataSource (http://commons.apache.org/dbcp/
+
+</text><X>242.0</X><Y>121.0</Y><WIDTH>828.0</WIDTH><HEIGHT>505.0</HEIGHT><importatn>false</importatn><number>1</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Отправка запросов</title><text>JdbcTemplate - класс представляет ядро поддержки JDBC в Spring. Он способен выполнять все типы SQL операторов.
+
+!!! В Spring модуле jdbc имеется класс по имени JdbcDaoSupport. Он является оболочкой для класса JdbcTemplate и собственные DAO классы могут расширять класс JdbcDaoSupport. В этом случае после внедрения такого класса DAO с источником данных экземпляр JdbcTemplate будет инициализирован автоматически.
+
+	JdbcTemplate jdbcTemplate = new JdbcTemplate();
+	jdbcTemplate.setDataSource(dataSource);
+
+	Lont id = &lt;some_number&gt;;
+	jdbcTemplate.queryForObject("SELECT * FROM &lt;SOME_TABLE&gt; WHERE ID = ?",
+		new Object[] {id}, String.class);
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+NamedParameterJdbcTemplate - разновидность класса JdbcTemplate позволяющая исползовать именованные параметры в запросе.
+
+	NamedParameterJdbcTemplate namedParameterJdbcTemplate 
+		= new NamedParameterJdbcTemplate(dataSource);
+
+	String sql = "SELECT BIRTH_DATE FROM CONTACT WHERE FIRST_NAME = :firstName AND LAST_NAME = :lastName";
+		
+	Map&lt;String, Object&gt; namedParameters = new HashMap&lt;String, Object&gt;();
+	namedParameters.put("firstName", firstName);
+	namedParameters.put("lastName", lastName);
+		
+	namedParameterJdbcTemplate.queryForObject(sql, namedParameters, String.class);
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+RowMapper&lt;T&gt; - поддерживает простой способ отображения резульриующего набора JDBC на объекты POJO
+
+	private static final class ContactMapper implements RowMapper&lt;Contact&gt;
+	{
+		public Contact mapRow(ResultSet rs, int rowNum) throws SQLException
+		{
+			Contact contact = new Contact();
+			
+			contact.setId(rs.getLong("ID"));
+			contact.setFirstName(rs.getString("FIRST_NAME"));
+			contact.setLastName(rs.getString("LAST_NAME"));
+			contact.setBirthDate(rs.getDate("BIRTH_DATE"));
+			
+			return contact;
+		}
+	}
+
+
+	String sql = "SELECT ID, FIRST_NAME, LAST_NAME, BIRTH_DATE FROM CONTACT";
+		
+	List&lt;Contact&gt;  contacts = jdbcTemplate.query(sql, new ContactMapper());
+
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ResultSetExtractor
+
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+MappingSqlQuery&lt;T&gt; позволяет поместить строку запроса вместе с методом mapRow() в оболочку единственного класса.
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SqlUpdate позволяет поместить внутрь себя любой SQL  оператор обновления. Он так же предоставляет множество полезных функций для привязки SQL - параметров, ивлечения сгенерированного СУРБД ключа после вставки новой записи и т.д.
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+BatchSqlUpdate позволяет выполнять пакетные операции обновления. Например, можно проходить в цикле по Java - объекту List с помощью BatchSqlUpdate заносить в очередь записи, для которых затем будут выданы операторы обновления в пакете. Можно устанавливать размер пакета и сбрасывать операцию в любой момент.
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SqlFunction&lt;T&gt; позволяет вызывать хранимые функции в базе данных с аргументами и возращаемым типом. Существует ещё один класс, StoredProcedure, который помогает вызывать хранимые процедуры.</text><X>165.0</X><Y>83.0</Y><WIDTH>1032.0</WIDTH><HEIGHT>554.0</HEIGHT><importatn>false</importatn><number>2</number><attachments/></content></item></childrens><number>3</number><SHOWN>false</SHOWN></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Hibernate</title><text>Библиотека объектно - реляционного отображения (jbject - elational mapping - ORM)
+
+Главное предназначение бибилотеки ORM ликвидация разрыва между структурой реляционных данных в СУРБД и объектно ориентированной моделью в Java, что 
+</text><X>368.0</X><Y>95.0</Y><WIDTH>765.0</WIDTH><HEIGHT>556.0</HEIGHT><importatn>false</importatn><number>4</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Конфигурация Hibernate в XML</title><text>
+
+	&lt;util:properties id="hibernateProperties"&gt;
+		&lt;prop key="hibernate.dialect"&gt;org.hibernate.dialect.MySQLDialect&lt;/prop&gt;
+		&lt;prop key="hibernate.max_fetch_depth"&gt;3&lt;/prop&gt;
+		&lt;prop key="hibernate.jdbc.fetch_size"&gt;50&lt;/prop&gt;
+		&lt;prop key="hibernate.jdbc.batch_size"&gt;10&lt;/prop&gt;
+		&lt;prop key="hibernate.show_sql"&gt;true&lt;/prop&gt;
+	&lt;/util:properties&gt;
+
+	&lt;bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		p:dataSource-ref="dataSource"
+		p:packagesToScan="study.StudySpringHibernate"
+		p:hibernateProperties-ref="hibernateProperties"/&gt;
+
+Конфигурационные параменты для фабрики сеансов Hibernate
+
+hibernate.dialect
+Диалект базы данных для запросов, которые должны использоваться Hibernate. Библиотека Hibernate поддерживает диалекты SQL для многих баз данных. Эти диалекты являются подклассами org.hibernate.dialect.Dialect
+
+hibernate.max_fetch_depth
+Объявляет глубину для внешних соединений, когда отображаемые объекты имеют ассоциации с другими отображенными объектами. Этот параметр позволяет предотвратить выборку Hibernate слишком большого объема данных при наличии множества вложенных ассоциаций. Обычно применяется значение 3.
+
+hibernate.jdbc.fetch_size
+Колличество записей из лежащего в основе результирующего набора JDBC, который библиотека Hibernate должна использовать для извлечения записей из базы данных в каждой выборке. Например, запрос был отправлен в базу данных и рузультирующий набор содержит 500 записей. Если размер выборки равен 50, то для полученя всех данных Hibernate понадобится выполнить 10 выборок
+
+hibernate.jdbc.batch_size
+Указывает Hibernate количество операций обновления, которые должны быть сгруппированы в пакет. Это очень удобно для выполнения пакетных операций в Hibernate. Очевидно, когда выполняется пакетное задание, обновляющее сотни записей, мы хотели бы, чтобы библиотека Hibernate сгруппировала запросы в пакеты, а не отправляла запросы обновления по одному за раз.
+
+hibernate.show_sql
+Указывает, должна ли библиотека Hibernate выводить SQL - запросы в файл журнала или на консоль. Этот режим имеет смысл включать в среде разработки, потому что он помогает в тестировании и устранении ошибок</text><X>231.0</X><Y>102.0</Y><WIDTH>904.0</WIDTH><HEIGHT>473.0</HEIGHT><importatn>false</importatn><number>5</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402874</created><expire>N/A</expire><title>Interface ApplicationContext</title><text>Интерфейс ApplicationContext в Spring является расширением BeanFactory. В дополнение к службам DI интерфейс ApplicationContext предлагает другие службы, такие как служба транзакций и АОП, источник сообщений для интернационализации (il8n), обработка событий приложения и т.д.
+
+ApplicationContext предоставляет:
+
+Фабричные методы бина для доступа к компонентам приложения
+Возможность загружать файловые ресурсы в общем виде
+Возможность публиковать события и регистрировать обработчики на них
+Возможность работать с сообщениями с поддержкой интернационализации
+Наследование от родительского контекста
+
+Для использоватния необходимо импортировать :
+	import org.springframework.context.ApplicationContext;
+
+ПРИМЕРЫ ИСПОЛЬЗОВАНИЯ :
+
+//----------------------------------------------------------------------------------------------------------------
+РЕАЛИЗАЦИЯ С ClassPathXmlApplicationContext
+
+Получить информацию о бинах из XML файла.
+
+	ApplicationContext ctx = new ClassPathXmlApplicationContext("app-context.xml");
+	SomeClass mr = (SomeClass) ctx.getBean("beanID", SomeClass.class);
+
+ClassPathXmlApplicationContext - класс реализующий интерфейс ApplicationContext, позволяет загрузить XML конфигурацию из classpath и управлять загрузенными бинами.
+
+Для использования необходимо импортировать
+	import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+//----------------------------------------------------------------------------------------------------------------
+РЕАЛИЗАЦИЯ С GenericXmlApplicationContext
+
+	GenericXmlApplicationContext gxap = new GenericXmlApplicationContext();
+    	gxap.load("classpath:app-context.xml");
+    	gxap.refresh();
+
+Для использования необходимо импортировать
+	import org.springframework.context.support.GenericXmlApplicationContext;
+
+</text><X>355.0</X><Y>105.0</Y><WIDTH>743.0</WIDTH><HEIGHT>565.0</HEIGHT><importatn>false</importatn><number>1</number><attachments><link><name>ClassPathXmlApplicationContext описание</name><address>http://www.baeldung.com/spring-classpathxmlapplicationcontext</address></link></attachments></content></item></childrens><number>2</number><SHOWN>false</SHOWN></content></item><item><type>sticker</type><content><status>active</status><created>1510088402875</created><expire>N/A</expire><text>kidle_inject  выяснить что за хрень, жутко тормозит систему </text><X>430.0</X><Y>52.0</Y><WIDTH>259.0</WIDTH><HEIGHT>186.0</HEIGHT><SHOWN>true</SHOWN><importatn>false</importatn><number>2</number></content></item><item><type>note</type><content><status>active</status><created>1510088402875</created><expire>N/A</expire><title>Паттерны статьи</title><text>Паттерны для новичков
 https://tproger.ru/translations/design-patterns-for-beginners/
 
-Паттерн «Локатор служб» (Service Locator):  http://www.java2blog.com/2016/07/connection-pool-using-service-locator-pattern.html
+Паттерн «Локатор служб» (Service Locator):  http://www.java2blog.com/2016/07/connection-pool-using-service-locator-pattern.html 
 
 Паттерн «Строитель» (Builder): 
 http://www.java2blog.com/2012/09/builder-design-pattern-in-java.html
@@ -47,4 +944,30 @@ http://www.java2blog.com/2012/09/adapter-design-pattern-in-java.html
 http://www.java2blog.com/2012/09/bridge-design-pattern-in-java.html
 
 Паттерн «Декоратор»
-http://www.java2blog.com/2012/07/decorator-design-pattern.html</text><X>218.0</X><Y>146.0</Y><WIDTH>623.0</WIDTH><HEIGHT>473.0</HEIGHT><importatn>false</importatn></content></item></items>
+http://www.java2blog.com/2012/07/decorator-design-pattern.html</text><X>389.0</X><Y>157.0</Y><WIDTH>623.0</WIDTH><HEIGHT>463.0</HEIGHT><importatn>false</importatn><number>3</number><attachments/></content></item><item><type>note</type><content><status>active</status><created>1510088402875</created><expire>N/A</expire><title>MySQL на Ubuntu</title><text>Запустить\остановить\перезагрузить :
+
+	sudo service mysql restart\start\stop
+
+Автозагрузка :
+
+	Стоит ли сервис в автозагрузке
+		systemctl is-enabled SERVICE
+	
+	Убрать сервис из автозагрузке
+		sudo systemctl disable SERVICE
+
+	Добавить сервис в автозагрузку
+		sudo systemctl enable SERVICE
+
+Сменить пароль root
+
+	подключится к MySQL как root
+	mysql -u root -p
+	Выполнить следующие команды
+	set password for 'root'@'localhost' = password('newpass');
+	quit
+
+
+Статья :
+
+	http://help.ubuntu.ru/wiki/mysql</text><X>592.0</X><Y>123.0</Y><WIDTH>500.0</WIDTH><HEIGHT>496.0</HEIGHT><importatn>false</importatn><number>4</number><attachments/></content></item></items>

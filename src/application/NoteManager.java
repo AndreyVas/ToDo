@@ -72,11 +72,8 @@ public class NoteManager implements Observer
 	public static final String RESTORE = "Restore";
 	public static final String ADD_FOLDER = "Add folder";
 	public static final String ADD_NOTE = "Add note";
-	
-	public static final String NOTE_ICON = "noteIcon.png";
-	public static final String STICKER_ICON = "stickerIcon.png";
-	public static final String REMINDER_ICON = "reminderIcon.png";
-	public static final String TASK_ICON = "taskIcon.png";
+	public static final String COPY_LINK = "Copy linc address";
+	public static final String SAVE_FILE = "Save file";
 	
 	public static final String MOVE_BEFORE = "before";
 	public static final String MOVE_AFTER = "after";
@@ -158,22 +155,22 @@ public class NoteManager implements Observer
 		            switch(t1.getId())
 		            {
 		            	case INotes.NOTE:
-		            		noteIcon.setGraphic(new ImageView(NOTE_ICON));
+		            		noteIcon.setGraphic(new ImageView(Resources.getResource(Resources.IMG_NOTE_ICON)));
 		            		addFolderButton.setVisible(true);
 		            		break;
 		            		
 		            	case INotes.STICKER:
-		            		noteIcon.setGraphic(new ImageView(STICKER_ICON));
+		            		noteIcon.setGraphic(new ImageView(Resources.getResource(Resources.IMG_STICKER_ICON)));
 		            		addFolderButton.setVisible(false);
 		            		break;
 		            		
 		            	case INotes.REMINDER:
-		            		noteIcon.setGraphic(new ImageView(REMINDER_ICON));
+		            		noteIcon.setGraphic(new ImageView(Resources.getResource(Resources.IMG_REMINDER_ICON)));
 		            		addFolderButton.setVisible(false);
 		            		break;
 		            		
 		            	case INotes.TASK:
-		            		noteIcon.setGraphic(new ImageView(TASK_ICON));
+		            		noteIcon.setGraphic(new ImageView(Resources.getResource(Resources.IMG_TASK_ICON)));
 		            		addFolderButton.setVisible(false);
 		            		break;
 		            }
@@ -186,7 +183,7 @@ public class NoteManager implements Observer
 	
 	public Label createTabIcon()
 	{
-		ImageView img = new ImageView(NOTE_ICON);
+		ImageView img = new ImageView(Resources.getResource(Resources.IMG_NOTE_ICON));
 		this.noteIcon.setGraphic(img);
 		this.noteIcon.getStyleClass().add("noteIcon");
 		
@@ -195,19 +192,14 @@ public class NoteManager implements Observer
 	
 	public Button createAddFolderButton()
 	{
-		ImageView afi = new ImageView(INotes.IMG_ADD_FOLDER);
+		ImageView afi = new ImageView(Resources.getResource(Resources.IMG_ADD_FOLDER));
 		this.addFolderButton = new Button();
 		this.addFolderButton.setGraphic(afi);
 		this.addFolderButton.getStyleClass().add("buttons");
 
-		this.addFolderButton.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				addFolder();
-			}
-		});
+		this.addFolderButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> addFolder());
+		this.addFolderButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> this.addFolderButton.setOpacity(0.4));
+		this.addFolderButton.addEventHandler(MouseEvent.MOUSE_EXITED, (e) -> this.addFolderButton.setOpacity(1));
 		
 		return this.addFolderButton;
 	}
@@ -345,7 +337,7 @@ public class NoteManager implements Observer
 			{
 				toNode = getPickNode(event, content);	
 				
-				if(currentNode != null)
+				if(currentNode != null && currentNode.getStyleClass().size() != 0)
 					currentNode.getStyleClass().remove(currentNode.getStyleClass().size() - 1);
 				
 				previousNode = null;
@@ -402,14 +394,7 @@ public class NoteManager implements Observer
 			}
 		});
 		
-		content.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent event) 
-			{
-				dragged = false;
-			}
-		});
+		content.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> dragged = false);
 
 		Tab tab = new Tab(name);
 		
@@ -587,14 +572,10 @@ public class NoteManager implements Observer
     		updateRemindCoutn(in);
     		StackPane item = in.getRemindItem(settings);
 
-    		item.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+    		item.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> 
     		{
-    			@Override
-    			public void handle(MouseEvent event) 
-    			{
-    				INotes n = (INotes)in;
-    				n.show(settings);
-    			}
+				INotes n = (INotes)in;
+				n.show(settings);
     		});
     		
     		content.getChildren().add(item);	
@@ -606,21 +587,17 @@ public class NoteManager implements Observer
 
     	Label remindTitle = new Label("Reminders");
     	remindTitle.getStyleClass().add("showRemindWindowLabel");
-    	remindTitle.setGraphic(new ImageView("reminderIcon.png"));
+    	remindTitle.setGraphic(new ImageView(Resources.getResource(Resources.IMG_REMINDER_ICON)));
 
-    	ImageView ci = new ImageView("close.png");
+    	ImageView ci = new ImageView(Resources.getResource(Resources.IMG_CLOSE));
 		Button closeB = new Button();
 		closeB.setGraphic(ci);
 		closeB.getStyleClass().add("buttons");
 		
-		closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				remindWindow.close();
-				remind.resume();
-			}
+			remindWindow.close();
+			remind.resume();
 		});
 		
 		HBox tbButtonsLeft = new HBox();
@@ -643,7 +620,7 @@ public class NoteManager implements Observer
 		
 		HBox resizedCont = new HBox();
 		resizedCont.setAlignment(Pos.CENTER_RIGHT);
-		ImageView resizeImg = new ImageView("resize.png");
+		ImageView resizeImg = new ImageView(Resources.getResource(Resources.IMG_RESIZE));
 		Label resized = new Label();
 		resized.setGraphic(resizeImg);
 		resizedCont.getChildren().add(resized);
@@ -657,10 +634,10 @@ public class NoteManager implements Observer
     	//---------------------------------------------------------------
     	
     	remindWindow.setScene(scene);
-    	remindWindow.getIcons().add(new Image("reminderIcon.png"));
+    	remindWindow.getIcons().add(new Image(Resources.getResource(Resources.IMG_REMINDER_ICON)));
     	remindWindow.show();
 
-    	Media sound = new Media(getClass().getResource("alarm.mp3").toString());
+    	Media sound = new Media(getClass().getResource(Resources.getResource(Resources.AUD_ALARM)).toString());
     	MediaPlayer mediaPlayer = new MediaPlayer(sound);
     	mediaPlayer.play();
 
@@ -866,14 +843,10 @@ public class NoteManager implements Observer
 	{
 		VBox p = item.getTabItem(settings);
 
-		p.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		p.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> 
 		{
-			@Override
-			public void handle(MouseEvent event) 
-			{
-				if(!dragged)
-					item.show(settings);
-			}
+			if(!dragged)
+				item.show(settings);
 		});
 		
 		VBox cont = null;
@@ -967,7 +940,7 @@ public class NoteManager implements Observer
 	
 	public void addFolder()
 	{
-		Folder.createItemWindow(settings, noteListLink, resize);
+		Folder.createItemWindow(settings, noteListLink, resize, null);
 	}
 	
 	public void showAddWindow()

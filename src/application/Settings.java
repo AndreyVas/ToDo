@@ -20,6 +20,7 @@ public class Settings
 
 	private String PATH_TO_JAR;
 	private String NOTE_SAVE_FOLDER;
+	private String ATTACHMENTS_SAVE_FOLDER;
 	public static final String NOTES = "notes.xml";
 	
 	private long firstRemind;
@@ -52,12 +53,14 @@ public class Settings
 		{
 			PATH_TO_JAR = "";
 			NOTE_SAVE_FOLDER = "DATA";
+			ATTACHMENTS_SAVE_FOLDER = NOTE_SAVE_FOLDER + File.separator + "ATTACHMENTS";
 		}
 		else
 		{
 			PATH_TO_JAR = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
 			PATH_TO_JAR = PATH_TO_JAR.substring(0, PATH_TO_JAR.lastIndexOf(File.separator));
 			NOTE_SAVE_FOLDER = "DATA";
+			ATTACHMENTS_SAVE_FOLDER = NOTE_SAVE_FOLDER + File.separator + "ATTACHMENTS";
 			
 			try
 			{
@@ -79,6 +82,18 @@ public class Settings
 		else
 		{
 			return this.PATH_TO_JAR + File.separator + this.NOTE_SAVE_FOLDER;
+		}
+	}
+	
+	public String attachmentSaveString()
+	{
+		if(this.PATH_TO_JAR.equals(""))
+		{
+			return this.ATTACHMENTS_SAVE_FOLDER;
+		}
+		else
+		{
+			return this.PATH_TO_JAR + File.separator + this.ATTACHMENTS_SAVE_FOLDER;
 		}
 	}
 	

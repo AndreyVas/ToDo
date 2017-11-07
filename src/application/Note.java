@@ -1,8 +1,10 @@
 package application;
 
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.LinkedList;
-
+import java.util.Map;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -13,6 +15,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
@@ -20,6 +23,8 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
@@ -44,12 +49,17 @@ public class Note implements INotes
 	protected boolean important;
 	protected String type;
 	protected int number;
+	protected String shownContentType;
 	
 	protected Resize resizeObject;
 
 	protected NotesContainer lincToCont;
 	protected Stage showNote;
+	protected HBox updateNoteCont;  					// container for button save note
+	protected Label changeContent;						// text/attachments panels switcher
 	protected ToolBar tb;
+	
+	protected Map<String, IAttachment> attachments;
 	
 	INotes self;
 	
@@ -80,6 +90,8 @@ public class Note implements INotes
 		showNote.initStyle(StageStyle.TRANSPARENT);
 		tb = new ToolBar();
 		
+		attachments = new HashMap<String, IAttachment>();
+		
 	}
 
 	public Note(String title, String body, Resize resizeObject, NotesContainer lincToCont, INotes parent)
@@ -98,18 +110,14 @@ public class Note implements INotes
 		this.lincToCont = lincToCont;
 		this.important = false;
 		
-		/*if(parent == null)
-		{
-			this.number = lincToCont.getItemsCount(this.type);
-			
-		}
-		else
-			this.number = parent.getChildrens().size();*/
+		this.shownContentType = INotes.SHOW_TEXT;
 	
 		showNote = new Stage();
 		showNote.initOwner(lincToCont.getPrimaryStage());
 		showNote.initStyle(StageStyle.TRANSPARENT);
 		tb = new ToolBar();
+		
+		attachments = new HashMap<String, IAttachment>();
 	}
 	
 	public Note(String title, String body, Boolean important, String status, Integer number, Calendar created, Resize resizeObject, NotesContainer lincToCont, INotes parent)
@@ -126,6 +134,8 @@ public class Note implements INotes
 		this.resizeObject = resizeObject;
 		this.lincToCont = lincToCont;
 		this.important = important;
+		
+		this.shownContentType = INotes.SHOW_TEXT;
 		
 		if(number != null)
 		{
@@ -146,6 +156,28 @@ public class Note implements INotes
 		showNote.initOwner(lincToCont.getPrimaryStage());
 		showNote.initStyle(StageStyle.TRANSPARENT);
 		tb = new ToolBar();
+		
+		attachments = new HashMap<String, IAttachment>();
+	}
+	
+	public void addAttachment(IAttachment a)
+	{
+		this.attachments.put(a.getID(), a);
+		
+		if(this.shown)
+		{
+			BorderPane rootPane = (BorderPane)this.showNote.getScene().rootProperty().get();
+			
+			shownContentType = INotes.SHOW_ATTACHMENTS;
+			rootPane.setCenter(showAttachmentContent());
+		}
+		
+		lincToCont.update(self);
+	}
+	
+	public void addAttachments(Map<String, IAttachment> attachments)
+	{
+		this.attachments = attachments;
 	}
 	
 	public String getType()
@@ -164,8 +196,13 @@ public class Note implements INotes
 		{
 			if(showNote.getScene() == null)
 			{
-				HBox tbButtonsLeft = new HBox();
-				HBox tbButtonsRight = new HBox();
+				INotes currentNote = this;
+				
+				updateNoteCont = new HBox();					// container for update note button
+				HBox tbButtonsRight = new HBox();				// container for buttons : close, add link, add file
+				HBox resizedCont = new HBox();					// container for bottom resize icon
+				HBox changeContentCont = new HBox();			// container for switch content type label
+				
 				this.shown = true;
 
 				BorderPane pane = new BorderPane();
@@ -175,97 +212,63 @@ public class Note implements INotes
 		    	
 		    	scene.getStylesheets().add("application/note.css");
 		    	scene.getStylesheets().add("application/application.css");
-		    	
-		    	//------------------------------------------
-		    	// set main content 
-		    	
-		    	VBox infoCont = new VBox();
-		    	
-		    	TextField showTitle = new TextField();
-		    	showTitle.setText(this.title);
-		    	showTitle.getStyleClass().add("noteTitle");
-		    	
-		    	showTitle.textProperty().addListener(new ChangeListener<String>()
-    			{
-					@Override
-					public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) 
-					{
-						tbButtonsLeft.setVisible(true);
-					}
-    			});
-
-		    	TextArea showBody = new TextArea();
-		    	showBody.setText(this.body);
-		    	showBody.getStyleClass().add("noteText");
-		    	showBody.setWrapText(true);
-		    	
-		    	showBody.textProperty().addListener(new ChangeListener<String>()
-    			{
-					@Override
-					public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) 
-					{
-						tbButtonsLeft.setVisible(true);
-					}
-    			});
-
-		    	infoCont.getChildren().addAll(showTitle, showBody);
-		    	VBox.setVgrow(showBody, Priority.ALWAYS);
 
 		    	//------------------------------------------
-		    	// add save and update buttons
-	
-		    	ImageView ci = new ImageView("close.png");
+		    	
+		    	// close button for note
+		    	ImageView ci = new ImageView(Resources.getResource(Resources.IMG_CLOSE));
 				Button closeB = new Button();
 				closeB.setGraphic(ci);
 				closeB.getStyleClass().add("buttons");
 				
-				closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+				closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 				{
-					@Override
-					public void handle(MouseEvent arg0) 
-					{
 						shown = false;
 						showNote.close();
-					}
 				});
 				
-				ImageView coi = new ImageView("confirmation.png");
-				Button confirmationB = new Button();
-				confirmationB.setGraphic(coi);
-				confirmationB.getStyleClass().add("buttons");
+				//------------
 				
-				confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+				// add link to web page to note
+				ImageView al = new ImageView(Resources.getResource(Resources.IMG_ADD_LINK));
+				Button addLinkB = new Button();
+				addLinkB.setGraphic(al);
+				addLinkB.getStyleClass().add("buttons");
+				
+				addLinkB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 				{
-					@Override
-					public void handle(MouseEvent arg0) 
-					{
-						tbButtonsLeft.setVisible(false);
-						
-						title = showTitle.getText();
-						body = showBody.getText();
-		
-						lincToCont.update(self);
-					}
+						AttachedLink.createItemWindow(lincToCont.getPrimaryStage(), settings, resizeObject, currentNote);
 				});
+				
+				//------------
+				
+				// load file to note
+				ImageView af = new ImageView(Resources.getResource(Resources.IMG_ADD_FILE));
+				Button addFileB = new Button();
+				addFileB.setGraphic(af);
+				addFileB.getStyleClass().add("buttons");
+				
+				addFileB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
+					AttachedFile.createItemWindow(lincToCont.getPrimaryStage(), settings, resizeObject, currentNote));
+				
+				//------------
 
-				tbButtonsLeft.getStyleClass().add("buttonsLeftCont");
-				tbButtonsLeft.setVisible(false);
-				tbButtonsLeft.getChildren().add(confirmationB);
+				updateNoteCont.getStyleClass().add("buttonsLeftCont");
+				updateNoteCont.setVisible(false);
+				
 
 				tbButtonsRight.getStyleClass().add("buttonsRightCont");
 				tbButtonsRight.setPickOnBounds(true);
 
-				tbButtonsRight.getChildren().add(closeB);
+				tbButtonsRight.getChildren().addAll(addLinkB, addFileB, closeB);
 				
 				StackPane tbButtonsCon = new StackPane();
 				HBox.setHgrow(tbButtonsCon, Priority.ALWAYS);
 				
-				tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>()
+				// 
+				tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, (e) ->
 				{
-					@Override
-					public void handle(MouseEvent arg0) 
-					{
-						if(arg0.getX() > tbButtonsCon.getWidth()/2)
+						if(e.getX() > tbButtonsCon.getWidth()/2)
 						{
 							tbButtonsRight.setMouseTransparent(false);
 						}
@@ -273,31 +276,91 @@ public class Note implements INotes
 						{
 							tbButtonsRight.setMouseTransparent(true);
 						}
-					}
 				});
 				
-				tbButtonsCon.getChildren().addAll(tbButtonsLeft, tbButtonsRight);
+				tbButtonsCon.getChildren().addAll(updateNoteCont, tbButtonsRight);
 			
 				tb.getItems().add(tbButtonsCon);
 				tb.getStyleClass().add("buttonsMainCont");
 
 		    	//------------------------------------------
+				
+				/*
+				 * container for bottom controls : 
+				 * 		switch content - text\attachments
+				 *		resize window - for windows. In Ubuntu work without this control
+				 */
+				
+				StackPane buttomCont = new StackPane();
+				
+				//-------------
 		    	
-				HBox resizedCont = new HBox();
+				// resize window control item
 				resizedCont.setAlignment(Pos.CENTER_RIGHT);
-				ImageView resizeImg = new ImageView("resize.png");
+				ImageView resizeImg = new ImageView(Resources.getResource(Resources.IMG_RESIZE));
 				Label resized = new Label();
 				resized.setGraphic(resizeImg);
 				resizedCont.getChildren().add(resized);
 				
-				//------------------------------------------
+				//-------------
 				
+				// switching between text and attachments content
+				changeContentCont.setAlignment(Pos.CENTER_LEFT);
+
+				changeContent = new Label();
+				changeContent.getStyleClass().add("buttons");
+				
+				
+				changeContent.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
+				{
+						if(shownContentType.equals(INotes.SHOW_TEXT))
+						{
+							shownContentType = INotes.SHOW_ATTACHMENTS;
+							pane.setCenter(showAttachmentContent());
+						}		
+						else
+						{
+							shownContentType = INotes.SHOW_TEXT;
+							pane.setCenter(showTextContent());
+						}
+				});
+				
+				changeContentCont.getChildren().add(changeContent);
+				
+				//-------------
+				
+				// if mouse in right side of the container set change content switcher to active status
+				buttomCont.addEventHandler(MouseEvent.MOUSE_MOVED, (e) ->
+				{
+						if(e.getX() > buttomCont.getWidth()/2)
+						{
+							resizedCont.setMouseTransparent(false);
+						}
+						else
+						{
+							resizedCont.setMouseTransparent(true);
+						}
+				});
+				
+				buttomCont.getChildren().addAll(changeContentCont, resizedCont);
+				
+		    	//------------------------------------------
+		    	
 		    	pane.setTop(tb);
-		    	pane.setCenter(infoCont);
-		    	pane.setBottom(resizedCont);
+		    	
+		    	if(this.shownContentType.equals(INotes.SHOW_TEXT))
+		    	{
+		    		pane.setCenter(showTextContent());
+		    	}
+		    	else
+		    	{
+		    		pane.setCenter(showAttachmentContent());
+		    	}
+		    	
+		    	pane.setBottom(buttomCont);
 
 		    	showNote.setScene(scene);
-		    	showNote.getIcons().add(new Image("noteIcon.png"));
+		    	showNote.getIcons().add(new Image(Resources.getResource(Resources.IMG_NOTE_ICON)));
 		    	showNote.show();
 		
 		    	resizeObject.setResized(this.showNote, tb, resized);
@@ -312,6 +375,123 @@ public class Note implements INotes
 			showNote.toFront();
 		}
 	}
+		
+	private void saveItem(String title, String body)
+	{
+		updateNoteCont.setVisible(false);
+		
+		this.title = title;
+		this.body = body;
+
+		lincToCont.update(self);
+	}
+	
+	private VBox showTextContent()
+	{
+		VBox infoCont = new VBox();
+		
+		TextField showTitle = new TextField();
+		TextArea showBody = new TextArea();
+		
+		// create title area
+		
+    	showTitle.setText(this.title);
+    	showTitle.getStyleClass().add("noteTitle");
+
+    	showTitle.textProperty().addListener(new ChangeListener<String>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) 
+			{
+				updateNoteCont.setVisible(true);
+			}
+		});
+    	
+    	showTitle.addEventHandler(KeyEvent.KEY_PRESSED, (e) -> {
+    		if(e.isControlDown())
+    		{
+    			if(e.getCode().equals(KeyCode.S) || e.getText().toLowerCase().equals("ы"))
+    				saveItem(showTitle.getText(), showBody.getText());
+    		}
+    	});
+
+    	// create area with main text content
+    	
+    	showBody.setText(this.body);
+    	showBody.getStyleClass().add("noteText");
+    	showBody.setWrapText(true);
+    	
+    	showBody.textProperty().addListener(new ChangeListener<String>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) 
+			{
+				updateNoteCont.setVisible(true);
+			}
+		});
+    	
+    	showBody.addEventHandler(KeyEvent.KEY_PRESSED, (e) -> {
+    		if(e.isControlDown())
+    		{
+    			if(e.getCode().equals(KeyCode.S) || e.getText().toLowerCase().equals("ы"))
+    				saveItem(showTitle.getText(), showBody.getText());
+    		}
+    	});
+
+    	infoCont.getChildren().addAll(showTitle, showBody);
+    	VBox.setVgrow(showBody, Priority.ALWAYS);
+    	
+    	//--------------------------
+    	
+    	ImageView coi = new ImageView(Resources.getResource(Resources.IMG_CONFIRMATION));
+		Button confirmationB = new Button();
+		confirmationB.setGraphic(coi);
+		confirmationB.getStyleClass().add("buttons");
+		
+		confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
+		{
+				saveItem(showTitle.getText(), showBody.getText());
+		});
+		
+		updateNoteCont.getChildren().clear();
+		updateNoteCont.getChildren().add(confirmationB);
+		
+		//--------------------------
+		
+		changeContent.setGraphic(new ImageView(Resources.getResource(Resources.IMG_TO_ATTACHMENTS)));
+		
+		return infoCont;
+	}
+	
+	private VBox showAttachmentContent()
+	{
+		VBox infoCont = new VBox();
+		
+		if(this.attachments.size() > 0)
+		{
+			// show attachments
+
+			for (Map.Entry<String, IAttachment> entry: attachments.entrySet())
+			{
+				VBox guiItem = entry.getValue().getGUIItem();
+				
+				guiItem.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> entry.getValue().open());
+				
+				infoCont.getChildren().add(guiItem);
+			}
+			    
+		}
+		else
+		{
+			Label attachmentsNotAddes = new Label("Attachments not added...");
+			attachmentsNotAddes.getStyleClass().add("attachmentsNotAdded");
+			infoCont.getChildren().add(attachmentsNotAddes);
+		}
+		
+		changeContent.setGraphic(new ImageView(Resources.getResource(Resources.IMG_TO_TEXT)));
+		
+		return infoCont;
+	}
 	
 	public void setParent(INotes n)
 	{
@@ -324,7 +504,7 @@ public class Note implements INotes
 		
 		if(isImportant())
 		{
-			ImageView importantImg = new ImageView("important.png");
+			ImageView importantImg = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT));
 			text.setGraphic(importantImg);
 		}
 		
@@ -338,23 +518,8 @@ public class Note implements INotes
 		
 		HBox controls = addControls(this, settings);
 		
-		controls.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent event) 
-			{
-				text.setOpacity(0.4);
-			}
-		});
-		
-		controls.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent event) 
-			{
-				text.setOpacity(1);
-			}
-		});
+		controls.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> text.setOpacity(0.4));
+		controls.addEventHandler(MouseEvent.MOUSE_EXITED, (e) -> text.setOpacity(1));
 		
 		cont.getChildren().add(controls);
 		
@@ -380,6 +545,7 @@ public class Note implements INotes
 			double height = NotePosition.DEFAULT_HEIGHT;
 			Boolean importatn = false;
 			Integer number = null;
+			Map<String, IAttachment> attachments = new HashMap<String, IAttachment>();;
 			
 			for(int i = 0; i < noteItems.getLength(); i++)
 		    {
@@ -427,11 +593,36 @@ public class Note implements INotes
 					case INotes.NUMBER:
 						number = Integer.valueOf(noteItems.item(i).getTextContent());
 						break;
+						
+					case INotes.ATTACHMENTS:
+						
+						NodeList attachmetsList = noteItems.item(i).getChildNodes();
+						
+						for(int j = 0; j < attachmetsList.getLength(); j++)
+						{
+							switch(attachmetsList.item(j).getNodeName())
+							{
+								case IAttachment.LINK:
+									
+									IAttachment link = AttachedLink.createItem(attachmetsList.item(j).getChildNodes());
+									attachments.put(link.getID(), link);
+									
+									break;
+									
+								case IAttachment.FILE:
+									IAttachment file = AttachedFile.createItem(attachmetsList.item(j).getChildNodes());
+									attachments.put(file.getID(), file);
+									break;
+							}
+						}
+						
+						break;
 				}
 		    }
 			
 			Note ret = new Note(title, body, importatn, status, number, created, resizeObject, lincToCont, parent);
 			ret.setSizeAndPosition(x,  y, width, height);
+			ret.addAttachments(attachments);
 			
 			return ret; 
 		}
@@ -512,41 +703,30 @@ public class Note implements INotes
     	
     	//---------------------------------------------------------
     	
-    	ImageView ci = new ImageView("close.png");
+    	ImageView ci = new ImageView(Resources.getResource(Resources.IMG_CLOSE));
 		Button closeB = new Button();
 		closeB.setGraphic(ci);
 		closeB.getStyleClass().add("buttons");
 		
-		closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				stage.close();
-			}
-		});
+		closeB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> stage.close());
 		
-		ImageView coi = new ImageView("confirmation.png");
+		ImageView coi = new ImageView(Resources.getResource(Resources.IMG_CONFIRMATION));
 		Button confirmationB = new Button();
 		confirmationB.setGraphic(coi);
 		confirmationB.getStyleClass().add("buttons");
 		
-		confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		confirmationB.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent arg0) 
+			if(titleE.getText().equals(titleInvite) || bodyE.getText().equals(textInvite))
 			{
-				if(titleE.getText().equals(titleInvite) || bodyE.getText().equals(textInvite))
-				{
-					System.out.println("not ready");
-				}
-				else
-				{
-					INotes n = new Note(titleE.getText(), bodyE.getText(), false,  INotes.ACTIVE, null, Calendar.getInstance(), resizeObject, notes, parent);
-					notes.addNew(n);
-					
-					stage.close();
-				}
+				System.out.println("not ready");
+			}
+			else
+			{
+				INotes n = new Note(titleE.getText(), bodyE.getText(), false,  INotes.ACTIVE, null, Calendar.getInstance(), resizeObject, notes, parent);
+				notes.addNew(n);
+				
+				stage.close();
 			}
 		});
 
@@ -560,19 +740,15 @@ public class Note implements INotes
 		StackPane tbButtonsCon = new StackPane();
 		HBox.setHgrow(tbButtonsCon, Priority.ALWAYS);
 		
-		tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>()
+		tbButtonsCon.addEventHandler(MouseEvent.MOUSE_MOVED, (e) ->
 		{
-			@Override
-			public void handle(MouseEvent arg0) 
+			if(e.getX() > tbButtonsCon.getWidth()/2)
 			{
-				if(arg0.getX() > tbButtonsCon.getWidth()/2)
-				{
-					tbButtonsRight.setMouseTransparent(false);
-				}
-				else
-				{
-					tbButtonsRight.setMouseTransparent(true);
-				}
+				tbButtonsRight.setMouseTransparent(false);
+			}
+			else
+			{
+				tbButtonsRight.setMouseTransparent(true);
 			}
 		});
 		
@@ -587,7 +763,7 @@ public class Note implements INotes
     	
 		HBox resizedCont = new HBox();
 		resizedCont.setAlignment(Pos.CENTER_RIGHT);
-		ImageView resizeImg = new ImageView("resize.png");
+		ImageView resizeImg = new ImageView(Resources.getResource(Resources.IMG_RESIZE));
 		Label resized = new Label();
 		resized.setGraphic(resizeImg);
 		resizedCont.getChildren().add(resized);
@@ -599,7 +775,7 @@ public class Note implements INotes
     	pane.setBottom(resizedCont);
         
     	stage.setScene(scene);
-    	stage.getIcons().add(new Image("noteIcon.png"));
+    	stage.getIcons().add(new Image(Resources.getResource(Resources.IMG_NOTE_ICON)));
     	stage.show();
     	
     	resizeObject.setResized(stage, tb, resized);
@@ -643,6 +819,13 @@ public class Note implements INotes
 		Element number = doc.createElement(INotes.NUMBER);
 		number.setTextContent(String.valueOf(this.number));
 		
+		Element attachments = doc.createElement(INotes.ATTACHMENTS);
+		
+		for (Map.Entry<String, IAttachment> entry: this.attachments.entrySet())
+		{
+			attachments.appendChild(entry.getValue().getXML(doc));
+		}
+		
 		content.appendChild(status);
 		content.appendChild(created);
 		content.appendChild(expire);
@@ -654,6 +837,7 @@ public class Note implements INotes
 		content.appendChild(height);
 		content.appendChild(important);
 		content.appendChild(number);
+		content.appendChild(attachments);
 		
 		item.appendChild(type);
 		item.appendChild(content);
@@ -750,37 +934,33 @@ public class Note implements INotes
 		
 		if(note.isImportant())
 		{
-			importantImgYes = new ImageView("importantNo.png");
+			importantImgYes = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_NO));
 			importantBut.setGraphic(importantImgYes);
 		}
 		else
 		{
-			importantImgNo = new ImageView("importantYes.png");
+			importantImgNo = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_YES));
 			importantBut.setGraphic(importantImgNo);
 		}
 		
-		importantBut.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		importantBut.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> 
 		{
-			@Override
-			public void handle(MouseEvent event) 
+			if(note.isImportant())
 			{
-				if(note.isImportant())
-				{
-					ImageView importantImgNo;
-					importantImgNo = new ImageView("importantYes.png");
-					importantBut.setGraphic(importantImgNo);
-					note.setImportant(false);
-				}
-				else
-				{
-					ImageView importantImgYes;
-					importantImgYes = new ImageView("importantNo.png");
-					importantBut.setGraphic(importantImgYes);
-					note.setImportant(true);
-				}
-				
-				note.getContainer().update(note);
+				ImageView impImgNo;
+				impImgNo = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_YES));
+				importantBut.setGraphic(impImgNo);
+				note.setImportant(false);
 			}
+			else
+			{
+				ImageView impImgYes;
+				impImgYes = new ImageView(Resources.getResource(Resources.IMG_IMPORTANT_NO));
+				importantBut.setGraphic(impImgYes);
+				note.setImportant(true);
+			}
+			
+			note.getContainer().update(note);
 		});
 		
 		importantBut.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> importantBut.setOpacity(0.4));
@@ -788,7 +968,7 @@ public class Note implements INotes
 		
 		//-------------------------------------------
 		
-		ImageView delImg = new ImageView("trash.png");
+		ImageView delImg = new ImageView(Resources.getResource(Resources.IMG_TRASH));
 		Button delete = new Button();
 		delete.setGraphic(delImg);
 		delete.setTooltip(new Tooltip(NoteManager.DELETE));
